@@ -1,5 +1,6 @@
 package com.kenzie.appserver.service;
 
+<<<<<<< HEAD
 import com.kenzie.appserver.repositories.BuyerRepository;
 
 import com.kenzie.appserver.repositories.model.BuyerRecord;
@@ -58,4 +59,7 @@ public class BuyerService {
     }
 
 
+=======
+public class BuyerService {
+>>>>>>> 4a500ee (initial set up)
 }

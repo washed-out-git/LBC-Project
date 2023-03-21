@@ -1,12 +1,10 @@
 package com.kenzie.appserver.service.model;
-
 import com.kenzie.appserver.repositories.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.UUID.randomUUID;
-
 public class Buyer extends User {
 
     private final String userId;
@@ -38,4 +36,5 @@ public class Buyer extends User {
     public void setBidList(List<Bid> bidList) {
         this.bidList = bidList;
     }
+
 }

@@ -7,6 +7,12 @@ import com.kenzie.appserver.service.model.Bid;
 
 import java.util.List;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import static java.util.UUID.randomUUID;
+
 @DynamoDBTable(tableName = "Buyer")
 public class BuyerRecord {
 
@@ -14,19 +20,14 @@ public class BuyerRecord {
     private String buyerName;
     public List<Bid> bidList;
 
-    @DynamoDBHashKey(attributeName = "buyerId")
+    @DynamoDBHashKey(attributeName = "Id")
     public String getId() {
         return id;
     }
 
-    @DynamoDBAttribute(attributeName = "buyerName")
+    @DynamoDBAttribute(attributeName = "Name")
     public String getBuyerName() {
         return buyerName;
-    }
-
-    @DynamoDBAttribute(attributeName = "buyerList")
-    public List<Bid> getBidList() {
-        return bidList;
     }
 
     public void setId(String id) {
@@ -39,5 +40,22 @@ public class BuyerRecord {
 
     public void setBidList(List<Bid> bidList) {
         this.bidList = bidList;
+    }
+    @DynamoDBAttribute(attributeName = "BidList")
+    public List<Bid> getBidList() {
+        return bidList;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        BuyerRecord that = (BuyerRecord) o;
+        return Objects.equals(id, that.id) && Objects.equals(buyerName, that.buyerName) && Objects.equals(bidList, that.bidList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, buyerName, bidList);
     }
 }
