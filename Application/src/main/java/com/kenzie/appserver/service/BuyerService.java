@@ -15,13 +15,15 @@ public class BuyerService {
         this.buyerRepository = buyerRepository;
     }
 
-    public List<Vehicle> getListofCars(){
-        return new ArrayList<>();
-    }
 
     public void makeABid(){
 
     }
+
+    public List<Vehicle> getListofCars(){
+        return new ArrayList<>();
+    }
+
 
     public List<String> getListofBids(){
         return new ArrayList<>();
