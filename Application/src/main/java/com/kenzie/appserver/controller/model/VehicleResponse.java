@@ -1,18 +1,18 @@
-package com.kenzie.appserver.service.model;
+package com.kenzie.appserver.controller.model;
 
-public class Vehicle {
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class VehicleResponse {
+    @JsonProperty("make")
     private String make;
+    @JsonProperty("model")
     private String model;
+    @JsonProperty("year")
     private int year;
+    @JsonProperty("isAvailable")
     private boolean isAvailable;
-
-    public Vehicle(String make, String model, int year, boolean isAvailable) {
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.isAvailable = isAvailable;
-    }
 
     public String getMake() {
         return make;
@@ -45,5 +45,4 @@ public class Vehicle {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
-
 }

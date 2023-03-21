@@ -1,18 +1,25 @@
-package com.kenzie.appserver.service.model;
+package com.kenzie.appserver.controller.model;
 
-public class Vehicle {
+import com.amazonaws.services.dynamodbv2.xspec.S;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+
+public class VehicleCreateRequest {
+    @NotEmpty
+    @JsonProperty("make")
     private String make;
+    @NotEmpty
+    @JsonProperty("model")
     private String model;
+    @NotEmpty
+    @JsonProperty("year")
     private int year;
+    @NotEmpty
+    @JsonProperty("isAvailable")
     private boolean isAvailable;
-
-    public Vehicle(String make, String model, int year, boolean isAvailable) {
-        this.make = make;
-        this.model = model;
-        this.year = year;
-        this.isAvailable = isAvailable;
-    }
 
     public String getMake() {
         return make;
@@ -45,5 +52,4 @@ public class Vehicle {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
-
 }
