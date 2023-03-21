@@ -23,6 +23,7 @@ public class BuyerRecord {
         return buyerName;
     }
 
+    @DynamoDBAttribute(attributeName = "buyerlist")
     public List<String> getBidList() {
         return bidList;
     }
