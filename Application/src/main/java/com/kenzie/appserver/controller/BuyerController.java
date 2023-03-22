@@ -5,6 +5,9 @@ import com.kenzie.appserver.controller.model.BidCreateRequest;
 import com.kenzie.appserver.controller.model.BidResponse;
 import com.kenzie.appserver.repositories.model.BuyerRecord;
 import com.kenzie.appserver.service.BuyerService;
+import com.kenzie.appserver.service.model.Bid;
+import com.kenzie.appserver.service.model.Vehicle;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,6 +24,10 @@ public class BuyerController {
 
     @PostMapping
     public ResponseEntity<BidResponse> makeABid(@RequestBody BidCreateRequest bidCreateRequest){
+
+        buyerService.makeABid(bidCreateRequest.getBidId(), bidCreateRequest.getVehicleId(), bidCreateRequest.getBidPrice());
+
+        return new ResponseEntity(HttpStatus.OK);
 
     }
 
