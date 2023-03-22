@@ -14,7 +14,8 @@ public class VehicleRecord {
     private String model;
     private int year;
     private boolean isAvailable;
-    @DynamoDBHashKey(attributeName = "Make")
+    private String vehicleId;
+    @DynamoDBHashKey(attributeName = "make")
     public String getMake() {
         return make;
     }
@@ -22,7 +23,7 @@ public class VehicleRecord {
     public void setMake(String make) {
         this.make = make;
     }
-    @DynamoDBIndexRangeKey(attributeName = "Model")
+    @DynamoDBIndexRangeKey(attributeName = "model")
     public String getModel() {
         return model;
     }
@@ -30,7 +31,7 @@ public class VehicleRecord {
     public void setModel(String model) {
         this.model = model;
     }
-    @DynamoDBAttribute(attributeName = "Year")
+    @DynamoDBAttribute(attributeName = "year")
     public int getYear() {
         return year;
     }
@@ -38,7 +39,7 @@ public class VehicleRecord {
     public void setYear(int year) {
         this.year = year;
     }
-    @DynamoDBAttribute(attributeName = "Available")
+    @DynamoDBAttribute(attributeName = "available")
     public boolean isAvailable() {
         return isAvailable;
     }
@@ -46,6 +47,9 @@ public class VehicleRecord {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
+    @DynamoDBAttribute
+    public String getVehicleId() {return this.vehicleId; }
+    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
     @Override
     public boolean equals(Object o) {

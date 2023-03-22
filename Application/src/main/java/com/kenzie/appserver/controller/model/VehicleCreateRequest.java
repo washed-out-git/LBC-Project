@@ -20,6 +20,9 @@ public class VehicleCreateRequest {
     @NotEmpty
     @JsonProperty("isAvailable")
     private boolean isAvailable;
+    @NotEmpty
+    @JsonProperty
+    private String vehicleId;
 
     public String getMake() {
         return make;
@@ -52,4 +55,8 @@ public class VehicleCreateRequest {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
+
+    public String getVehicleId() {return this.vehicleId; }
+
+    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 }
