@@ -9,9 +9,9 @@ public class Buyer extends User {
 
     private final String userId;
     private String buyerName;
-    public List<String> bidList;
+    public List<Bid> bidList;
 
-    public Buyer() {
+    public Buyer(String userId, String buyerName, List<Bid> bidList) {
         this.buyerName = buyerName;
         this.userId = randomUUID().toString();
         this.bidList = new ArrayList<>();
@@ -29,11 +29,11 @@ public class Buyer extends User {
         this.buyerName = buyerName;
     }
 
-    public List<String> getBidList() {
+    public List<Bid> getBidList() {
         return bidList;
     }
 
-    public void setBidList(List<String> bidList) {
+    public void setBidList(List<Bid> bidList) {
         this.bidList = bidList;
     }
 }
