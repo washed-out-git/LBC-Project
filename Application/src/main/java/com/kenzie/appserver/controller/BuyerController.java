@@ -25,7 +25,7 @@ public class BuyerController {
     @PostMapping
     public ResponseEntity<BidResponse> makeABid(@RequestBody BidCreateRequest bidCreateRequest){
 
-        buyerService.makeABid(bidCreateRequest.getBidId(), bidCreateRequest.getVehicleId(), bidCreateRequest.getBidPrice());
+        buyerService.makeABid(bidCreateRequest.getBuyerId(), bidCreateRequest.getVehicleId(), bidCreateRequest.getBidPrice());
 
         return new ResponseEntity(HttpStatus.OK);
 

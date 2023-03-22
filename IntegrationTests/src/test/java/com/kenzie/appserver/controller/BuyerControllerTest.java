@@ -1,57 +1,37 @@
 package com.kenzie.appserver.controller;
 
-import com.kenzie.appserver.IntegrationTest;
-import com.kenzie.appserver.controller.model.ExampleCreateRequest;
-import com.kenzie.appserver.service.ExampleService;
-import com.kenzie.appserver.service.model.Example;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import com.kenzie.appserver.IntegrationTest;
+import com.kenzie.appserver.controller.model.ExampleCreateRequest;
+import com.kenzie.appserver.service.BuyerService;
+import com.kenzie.appserver.service.ExampleService;
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.util.UUID;
-
 import static org.hamcrest.Matchers.is;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @IntegrationTest
-class ExampleControllerTest {
-     @Autowired
+public class BuyerControllerTest {
+
+    @Autowired
     private MockMvc mvc;
 
     @Autowired
-    ExampleService exampleService;
+    BuyerService buyerService;
 
     private final MockNeat mockNeat = MockNeat.threadLocal();
 
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void getById_Exists() throws Exception {
-        String id = UUID.randomUUID().toString();
-        String name = mockNeat.strings().valStr();
-
-        Example example = new Example(id, name);
-        Example persistedExample = exampleService.addNewExample(example);
-        mvc.perform(get("/example/{id}", persistedExample.getId())
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("id")
-                        .value(is(id)))
-                .andExpect(jsonPath("name")
-                        .value(is(name)))
-                .andExpect(status().isOk());
-    }
-
-    @Test
-    public void createExample_CreateSuccessful() throws Exception {
+    public void createBid_CreateSuccessful() throws Exception {
         String name = mockNeat.strings().valStr();
 
         ExampleCreateRequest exampleCreateRequest = new ExampleCreateRequest();
@@ -69,4 +49,5 @@ class ExampleControllerTest {
                         .value(is(name)))
                 .andExpect(status().isCreated());
     }
+
 }
