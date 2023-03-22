@@ -7,9 +7,6 @@ import javax.validation.constraints.NotEmpty;
 import static java.util.UUID.randomUUID;
 
 public class BidCreateRequest {
-    @NotEmpty
-    @JsonProperty("bidId")
-    private String bidId;
 
     @NotEmpty
     @JsonProperty("vehicleId")
@@ -18,10 +15,6 @@ public class BidCreateRequest {
     @NotEmpty
     @JsonProperty("buyerId")
     private String buyerId;
-
-    public void setBidId(String bidId) {
-        this.bidId = bidId;
-    }
 
     public String getBuyerId() {
         return buyerId;
@@ -34,10 +27,6 @@ public class BidCreateRequest {
     @NotEmpty
     @JsonProperty("bidPrice")
     private Double bidPrice;
-
-    public String getBidId() {
-        return bidId;
-    }
 
     public String getVehicleId() {
         return vehicleId;
