@@ -6,12 +6,14 @@ public class Vehicle {
     private String model;
     private int year;
     private boolean isAvailable;
+    private String vehicleId;
 
-    public Vehicle(String make, String model, int year, boolean isAvailable) {
+    public Vehicle(String make, String model, int year, boolean isAvailable, String vehicleId) {
         this.make = make;
         this.model = model;
         this.year = year;
         this.isAvailable = isAvailable;
+        this.vehicleId = vehicleId;
     }
 
     public String getMake() {
@@ -45,5 +47,8 @@ public class Vehicle {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
+
+    public String getVehicleId() {return this.vehicleId; }
+    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
 }
