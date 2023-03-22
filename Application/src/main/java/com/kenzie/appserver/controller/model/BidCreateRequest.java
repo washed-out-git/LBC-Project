@@ -16,6 +16,22 @@ public class BidCreateRequest {
     private String vehicleId;
 
     @NotEmpty
+    @JsonProperty("buyerId")
+    private String buyerId;
+
+    public void setBidId(String bidId) {
+        this.bidId = bidId;
+    }
+
+    public String getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    @NotEmpty
     @JsonProperty("bidPrice")
     private Double bidPrice;
 

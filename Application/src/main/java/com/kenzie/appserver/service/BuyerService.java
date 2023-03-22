@@ -20,17 +20,16 @@ public class BuyerService {
     }
 
 
-    public void makeABid(Buyer buyer, Vehicle vehicle, double price){
+    public void makeABid(String buyerId, String vehicleId, double price){
 
         Bid bid = new Bid();
-        bid.setVehicleId(vehicle.getVehicleId());
+        bid.setVehicleId(vehicleId);
         bid.setBidPrice(price);
-        List<Bid> bidList = buyer.getBidList();
+        List<Bid> bidList = new ArrayList<>();
         bidList.add(bid);
 
         BuyerRecord buyerRecord = new BuyerRecord();
-        buyerRecord.setId(buyer.getUserId());
-        buyerRecord.setBuyerName(buyer.getBuyerName());
+        buyerRecord.setId(buyerId);
         buyerRecord.setBidList(bidList);
         buyerRepository.save(buyerRecord);
     }
