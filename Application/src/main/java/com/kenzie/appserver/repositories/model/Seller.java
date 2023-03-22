@@ -1,10 +1,17 @@
-package com.kenzie.appserver.service.model;
+package com.kenzie.appserver.repositories.model;
+
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.kenzie.appserver.repositories.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.UUID.randomUUID;
 
+@DynamoDBTable(tableName = "SellerAccount")
 public class Seller extends User {
 
     private final String userId;
@@ -17,10 +24,12 @@ public class Seller extends User {
         this.vehicleList = new ArrayList<Vehicle>();
     }
 
+    @DynamoDBHashKey (attributeName = "userId")
     public String getUserId() {
         return userId;
     }
 
+    @DynamoDBRangeKey (attributeName = "sellerName")
     public String getSellerName() {
         return sellerName;
     }
@@ -29,6 +38,7 @@ public class Seller extends User {
         this.sellerName = sellerName;
     }
 
+    @DynamoDBAttribute (attributeName = "listVehicles")
     public List<Vehicle> getVehicleList() {
         return vehicleList;
     }
