@@ -13,6 +13,8 @@ public class VehicleResponse {
     private int year;
     @JsonProperty("isAvailable")
     private boolean isAvailable;
+    @JsonProperty("vehicleId")
+    private String vehicleId;
 
     public String getMake() {
         return make;
@@ -45,4 +47,8 @@ public class VehicleResponse {
     public void setAvailable(boolean available) {
         isAvailable = available;
     }
+
+    public String getVehicleId() {return this.vehicleId; }
+
+    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 }

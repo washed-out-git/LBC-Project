@@ -41,7 +41,7 @@ public class VehicleController {
     @PostMapping
     public ResponseEntity<VehicleResponse> addNewVehicle(@RequestBody VehicleCreateRequest vehicleCreateRequest) {
         Vehicle vehicle = new Vehicle(vehicleCreateRequest.getMake(), vehicleCreateRequest.getModel(),
-                vehicleCreateRequest.getYear(), vehicleCreateRequest.isAvailable());
+                vehicleCreateRequest.getYear(), vehicleCreateRequest.isAvailable(), vehicleCreateRequest.getVehicleId());
         vehicleService.addNewVehicle(vehicle);
 
         VehicleResponse vehicleResponse = new VehicleResponse();

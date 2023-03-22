@@ -18,7 +18,7 @@ public class VehicleService {
         Vehicle exampleFromBackend =vehicleRepository
                 .findById(make)
                 .map(vehicle -> new Vehicle(vehicle.getMake(), vehicle.getModel(), vehicle.getYear(),
-                        vehicle.isAvailable()))
+                        vehicle.isAvailable(), vehicle.getVehicleId()))
                 .orElse(null);
 
         return exampleFromBackend;
@@ -31,6 +31,7 @@ public class VehicleService {
         vehicleRecord.setModel(vehicle.getModel());
         vehicleRecord.setYear(vehicle.getYear());
         vehicleRecord.setAvailable(vehicle.isAvailable());
+        vehicleRecord.setVehicleId(vehicle.getVehicleId());
         return vehicle;
     }
 
