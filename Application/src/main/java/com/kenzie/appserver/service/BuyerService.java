@@ -19,6 +19,19 @@ public class BuyerService {
         this.buyerRepository = buyerRepository;
     }
 
+    public Buyer findBuyerById(String buyerId) {
+
+        // if not cached, find the concert
+        Buyer buyerFromBackendService = buyerRepository
+                .findById(buyerId)
+                .map(buyer -> new Buyer(buyer.getId(),
+                        buyer.getBuyerName(),
+                        buyer.getBidList()))
+                .orElse(null);
+        // return concert
+        return buyerFromBackendService;
+    }
+
 
     public void makeABid(String buyerId, String vehicleId, double price){
 
