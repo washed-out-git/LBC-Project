@@ -1,4 +1,4 @@
-package com.kenzie.appserver.service.model;
+package com.kenzie.appserver.repositories.model;
 
 import java.util.ArrayList;
 import java.util.List;
