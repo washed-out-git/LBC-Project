@@ -1,26 +1,29 @@
-package com.kenzie.appserver.service.model;
+package com.kenzie.appserver.controller.model;
 
-import com.kenzie.appserver.repositories.model.User;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kenzie.appserver.service.model.Bid;
 
-import java.util.ArrayList;
+import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
-import static java.util.UUID.randomUUID;
+public class BuyerCreateRequest {
+    @NotEmpty
+    @JsonProperty("userId")
+    private String userId;
 
-public class Buyer extends User {
-
-    private final String userId;
+    @NotEmpty
+    @JsonProperty("buyerName")
     private String buyerName;
+    @NotEmpty
+    @JsonProperty("bidList")
     public List<Bid> bidList;
-
-    public Buyer(String buyerName) {
-        this.buyerName = buyerName;
-        this.userId = randomUUID().toString();
-        this.bidList = new ArrayList<>();
-    }
 
     public String getUserId() {
         return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getBuyerName() {

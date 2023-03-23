@@ -4,11 +4,15 @@ import static java.util.UUID.randomUUID;
 
 public class Bid {
 
-    private final String bidId;
+    private String bidId;
     private String vehicleId;
     private Double bidPrice;
 
     private String dateOfBid;
+
+    public Bid(){
+        this.bidId = randomUUID().toString();
+    }
 
     public String getDateOfBid() {
         return dateOfBid;
@@ -18,9 +22,6 @@ public class Bid {
         this.dateOfBid = dateOfBid;
     }
 
-    public Bid(){
-        this.bidId = randomUUID().toString();
-    }
 
     public String getBidId() {
         return bidId;

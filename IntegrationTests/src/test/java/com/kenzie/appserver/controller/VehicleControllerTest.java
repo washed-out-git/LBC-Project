@@ -39,8 +39,9 @@ public class VehicleControllerTest {
         String model = mockNeat.strings().valStr();
         int year = mockNeat.ints().val();
         boolean isAvailable = mockNeat.bools().val();
+        String vehicleId = UUID.randomUUID().toString();
 
-        Vehicle vehicle = new Vehicle(make, model, year, isAvailable);
+        Vehicle vehicle = new Vehicle(make, model, year, isAvailable, vehicleId);
         Vehicle persistedVehicle = vehicleService.addNewVehicle(vehicle);
         mvc.perform(get("/vehicles/{make}", persistedVehicle.getMake())
                         .accept(MediaType.APPLICATION_JSON))
