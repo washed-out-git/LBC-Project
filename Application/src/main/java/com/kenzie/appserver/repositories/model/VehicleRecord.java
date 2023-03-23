@@ -23,7 +23,7 @@ public class VehicleRecord {
     public void setMake(String make) {
         this.make = make;
     }
-    @DynamoDBIndexRangeKey(attributeName = "model")
+   // @DynamoDBIndexRangeKey(attributeName = "model")
     public String getModel() {
         return model;
     }

@@ -16,6 +16,10 @@ public class BidCreateRequest {
     @JsonProperty("buyerId")
     private String buyerId;
 
+    @NotEmpty
+    @JsonProperty("bidPrice")
+    private Double bidPrice;
+
     public String getBuyerId() {
         return buyerId;
     }
@@ -24,9 +28,6 @@ public class BidCreateRequest {
         this.buyerId = buyerId;
     }
 
-    @NotEmpty
-    @JsonProperty("bidPrice")
-    private Double bidPrice;
 
     public String getVehicleId() {
         return vehicleId;

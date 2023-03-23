@@ -1,5 +1,7 @@
 package com.kenzie.appserver.repositories.model;
 
+import com.kenzie.appserver.service.model.Vehicle;
+
 import java.util.ArrayList;
 import java.util.List;
 

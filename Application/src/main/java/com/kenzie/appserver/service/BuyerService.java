@@ -19,30 +19,36 @@ public class BuyerService {
         this.buyerRepository = buyerRepository;
     }
 
+
+    public Buyer addNewBuyer(Buyer buyer) {
+        BuyerRecord buyerRecord = new BuyerRecord();
+        buyerRecord.setId(buyer.getUserId());
+        buyerRecord.setBuyerName(buyer.getBuyerName());
+        buyerRecord.setBidList(buyer.getBidList());
+        buyerRepository.save(buyerRecord);
+        return buyer;
+    }
+
     public Buyer findBuyerById(String buyerId) {
 
         // if not cached, find the concert
         Buyer buyerFromBackendService = buyerRepository
                 .findById(buyerId)
-                .map(buyer -> new Buyer(buyer.getId(),
-                        buyer.getBuyerName(),
-                        buyer.getBidList()))
+                .map(buyer -> new Buyer(buyer.getBuyerName()))
                 .orElse(null);
         // return concert
         return buyerFromBackendService;
     }
 
 
-    public void makeABid(String buyerId, String vehicleId, double price){
+    public void makeABid(Buyer buyer, Bid bid){
 
-        Bid bid = new Bid();
-        bid.setVehicleId(vehicleId);
-        bid.setBidPrice(price);
-        List<Bid> bidList = new ArrayList<>();
+        List<Bid> bidList = buyer.getBidList();
         bidList.add(bid);
 
         BuyerRecord buyerRecord = new BuyerRecord();
-        buyerRecord.setId(buyerId);
+        buyerRecord.setId(buyer.getUserId());
+        buyerRecord.setBuyerName(buyer.getBuyerName());
         buyerRecord.setBidList(bidList);
         buyerRepository.save(buyerRecord);
     }
@@ -51,20 +57,5 @@ public class BuyerService {
         return new ArrayList<>();
     }
 
-
-    public List<Bid> getListofBids(String buyerId){
-
-        Buyer buyerFromBackendService = buyerRepository
-                .findById(buyerId)
-                .map(buyer -> new Buyer(buyer.getId(),
-                        buyer.getBuyerName(),
-                        buyer.getBidList()))
-                .orElse(null);
-
-        List<Bid> bids = buyerFromBackendService.getBidList();
-
-        return bids;
-
-    }
 
 }
