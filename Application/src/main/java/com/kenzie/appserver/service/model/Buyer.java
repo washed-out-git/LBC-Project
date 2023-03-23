@@ -7,7 +7,7 @@ import java.util.List;
 import static java.util.UUID.randomUUID;
 public class Buyer extends User {
 
-    private final String userId;
+    private String userId;
     private String buyerName;
     public List<Bid> bidList;
 
@@ -16,6 +16,7 @@ public class Buyer extends User {
         this.userId = randomUUID().toString();
         this.bidList = new ArrayList<>();
     }
+
 
     public String getUserId() {
         return userId;
