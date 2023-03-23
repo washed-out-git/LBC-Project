@@ -8,6 +8,16 @@ public class Bid {
     private String vehicleId;
     private Double bidPrice;
 
+    private String dateOfBid;
+
+    public String getDateOfBid() {
+        return dateOfBid;
+    }
+
+    public void setDateOfBid(String dateOfBid) {
+        this.dateOfBid = dateOfBid;
+    }
+
     public Bid(){
         this.bidId = randomUUID().toString();
     }

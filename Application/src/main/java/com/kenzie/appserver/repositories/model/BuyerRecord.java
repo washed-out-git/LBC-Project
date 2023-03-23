@@ -14,7 +14,7 @@ public class BuyerRecord {
     private String buyerName;
     public List<Bid> bidList;
 
-    @DynamoDBHashKey(attributeName = "Id")
+    @DynamoDBHashKey(attributeName = "buyerId")
     public String getId() {
         return id;
     }
@@ -24,7 +24,7 @@ public class BuyerRecord {
         return buyerName;
     }
 
-    @DynamoDBAttribute(attributeName = "buyerlist")
+    @DynamoDBAttribute(attributeName = "buyerList")
     public List<Bid> getBidList() {
         return bidList;
     }
