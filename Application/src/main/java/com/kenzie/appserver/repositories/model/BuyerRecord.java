@@ -25,11 +25,7 @@ public class BuyerRecord {
         return id;
     }
 
-<<<<<<< HEAD
-    @DynamoDBAttribute(attributeName = "Name")
-=======
     @DynamoDBAttribute(attributeName = "buyerName")
->>>>>>> newAaronBranch
     public String getBuyerName() {
         return buyerName;
     }
@@ -41,35 +37,11 @@ public class BuyerRecord {
     public void setBuyerName(String buyerName) {
         this.buyerName = buyerName;
     }
-<<<<<<< HEAD
+
 
     public void setBidList(List<Bid> bidList) {
         this.bidList = bidList;
     }
-=======
->>>>>>> newAaronBranch
-    @DynamoDBAttribute(attributeName = "BidList")
-    public List<Bid> getBidList() {
-        return bidList;
-    }
 
-<<<<<<< HEAD
-=======
-    public void setBidList(List<Bid> bidList) {
-        this.bidList = bidList;
-    }
 
->>>>>>> newAaronBranch
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        BuyerRecord that = (BuyerRecord) o;
-        return Objects.equals(id, that.id) && Objects.equals(buyerName, that.buyerName) && Objects.equals(bidList, that.bidList);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, buyerName, bidList);
-    }
 }
