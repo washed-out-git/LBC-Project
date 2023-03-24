@@ -1,6 +1,4 @@
 package com.kenzie.appserver.service;
-
-<<<<<<< HEAD
 import com.kenzie.appserver.repositories.BuyerRepository;
 
 import com.kenzie.appserver.repositories.model.BuyerRecord;
@@ -58,8 +56,4 @@ public class BuyerService {
         return new ArrayList<>();
     }
 
-
-=======
-public class BuyerService {
->>>>>>> main
 }
