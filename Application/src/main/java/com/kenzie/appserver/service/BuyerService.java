@@ -55,5 +55,5 @@ public class BuyerService {
     public List<Vehicle> getListofCars(){
         return new ArrayList<>();
     }
-
+    
 }
