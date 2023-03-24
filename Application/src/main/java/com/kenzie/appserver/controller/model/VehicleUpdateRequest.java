@@ -1,12 +1,11 @@
 package com.kenzie.appserver.controller.model;
 
-import com.amazonaws.services.dynamodbv2.xspec.S;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotEmpty;
 
-public class VehicleCreateRequest {
+public class VehicleUpdateRequest {
+
     @NotEmpty
     @JsonProperty("make")
     private String make;

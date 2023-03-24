@@ -12,7 +12,7 @@ public class VehicleResponse {
     @JsonProperty("year")
     private int year;
     @JsonProperty("isAvailable")
-    private boolean isAvailable;
+    private Boolean isAvailable;
     @JsonProperty("vehicleId")
     private String vehicleId;
 
@@ -40,7 +40,7 @@ public class VehicleResponse {
         this.year = year;
     }
 
-    public boolean isAvailable() {
+    public Boolean isAvailable() {
         return isAvailable;
     }
 

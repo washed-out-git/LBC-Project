@@ -35,11 +35,11 @@ public class VehicleControllerTest {
 
     @Test
     public void getByMake_Exists() throws Exception {
-        String make = UUID.randomUUID().toString();
+        String make = "Ford";
         String model = mockNeat.strings().valStr();
         int year = mockNeat.ints().val();
         boolean isAvailable = mockNeat.bools().val();
-        String vehicleId = UUID.randomUUID().toString();
+        String vehicleId = mockNeat.strings().valStr();
 
         Vehicle vehicle = new Vehicle(make, model, year, isAvailable, vehicleId);
         Vehicle persistedVehicle = vehicleService.addNewVehicle(vehicle);
@@ -53,21 +53,25 @@ public class VehicleControllerTest {
                         .value(is(year)))
                 .andExpect(jsonPath("isAvailable")
                         .value(is(isAvailable)))
+                .andExpect(jsonPath("vehicleId")
+                        .value(is(vehicleId)))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void createVehicle_CreateSuccessful() throws Exception {
-        String make = mockNeat.strings().valStr();
+        String make = "Ford";
         String model = mockNeat.strings().valStr();
         int year = mockNeat.ints().val();
         boolean isAvailable = mockNeat.bools().val();
+        String vehicleId = mockNeat.strings().valStr();
 
        VehicleCreateRequest vehicleCreateRequest = new VehicleCreateRequest();
        vehicleCreateRequest.setMake(make);
        vehicleCreateRequest.setModel(model);
        vehicleCreateRequest.setYear(year);
        vehicleCreateRequest.setAvailable(isAvailable);
+       vehicleCreateRequest.setVehicleId(vehicleId);
 
         mapper.registerModule(new JavaTimeModule());
 
@@ -83,6 +87,8 @@ public class VehicleControllerTest {
                         .value(is(year)))
                 .andExpect(jsonPath("isAvailable")
                         .value(is(isAvailable)))
+                .andExpect(jsonPath("vehicleId")
+                        .value(is(vehicleId)))
                 .andExpect(status().isCreated());
     }
 }
