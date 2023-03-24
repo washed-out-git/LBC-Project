@@ -22,6 +22,7 @@ public class VehicleRecord {
     public void setMake(String make) {
         this.make = make;
     }
+
     @DynamoDBAttribute(attributeName = "model")
     public String getModel() {
         return model;
