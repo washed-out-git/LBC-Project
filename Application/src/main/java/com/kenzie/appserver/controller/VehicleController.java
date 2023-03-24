@@ -24,7 +24,7 @@ public class VehicleController {
     VehicleController(VehicleService vehicleService) {this.vehicleService = vehicleService;}
 
     @GetMapping("/{make}")
-    public ResponseEntity<VehicleResponse> get(@PathVariable("make") String make) {
+    public ResponseEntity<VehicleResponse> getByMake(@PathVariable("make") String make) {
 
         Vehicle vehicle = vehicleService.findByMake(make);
         if (vehicle == null) {
