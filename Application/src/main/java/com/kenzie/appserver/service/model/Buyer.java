@@ -17,4 +17,27 @@ public class Buyer extends User {
         this.bidList = new ArrayList<>();
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
+    }
+
+    public List<Bid> getBidList() {
+        return bidList;
+    }
+
+    public void setBidList(List<Bid> bidList) {
+        this.bidList = bidList;
+    }
 }
