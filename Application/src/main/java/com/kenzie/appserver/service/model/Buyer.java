@@ -1,16 +1,16 @@
 package com.kenzie.appserver.service.model;
 
-<<<<<<< HEAD
+
 import com.kenzie.appserver.repositories.model.User;
 
-=======
->>>>>>> main
+
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.UUID.randomUUID;
 
-<<<<<<< HEAD
+
 public class Buyer extends User {
 
     private String userId;
@@ -19,7 +19,8 @@ public class Buyer extends User {
 
     public Buyer(String buyerName) {
         this.buyerName = buyerName;
-
+        this.userId = randomUUID().toString();
+    }
     public String getUserId() {
         return userId;
     }
@@ -37,11 +38,6 @@ public class Buyer extends User {
     }
 
     public void setBidList(List<Bid> bidList) {
-    public List<String> getBidList() {
-        return bidList;
-    }
-
-    public void setBidList(List<String> bidList) {
         this.bidList = bidList;
     }
 }

@@ -3,18 +3,15 @@ package com.kenzie.appserver.repositories.model;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
-<<<<<<< HEAD
 import com.kenzie.appserver.service.model.Bid;
 
 import java.util.List;
-=======
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import static java.util.UUID.randomUUID;
->>>>>>> main
 
 @DynamoDBTable(tableName = "Buyer")
 public class BuyerRecord {
@@ -41,11 +38,11 @@ public class BuyerRecord {
         this.buyerName = buyerName;
     }
     @DynamoDBAttribute(attributeName = "BidList")
-    public List<String> getBidList() {
+    public List<Bid> getBidList() {
         return bidList;
     }
 
-    public void setBidList(List<String> bidList) {
+    public void setBidList(List<Bid> bidList) {
         this.bidList = bidList;
     }
 
