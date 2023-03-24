@@ -23,7 +23,7 @@ public class VehicleRecord {
     public void setMake(String make) {
         this.make = make;
     }
-    @DynamoDBIndexRangeKey(attributeName = "model")
+    @DynamoDBAttribute(attributeName = "model")
     public String getModel() {
         return model;
     }
@@ -56,11 +56,11 @@ public class VehicleRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VehicleRecord that = (VehicleRecord) o;
-        return year == that.year && isAvailable == that.isAvailable && make.equals(that.make) && model.equals(that.model);
+        return year == that.year && isAvailable == that.isAvailable && Objects.equals(make, that.make) && Objects.equals(model, that.model) && Objects.equals(vehicleId, that.vehicleId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(make, model, year, isAvailable);
+        return Objects.hash(make, model, year, isAvailable, vehicleId);
     }
 }

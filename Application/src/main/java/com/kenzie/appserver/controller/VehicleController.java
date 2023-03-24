@@ -35,6 +35,7 @@ public class VehicleController {
         vehicleResponse.setModel(vehicle.getModel());
         vehicleResponse.setYear(vehicle.getYear());
         vehicleResponse.setAvailable(vehicle.isAvailable());
+        vehicleResponse.setVehicleId(vehicleResponse.getVehicleId());
         return ResponseEntity.ok(vehicleResponse);
     }
 
@@ -49,6 +50,7 @@ public class VehicleController {
         vehicleResponse.setModel(vehicle.getModel());
         vehicleResponse.setYear(vehicle.getYear());
         vehicleResponse.setAvailable(vehicle.isAvailable());
+        vehicleResponse.setVehicleId(vehicleResponse.getVehicleId());
 
         return ResponseEntity.created(URI.create("/example/" + vehicleResponse.getMake())).body(vehicleResponse);
     }
