@@ -9,6 +9,10 @@ module.exports = {
   },
   entry: {
     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
+    landingPage: path.resolve(__dirname, 'src', 'pages', 'landingPage.js'),
+    createAccountPage: path.resolve(__dirname, 'src', 'pages', 'createAccountPage.js'),
+    buyerPage: path.resolve(__dirname, 'src', 'pages', 'buyerPage.js'),
+    sellerPage: path.resolve(__dirname, 'src', 'pages', 'sellerPage.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -29,6 +33,21 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/createAccount.html',
+      filename: 'createAccount.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/buyer.html',
+      filename: 'buyer.html',
+      inject: false
+    }),
+    new HtmlWebpackPlugin({
+      template: './src/seller.html',
+      filename: 'seller.html',
       inject: false
     }),
     new CopyPlugin({
