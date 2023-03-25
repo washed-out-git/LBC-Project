@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @IntegrationTest
 class ExampleControllerTest {
-    @Autowired
+     @Autowired
     private MockMvc mvc;
 
     @Autowired
