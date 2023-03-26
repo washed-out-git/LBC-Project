@@ -1,5 +1,7 @@
 package com.kenzie.appserver.service.model;
 
+import java.time.LocalDate;
+
 import static java.util.UUID.randomUUID;
 
 public class Bid {
@@ -12,6 +14,7 @@ public class Bid {
 
     public Bid(){
         this.bidId = randomUUID().toString();
+        this.dateOfBid =  LocalDate.now().toString();
     }
 
     public String getDateOfBid() {

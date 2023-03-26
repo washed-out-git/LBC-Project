@@ -28,6 +28,18 @@ public class BuyerController {
 
     BuyerController(BuyerService buyerService){this.buyerService = buyerService;}
 
+    @GetMapping("/{buyerId}")
+    public ResponseEntity<BuyerResponse> searchBuyerById(@PathVariable("buyerId") String buyerId) {
+        Buyer buyer = buyerService.findBuyerById(buyerId);
+        // If there are no concerts, then return a 204
+        if (buyer == null) {
+            return ResponseEntity.notFound().build();
+        }
+        // Otherwise, convert it into a ConcertResponses and return it
+        BuyerResponse buyerResponse = createBuyerResponse(buyer);
+        return ResponseEntity.ok(buyerResponse);
+    }
+
     @PostMapping
     public ResponseEntity<BuyerResponse> addNewBuyer(@RequestBody BuyerCreateRequest buyerCreateRequest) {
         Buyer buyer = new Buyer(buyerCreateRequest.getBuyerName());
@@ -46,7 +58,9 @@ public class BuyerController {
         Bid bid = new Bid();
         bid.setBidPrice(bidCreateRequest.getBidPrice());
 
-        Buyer buyer = buyerService.findBuyerById(bidCreateRequest.getBuyerId());
+        Buyer buyer = new Buyer(bidCreateRequest.getBuyerId(),
+                bidCreateRequest.getBuyerName(),
+                bidCreateRequest.getBidList());
 
         buyerService.makeABid(buyer, bid);
 

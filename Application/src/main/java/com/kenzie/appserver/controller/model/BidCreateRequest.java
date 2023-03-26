@@ -1,47 +1,59 @@
 package com.kenzie.appserver.controller.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.kenzie.appserver.service.model.Bid;
 
 import javax.validation.constraints.NotEmpty;
+
+import java.util.List;
 
 import static java.util.UUID.randomUUID;
 
 public class BidCreateRequest {
 
     @NotEmpty
-    @JsonProperty("vehicleId")
-    private String vehicleId;
-
-    @NotEmpty
     @JsonProperty("buyerId")
     private String buyerId;
 
     @NotEmpty
+    @JsonProperty("buyerName")
+    private String buyerName;
+    @NotEmpty
+    @JsonProperty("bidList")
+    public List<Bid> bidList;
+    @NotEmpty
     @JsonProperty("bidPrice")
-    private Double bidPrice;
+    public double bidPrice;
+
+    public double getBidPrice() {
+        return bidPrice;
+    }
+
+    public void setBidPrice(double bidPrice) {
+        this.bidPrice = bidPrice;
+    }
 
     public String getBuyerId() {
         return buyerId;
     }
 
-    public void setBuyerId(String buyerId) {
+    public void setBuyerId(String userId) {
         this.buyerId = buyerId;
     }
 
-
-    public String getVehicleId() {
-        return vehicleId;
+    public String getBuyerName() {
+        return buyerName;
     }
 
-    public void setVehicleId(String vehicleId) {
-        this.vehicleId = vehicleId;
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
     }
 
-    public Double getBidPrice() {
-        return bidPrice;
+    public List<Bid> getBidList() {
+        return bidList;
     }
 
-    public void setBidPrice(Double bidPrice) {
-        this.bidPrice = bidPrice;
+    public void setBidList(List<Bid> bidList) {
+        this.bidList = bidList;
     }
 }
