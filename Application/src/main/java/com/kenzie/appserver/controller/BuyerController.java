@@ -39,7 +39,6 @@ public class BuyerController {
         BuyerResponse buyerResponse = createBuyerResponse(buyer);
         return ResponseEntity.ok(buyerResponse);
     }
-
     @PostMapping
     public ResponseEntity<BuyerResponse> addNewBuyer(@RequestBody BuyerCreateRequest buyerCreateRequest) {
         Buyer buyer = new Buyer(buyerCreateRequest.getBuyerName());
@@ -50,7 +49,6 @@ public class BuyerController {
 
         return ResponseEntity.created(URI.create("/buyer/" + buyerResponse.getUserId())).body(buyerResponse);
     }
-
 
     @PutMapping
     public ResponseEntity<BuyerResponse> makeABid(@RequestBody BidCreateRequest bidCreateRequest) {
@@ -75,6 +73,17 @@ public class BuyerController {
        buyerResponse.setBuyerName(buyer.getBuyerName());
        buyerResponse.setBidList(buyer.getBidList());
        return buyerResponse;
+    }
+
+
+    @GetMapping
+    public ResponseEntity<List<Bid>> getAllBidsByBuyer(@PathVariable("buyerId") String buyerId) {
+        List<Bid> bids = buyerService.findAllBids(buyerId);
+        // If there are no bids, then return a 204
+        if (bids == null ||  bids.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(bids);
     }
 
 }

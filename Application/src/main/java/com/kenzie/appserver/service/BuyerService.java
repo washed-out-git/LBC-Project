@@ -61,4 +61,9 @@ public class BuyerService {
         return new ArrayList<>();
     }
 
+    public List<Bid> findAllBids(String buyerId){
+        Buyer buyer = findBuyerById(buyerId);
+        return buyer.getBidList();
+    }
+
 }
