@@ -28,12 +28,14 @@ public class BuyerService {
         return buyer;
     }
 
-    public Buyer findBuyerById(String buyerId) {
+   public Buyer findBuyerById(String buyerId) {
 
         // if not cached, find the concert
         Buyer buyerFromBackendService = buyerRepository
                 .findById(buyerId)
-                .map(buyer -> new Buyer(buyer.getBuyerName()))
+                .map(buyer -> new Buyer(buyer.getId(),
+                        buyer.getBuyerName(),
+                        buyer.getBidList()))
                 .orElse(null);
         // return concert
         return buyerFromBackendService;
@@ -42,18 +44,26 @@ public class BuyerService {
 
     public void makeABid(Buyer buyer, Bid bid){
 
-        List<Bid> bidList = buyer.getBidList();
-        bidList.add(bid);
+        if (buyerRepository.existsById(buyer.getUserId())) {
 
-        BuyerRecord buyerRecord = new BuyerRecord();
-        buyerRecord.setId(buyer.getUserId());
-        buyerRecord.setBuyerName(buyer.getBuyerName());
-        buyerRecord.setBidList(bidList);
-        buyerRepository.save(buyerRecord);
+            List<Bid> bidList = buyer.getBidList();
+            bidList.add(bid);
+
+            BuyerRecord buyerRecord = new BuyerRecord();
+            buyerRecord.setId(buyer.getUserId());
+            buyerRecord.setBuyerName(buyer.getBuyerName());
+            buyerRecord.setBidList(bidList);
+            buyerRepository.save(buyerRecord);
+        }
     }
 
     public List<Vehicle> getListofCars(){
         return new ArrayList<>();
+    }
+
+    public List<Bid> findAllBids(String buyerId){
+        Buyer buyer = findBuyerById(buyerId);
+        return buyer.getBidList();
     }
 
 }
