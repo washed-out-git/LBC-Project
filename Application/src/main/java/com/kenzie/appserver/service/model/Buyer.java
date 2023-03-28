@@ -1,5 +1,4 @@
 package com.kenzie.appserver.service.model;
-import com.kenzie.appserver.repositories.model.User;
 import java.util.ArrayList;
 import java.util.List;
 
