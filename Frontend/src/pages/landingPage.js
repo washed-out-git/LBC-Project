@@ -9,7 +9,7 @@ class LandingPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGet', 'onCreate', 'renderExample'], this);
+        this.bindClassMethods(['onGetVehicles', 'onCreate', 'renderVehicles'], this);
         this.dataStore = new DataStore();
     }
 
@@ -17,63 +17,36 @@ class LandingPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
-        document.getElementById('create-form').addEventListener('submit', this.onCreate);
+        document.getElementById('vehicles').addEventListener('load', this.onGetVehicles);
         this.client = new LandingClient();
-
-        this.dataStore.addChangeListener(this.renderExample)
+        this.client.getVehicles();
+        this.dataStore.addChangeListener(this.renderVehicles);
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderExample() {
+    async renderVehicles() {
         let resultArea = document.getElementById("result-info");
 
-        const example = this.dataStore.get("example");
+        const vehicles = this.dataStore.get("vehicles");
 
-        if (example) {
+        if (vehicles) {
             resultArea.innerHTML = `
-                <div>ID: ${example.id}</div>
-                <div>Name: ${example.name}</div>
+                <div>Year: ${vehicles.year}</div>
+                <div>Make: ${vehicles.make}</div>
+                <div>Model: ${vehicles.model}</div>
             `
         } else {
-            resultArea.innerHTML = "No Item";
+            resultArea.innerHTML = "No Vehicles";
         }
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
-    async onGet(event) {
-        // Prevent the page from refreshing on form submit
-        event.preventDefault();
-
-        let id = document.getElementById("id-field").value;
-        this.dataStore.set("example", null);
-
-        let result = await this.client.getExample(id, this.errorHandler);
-        this.dataStore.set("example", result);
-        if (result) {
-            this.showMessage(`Got ${result.name}!`)
-        } else {
-            this.errorHandler("Error doing GET!  Try again...");
-        }
-    }
-
-    async onCreate(event) {
-        // Prevent the page from refreshing on form submit
-        event.preventDefault();
-        this.dataStore.set("example", null);
-
-        let name = document.getElementById("create-name-field").value;
-
-        const createdExample = await this.client.createExample(name, this.errorHandler);
-        this.dataStore.set("example", createdExample);
-
-        if (createdExample) {
-            this.showMessage(`Created ${createdExample.name}!`)
-        } else {
-            this.errorHandler("Error creating!  Try again...");
-        }
+    async onGetVehicles() {
+        let result = await this.client.getVehicles();
+        console.log(result);
+        this.dataStore.set("vehicles", result);
     }
 }
 
