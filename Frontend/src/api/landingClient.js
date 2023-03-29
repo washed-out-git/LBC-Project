@@ -11,7 +11,7 @@ export default class LandingClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getAuctions'];
+        const methodsToBind = ['clientLoaded', 'getVehicles'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -35,12 +35,12 @@ export default class LandingClient extends BaseClass {
      * @returns Auctions
      */
     //TODO - Not completed - Check method & Update API mapping
-    async getAuctions(id, errorCallback) {
+    async getVehicles() {
         try {
-            const response = await this.client.get(`/example/${id}`);
+            const response = await this.client.get(`/vehicles/all}`);
             return response.data;
         } catch (error) {
-            this.handleError("getConcert", error, errorCallback)
+            this.handleError("getVehicles", error, errorCallback)
         }
     }
 
