@@ -6,11 +6,23 @@ import static java.util.UUID.randomUUID;
 
 public class Bid {
 
+    private String buyerId;
     private String bidId;
     private String vehicleId;
     private Double bidPrice;
-
     private String dateOfBid;
+
+    public String getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    public void setBidId(String bidId) {
+        this.bidId = bidId;
+    }
 
     public Bid(){
         this.bidId = randomUUID().toString();
