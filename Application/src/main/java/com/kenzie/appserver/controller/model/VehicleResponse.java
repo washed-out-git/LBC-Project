@@ -10,13 +10,11 @@ public class VehicleResponse {
     @JsonProperty("model")
     private String model;
     @JsonProperty("year")
-    private int year;
-    @JsonProperty("isAvailable")
-    private Boolean isAvailable;
-    @JsonProperty("vehicleId")
+    private String year;
+    @JsonProperty("id")
     private String vehicleId;
     @JsonProperty("price")
-    private int price;
+    private String price;
 
     public String getMake() {
         return make;
@@ -34,27 +32,19 @@ public class VehicleResponse {
         this.model = model;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
-    }
-
-    public Boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
     }
 
     public String getVehicleId() {return this.vehicleId; }
 
     public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
-    public int getPrice() {return this.price; }
+    public String getPrice() {return this.price; }
 
-    public void setPrice(int price) {this.price = price; }
+    public void setPrice(String price) {this.price = price; }
 }

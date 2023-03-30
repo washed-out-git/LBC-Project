@@ -37,11 +37,11 @@ public class VehicleControllerTest {
     public void getByMake_Exists() throws Exception {
         String make = "Ford";
         String model = mockNeat.strings().valStr();
-        int year = mockNeat.ints().val();
-        boolean isAvailable = mockNeat.bools().val();
+        String year = mockNeat.strings().valStr();
         String vehicleId = mockNeat.strings().valStr();
+        String price = mockNeat.strings().valStr();
 
-        Vehicle vehicle = new Vehicle(make, model, year, isAvailable, vehicleId);
+        Vehicle vehicle = new Vehicle(make, model, year, vehicleId, price);
         Vehicle persistedVehicle = vehicleService.addNewVehicle(vehicle);
         mvc.perform(get("/vehicles/{make}", persistedVehicle.getMake())
                         .accept(MediaType.APPLICATION_JSON))
@@ -51,8 +51,6 @@ public class VehicleControllerTest {
                         .value(is(model)))
                 .andExpect(jsonPath("year")
                         .value(is(year)))
-                .andExpect(jsonPath("isAvailable")
-                        .value(is(isAvailable)))
                 .andExpect(jsonPath("vehicleId")
                         .value(is(vehicleId)))
                 .andExpect(status().isOk());
@@ -62,15 +60,13 @@ public class VehicleControllerTest {
     public void createVehicle_CreateSuccessful() throws Exception {
         String make = "Ford";
         String model = mockNeat.strings().valStr();
-        int year = mockNeat.ints().val();
-        boolean isAvailable = mockNeat.bools().val();
+        String year = mockNeat.strings().valStr();
         String vehicleId = mockNeat.strings().valStr();
 
        VehicleCreateRequest vehicleCreateRequest = new VehicleCreateRequest();
        vehicleCreateRequest.setMake(make);
        vehicleCreateRequest.setModel(model);
        vehicleCreateRequest.setYear(year);
-       vehicleCreateRequest.setAvailable(isAvailable);
        vehicleCreateRequest.setVehicleId(vehicleId);
 
         mapper.registerModule(new JavaTimeModule());
@@ -85,8 +81,6 @@ public class VehicleControllerTest {
                         .value(is(model)))
                 .andExpect(jsonPath("year")
                         .value(is(year)))
-                .andExpect(jsonPath("isAvailable")
-                        .value(is(isAvailable)))
                 .andExpect(jsonPath("vehicleId")
                         .value(is(vehicleId)))
                 .andExpect(status().isCreated());

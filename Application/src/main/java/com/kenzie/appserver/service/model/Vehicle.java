@@ -5,16 +5,14 @@ Vehicle {
 
     private String make;
     private String model;
-    private int year;
-    private boolean isAvailable;
+    private String year;
     private String vehicleId;
-    private int price;
+    private String price;
 
-    public Vehicle(String make, String model, int year, boolean isAvailable, String vehicleId, int price) {
+    public Vehicle(String make, String model, String year, String vehicleId, String price) {
         this.make = make;
         this.model = model;
         this.year = year;
-        this.isAvailable = isAvailable;
         this.vehicleId = vehicleId;
         this.price = price;
     }
@@ -35,28 +33,20 @@ Vehicle {
         this.model = model;
     }
 
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
-    }
-
-    public boolean isAvailable() {
-        return isAvailable;
-    }
-
-    public void setAvailable(boolean available) {
-        isAvailable = available;
     }
 
     public String getVehicleId() {return this.vehicleId; }
 
     public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
-    public int getPrice() {return this.price; }
+    public String getPrice() {return this.price; }
 
-    public void setPrice(int price) {this.price = price; }
+    public void setPrice(String price) {this.price = price; }
 
 }

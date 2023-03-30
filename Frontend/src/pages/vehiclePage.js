@@ -35,7 +35,6 @@ class VehiclePage extends BaseClass {
                 <div>Make: ${vehicles.make}</div>
                 <div>Model: ${vehicles.model}</div>
                 <div>Year: ${vehicles.year}</div>
-                <div>Available: ${vehicles.available}</div>
                 <div>Id: ${vehicles.id}</div>
                 <div>Price: ${vehicles.price}</div>
             `
@@ -53,13 +52,12 @@ class VehiclePage extends BaseClass {
         let make = document.getElementById("vehicle-make").value;
         let model = document.getElementById("vehicle-model").value;
         let year = document.getElementById("vehicle-year").value;
-        let available = document.getElementById("vehicle-available").value;
         let id = document.getElementById("vehicle-id").value;
         let price = document.getElementById("vehicle-price").value;
         this.dataStore.set("vehicle", null);
 
         let result = await (await this.client.getAllVehicles())(make, model,
-            year, available, id, price, this.errorHandler);
+            year, id, price, this.errorHandler);
         this.dataStore.set("vehicle", result);
         if (result) {
             this.showMessage(`Got ${result.id}!`)
@@ -71,17 +69,14 @@ class VehiclePage extends BaseClass {
     async onCreate(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-        console.log("onCreate")
         this.dataStore.set("vehicle", null);
 
         let make = document.getElementById("vehicle-make").value;
         let model = document.getElementById("vehicle-model").value;
         let year = document.getElementById("vehicle-year").value;
-        let available = document.getElementById("vehicle-available").value;
         let id = document.getElementById("vehicle-id").value;
         let price = document.getElementById("vehicle-price").value;
-        console.log(make, model, year)
-        const createdVehicle = await this.client.createVehicle(make, model, year, available, id, price, this.errorHandler);
+        const createdVehicle = await this.client.createVehicle(make, model, year, id, price, this.errorHandler);
         this.dataStore.set("vehicle", createdVehicle);
 
         if (createdVehicle) {
@@ -96,7 +91,6 @@ class VehiclePage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
-    console.log("mounted")
     const vehiclePage = new VehiclePage();
     await vehiclePage.mount();
 };
