@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src="vehiclePage.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+</head>
+<body class="background">
+<header class="header" id="header">
+    <div class="site-title">
+        <a class="header_home" href="vehicle.html">Vehicle Auction App</a>
+    </div>
+    <div>
+        <a href="index.html">Go to Home Page</a>
+    </div>
+</header>
+<div class="card">
+    <h2>Sell Vehicle</h2>
+    <form class="card-content" id="create-vehicle-form">
+        <p class="form-field">
+            <label for="create-vehicle-make">Make</label>
+            <input type="text" required class="validated-field" id="create-vehicle-make">
+        </p>
+        <p class="form-field">
+            <label for="create-vehicle-make">Model</label>
+            <input type="text" required class="validated-field" id="create-vehicle-model">
+        </p>
+        <p class="form-field">
+            <label for="create-vehicle-year">Year</label>
+            <input type="text" required class="validated-field" id="create-vehicle-year">
+        </p>
+        <p class="form-field">
+            <label for="create-vehicle-available">Listing Status</label>
+            <input type="text" required class="validated-field" id="create-vehicle-available">
+        </p>
+        <p class="form-field">
+            <label for="create-vehicle-id">Id</label>
+            <input type="text" required class="validated-field" id="create-vehicle-id">
+        </p>
+        <p class="form-field">
+            <label for="create-vehicle-price">Price</label>
+            <input type="text" required class="validated-field" id="create-vehicle-price">
+        </p>
+        <button type="submit">Create</button>
+    </form>
+</div>
+<div class="card">
+    <h2>Get By ID</h2>
+    <form class="card-content" id="get-by-id-form">
+        <p class="form-field">
+            <label>ID</label>
+            <input type="text" required class="validated-field" id="id-field">
+        </p>
+        <button type="submit">Get</button>
+    </form>
+</div>
+<div class="card" id="result">
+    <h2>Result:</h2>
+    <p id="result-info"></p>
+</div>
+
+</body>
+</html>
