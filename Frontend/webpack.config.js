@@ -12,7 +12,8 @@ module.exports = {
     landingPage: path.resolve(__dirname, 'src', 'pages', 'landingPage.js'),
     createAccount: path.resolve(__dirname, 'src', 'pages', 'createAccount.js'),
     buyerPage: path.resolve(__dirname, 'src', 'pages', 'buyerPage.js'),
-    sellerPage: path.resolve(__dirname, 'src', 'pages', 'sellerPage.js')
+    sellerPage: path.resolve(__dirname, 'src', 'pages', 'sellerPage.js'),
+    vehiclePage: path.resolve(__dirname, 'src', 'pages', 'vehiclePage.js')
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -27,7 +28,8 @@ module.exports = {
     disableHostCheck: true,
     contentBase: 'packaging_additional_published_artifacts',
     // overlay shows a full-screen overlay in the browser when there are compiler errors or warnings
-    overlay: true
+    overlay: true,
+    proxy:[ { context: [ '/' ], target: 'http://localhost:5001' } ]
   },
   plugins: [
     new HtmlWebpackPlugin({
