@@ -38,7 +38,6 @@ export default class CreateAccountClient extends BaseClass {
     //TODO - Not completed - Check method & Update API mapping
     async createUser(name, userId, errorCallback) {
         try {
-            console.log("errorPosting")
             const response = await this.client.post(`createAccount`, {
                 sellerName: name,
                 userId: userId
@@ -47,7 +46,7 @@ export default class CreateAccountClient extends BaseClass {
             return response.data;
 
         } catch (error) {
-            this.handleError("errorLocation", error, errorCallback);
+            this.handleError("errorLocation createAccountClient", error, errorCallback);
         }
     }
 

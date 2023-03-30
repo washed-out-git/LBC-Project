@@ -46,13 +46,13 @@ class CreateAccount extends BaseClass {
 
         let name = document.getElementById("create-name").value;
         let email = document.getElementById("create-email").value;
-        let userType = document.querySelector('input[name = "type-of-user"]:checked');
+        let userType = document.querySelector('input[name = "type-of-user"]:checked').value;
 
         const createdUser = await this.client.createUser(name, email, this.errorHandler);
         this.dataStore.set("user", createdUser);
 
         if (createdUser) {
-            this.showMessage(`Created ${createdUser.name}!`)
+            this.showMessage(`Created ${userType}!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
