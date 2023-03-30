@@ -13,7 +13,7 @@ export default class BuyerClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getBids', 'createBid', 'editBid', 'removeBid'];
+        const methodsToBind = ['clientLoaded', 'createBid', 'createBuyer', 'getListOfBids'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -35,42 +35,37 @@ export default class BuyerClient extends BaseClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
-    //TODO - Not completed - Check method & Update API mapping
-    async getBids(id, errorCallback) {
+
+    async createBuyer(buyerName, errorCallback) {
         try {
-            const response = await this.client.get(`/example/${id}`);
+            const response = await this.client.post(`/buyer`, {
+                "buyerName": buyerName
+            });
             return response.data;
         } catch (error) {
-            this.handleError("getConcert", error, errorCallback)
+            this.handleError("createBuyer", error, errorCallback);
         }
     }
-    //TODO - Not completed - Check method & Update API mapping
-    async createBid(name, errorCallback) {
+
+    async createBid(buyerId, buyerName, vehicleId, bidPrice, errorCallback) {
         try {
-            const response = await this.client.post(`example`, {
-                name: name
+            const response = await this.client.post(`/buyer`, {
+                "buyerId" : buyerId,
+                "buyerName" : buyerName,
+                "vehicleId": vehicleId,
+                "bidPrice": bidPrice
             });
             return response.data;
         } catch (error) {
             this.handleError("createBid", error, errorCallback);
         }
     }
+
     //TODO - Not completed - Check method & Update API mapping
-    async editBid(name, errorCallback) {
+    async getListOfBids(buyerId, errorCallback) {
         try {
-            const response = await this.client.put(`example`, {
-                name: name
-            });
-            return response.data;
-        } catch (error) {
-            this.handleError("editBid", error, errorCallback);
-        }
-    }
-    //TODO - Not completed - Check method & Update API mapping
-    async removeBid(name, errorCallback) {
-        try {
-            const response = await this.client.remove(`example`, {
-                name: name
+            const response = await this.client.get(`/buyer/${buyerId}`, {
+                buyerId: buyerId
             });
             return response.data;
         } catch (error) {

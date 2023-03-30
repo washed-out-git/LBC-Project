@@ -17,7 +17,10 @@ public class Buyer extends User {
         this.userId = randomUUID().toString();
         this.bidList = new ArrayList<>();
     }
-
+    public Buyer(String userId, String buyerName) {
+        this.buyerName = buyerName;
+        this.userId = userId;
+    }
     public Buyer(String userId, String buyerName, List<Bid> bidList) {
         this.buyerName = buyerName;
         this.userId = userId;

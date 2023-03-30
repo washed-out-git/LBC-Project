@@ -81,6 +81,10 @@ public class BuyerServiceTest {
         List<Bid> bidList = new ArrayList<>();
 
         Buyer buyer = new Buyer(buyerId, "buyername", bidList);
+        BuyerRecord buyerRecord = new BuyerRecord();
+        buyerRecord.setId(buyerId);
+        buyerRecord.setBuyerName("buyername");
+        buyerRecord.setBidList(bidList);
 
         ArgumentCaptor<BuyerRecord> buyerRecordCaptor = ArgumentCaptor.forClass(BuyerRecord.class);
         Buyer returnedBuyer = buyerService.addNewBuyer(buyer);
@@ -94,8 +98,10 @@ public class BuyerServiceTest {
         newBidList.add(bid);
 
         when(buyerRepository.existsById(buyerId)).thenReturn(true);
+        when(buyerService.findBuyerById(buyerId)).thenReturn(buyer);
 
-        buyerService.makeABid(buyer, bid);
+
+        buyerService.makeABid(buyerId, bid);
     }
 
    /* @Test

@@ -28,24 +28,11 @@ public class BuyerController {
 
     BuyerController(BuyerService buyerService){this.buyerService = buyerService;}
 
-    @GetMapping("/{buyerId}")
-    public ResponseEntity<BuyerResponse> searchBuyerById(@PathVariable("buyerId") String buyerId) {
-        Buyer buyer = buyerService.findBuyerById(buyerId);
-        // If there are no concerts, then return a 204
-        if (buyer == null) {
-            return ResponseEntity.notFound().build();
-        }
-        // Otherwise, convert it into a ConcertResponses and return it
-        BuyerResponse buyerResponse = createBuyerResponse(buyer);
-        return ResponseEntity.ok(buyerResponse);
-    }
     @PostMapping
     public ResponseEntity<BuyerResponse> addNewBuyer(@RequestBody BuyerCreateRequest buyerCreateRequest) {
         Buyer buyer = new Buyer(buyerCreateRequest.getBuyerName());
 
-        buyerService.addNewBuyer(buyer);
-
-        BuyerResponse buyerResponse = createBuyerResponse(buyer);
+        BuyerResponse buyerResponse = createBuyerResponse(buyerService.addNewBuyer(buyer));
 
         return ResponseEntity.created(URI.create("/buyer/" + buyerResponse.getUserId())).body(buyerResponse);
     }
@@ -57,10 +44,9 @@ public class BuyerController {
         bid.setBidPrice(bidCreateRequest.getBidPrice());
 
         Buyer buyer = new Buyer(bidCreateRequest.getBuyerId(),
-                bidCreateRequest.getBuyerName(),
-                bidCreateRequest.getBidList());
+                bidCreateRequest.getBuyerName());
 
-        buyerService.makeABid(buyer, bid);
+        buyerService.makeABid(bidCreateRequest.getBuyerId(), bid);
 
         BuyerResponse buyerResponse = createBuyerResponse(buyer);
 
@@ -76,7 +62,7 @@ public class BuyerController {
     }
 
 
-    @GetMapping
+    @GetMapping("/{buyerId}")
     public ResponseEntity<List<Bid>> getAllBidsByBuyer(@PathVariable("buyerId") String buyerId) {
         List<Bid> bids = buyerService.findAllBids(buyerId);
         // If there are no bids, then return a 204
