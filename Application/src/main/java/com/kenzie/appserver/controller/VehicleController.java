@@ -12,21 +12,22 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
 
 @RestController
-@RequestMapping("/vehicles")
+@RequestMapping("/vehicle")
 public class VehicleController {
 
     private VehicleService vehicleService;
 
     VehicleController(VehicleService vehicleService) {this.vehicleService = vehicleService;}
 
-    @GetMapping("/{make}")
-    public ResponseEntity<VehicleResponse> getByMake(@PathVariable("make") String make) {
+    @GetMapping("/{id}")
+    public ResponseEntity<VehicleResponse> getById(@PathVariable("id") String id) {
 
-        Vehicle vehicle = vehicleService.findByMake(make);
+        Vehicle vehicle = vehicleService.findById(id);
         if (vehicle == null) {
             return ResponseEntity.notFound().build();
         }
@@ -34,7 +35,7 @@ public class VehicleController {
         VehicleResponse vehicleResponse = createVehicleResponse(vehicle);
         return ResponseEntity.ok(vehicleResponse);
     }
-    @GetMapping
+    @GetMapping("/all")
     public ResponseEntity<List<VehicleResponse>> getAllVehicles() {
         List<Vehicle> vehicles = vehicleService.findAllVehicles();
 
@@ -59,7 +60,7 @@ public class VehicleController {
 
         VehicleResponse vehicleResponse = createVehicleResponse(vehicle);
 
-        return ResponseEntity.created(URI.create("/vehicles/" + vehicleResponse.getMake())).body(vehicleResponse);
+        return ResponseEntity.created(URI.create("/vehicle/" + vehicleResponse.getVehicleId())).body(vehicleResponse);
     }
 
     @PutMapping

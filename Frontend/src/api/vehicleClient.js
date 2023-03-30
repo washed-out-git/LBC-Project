@@ -36,9 +36,9 @@ export default class VehicleClient extends BaseClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
-    async getVehicles(id, errorCallback) {
+    async getVehicle(id, errorCallback) {
         try {
-            const response = await this.client.get(`/vehicles/${id}`);
+            const response = await this.client.get(`vehicle/${id}`);
             return response.data;
         } catch (error) {
             this.handleError("getVehicle", error, errorCallback)
@@ -47,7 +47,8 @@ export default class VehicleClient extends BaseClass {
 
     async createVehicle(make, model, year, available, id, price, errorCallback) {
         try {
-            const response = await this.client.post(`/vehicles`, {
+            console.log("createVehicle")
+            const response = await this.client.post(`vehicle`, {
                 make: make,
                 model: model,
                 year: year,
@@ -55,6 +56,7 @@ export default class VehicleClient extends BaseClass {
                 id: id,
                 price: price
             });
+            console.log(response.data)
             return response.data;
         } catch (error) {
             this.handleError("createVehicle", error, errorCallback);
@@ -63,7 +65,7 @@ export default class VehicleClient extends BaseClass {
 
     async getAllVehicles(errorCallback) {
         try {
-            const response = await this.client.get(`/vehicles/all`);
+            const response = await this.client.get(`vehicle/all`);
             return response.data;
         } catch (error) {
             this.handleError("getVehicles", error, errorCallback)

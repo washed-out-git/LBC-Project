@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class VehicleService {
@@ -33,9 +34,9 @@ public class VehicleService {
         return vehicles;
     }
 
-    public Vehicle findByMake(String make) {
+    public Vehicle findById(String id) {
         Vehicle exampleFromBackend =vehicleRepository
-                .findById(make)
+                .findById(id)
                 .map(vehicle -> new Vehicle(vehicle.getMake(), vehicle.getModel(), vehicle.getYear(),
                         vehicle.isAvailable(), vehicle.getVehicleId(), vehicle.getPrice()))
                 .orElse(null);
@@ -49,7 +50,7 @@ public class VehicleService {
         vehicleRecord.setModel(vehicle.getModel());
         vehicleRecord.setYear(vehicle.getYear());
         vehicleRecord.setAvailable(vehicle.isAvailable());
-        vehicleRecord.setVehicleId(vehicle.getVehicleId());
+        vehicleRecord.setVehicleId(UUID.randomUUID().toString());
         vehicleRecord.setPrice(vehicle.getPrice());
         return vehicle;
     }
