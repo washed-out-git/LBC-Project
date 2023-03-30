@@ -53,7 +53,8 @@ public class VehicleController {
     @PostMapping
     public ResponseEntity<VehicleResponse> addNewVehicle(@RequestBody VehicleCreateRequest vehicleCreateRequest) {
         Vehicle vehicle = new Vehicle(vehicleCreateRequest.getMake(), vehicleCreateRequest.getModel(),
-                vehicleCreateRequest.getYear(), vehicleCreateRequest.isAvailable(), vehicleCreateRequest.getVehicleId());
+                vehicleCreateRequest.getYear(), vehicleCreateRequest.isAvailable(), vehicleCreateRequest.getVehicleId(),
+                vehicleCreateRequest.getPrice());
         vehicleService.addNewVehicle(vehicle);
 
         VehicleResponse vehicleResponse = createVehicleResponse(vehicle);
@@ -67,7 +68,8 @@ public class VehicleController {
                 vehicleUpdateRequest.getModel(),
                 vehicleUpdateRequest.getYear(),
                 vehicleUpdateRequest.isAvailable(),
-                vehicleUpdateRequest.getVehicleId());
+                vehicleUpdateRequest.getVehicleId(),
+                vehicleUpdateRequest.getPrice());
         vehicleService.updateVehicle(vehicle);
 
         VehicleResponse vehicleResponse = createVehicleResponse(vehicle);
@@ -82,6 +84,7 @@ public class VehicleController {
         vehicleResponse.setYear(vehicle.getYear());
         vehicleResponse.setAvailable(vehicle.isAvailable());
         vehicleResponse.setVehicleId(vehicle.getVehicleId());
+        vehicleResponse.setPrice(vehicle.getPrice());
         return vehicleResponse;
     }
 }
