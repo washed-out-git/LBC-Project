@@ -34,7 +34,7 @@ public class BuyerController {
 
         BuyerResponse buyerResponse = createBuyerResponse(buyerService.addNewBuyer(buyer));
 
-        return ResponseEntity.created(URI.create("/buyer/" + buyerResponse.getUserId())).body(buyerResponse);
+        return ResponseEntity.ok(buyerResponse);
     }
 
     @PutMapping

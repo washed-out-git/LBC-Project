@@ -7,10 +7,9 @@ import static java.util.UUID.randomUUID;
 
 public class Buyer extends User {
 
-    private String userId;
-    private String buyerName;
+    private final String userId;
+    private final String buyerName;
     public List<Bid> bidList;
-    public Buyer() { }
 
     public Buyer(String buyerName) {
         this.buyerName = buyerName;
@@ -27,22 +26,15 @@ public class Buyer extends User {
         this.bidList = bidList;
     }
 
-
     public String getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
 
     public String getBuyerName() {
         return buyerName;
     }
 
-    public void setBuyerName(String buyerName) {
-        this.buyerName = buyerName;
-    }
 
     public List<Bid> getBidList() {
         return bidList;

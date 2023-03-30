@@ -18,9 +18,6 @@ public class BidCreateRequest {
     @NotEmpty
     @JsonProperty("buyerName")
     private String buyerName;
-    @NotEmpty
-    @JsonProperty("bidList")
-    public List<Bid> bidList;
 
     @NotEmpty
     @JsonProperty("vehicleId")
@@ -63,11 +60,4 @@ public class BidCreateRequest {
         this.buyerName = buyerName;
     }
 
-    public List<Bid> getBidList() {
-        return bidList;
-    }
-
-    public void setBidList(List<Bid> bidList) {
-        this.bidList = bidList;
-    }
 }
