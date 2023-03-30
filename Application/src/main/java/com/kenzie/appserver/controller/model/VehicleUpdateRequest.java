@@ -21,6 +21,9 @@ public class VehicleUpdateRequest {
     @NotEmpty
     @JsonProperty("vehicleId")
     private String vehicleId;
+    @NotEmpty
+    @JsonProperty("price")
+    private int price;
 
     public String getMake() {
         return make;
@@ -57,4 +60,8 @@ public class VehicleUpdateRequest {
     public String getVehicleId() {return this.vehicleId; }
 
     public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
+
+    public int getPrice() {return this.price; }
+
+    public void setPrice(int price) {this.price = price; }
 }
