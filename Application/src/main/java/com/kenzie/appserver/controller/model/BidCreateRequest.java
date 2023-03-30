@@ -21,9 +21,23 @@ public class BidCreateRequest {
     @NotEmpty
     @JsonProperty("bidList")
     public List<Bid> bidList;
+
+    @NotEmpty
+    @JsonProperty("vehicleId")
+    private String vehicleId;
+
     @NotEmpty
     @JsonProperty("bidPrice")
     public double bidPrice;
+
+    public String getVehicleId() {
+        return vehicleId;
+    }
+
+    public void setVehicleId(String vehicleId) {
+        this.vehicleId = vehicleId;
+    }
+
 
     public double getBidPrice() {
         return bidPrice;
