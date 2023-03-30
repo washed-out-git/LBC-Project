@@ -19,17 +19,21 @@
       <form class="card-content" id="enter-name-form">
         <p class="form-field">
           <label>Name</label>
-          <input type="text" required class="validated-field" id="name"><br>
+          <input type="text" required class="validated-field" id="create-name"><br>
           <label>Email</label>
-          <input type="text" required class="validated-field" id="email"><br>
+          <input type="text" required class="validated-field" id="create-email"><br>
           <p>Please select your type of account</p>
-          <input type="radio" id="buyer" name="type-of-user" value="buyer">
-          <label for="buyer">Buyer</label><br>
-          <input type="radio" id="seller" name="type-of-user" value="seller">
-          <label for="seller">Seller</label><br>
+          <input type="radio" id="create-buyer" name="type-of-user" value="buyer">
+          <label for="create-buyer">Buyer</label><br>
+          <input type="radio" id="create-seller" name="type-of-user" value="seller">
+          <label for="create-seller">Seller</label><br>
         </p>
         <button type="submit">Create</button>
       </form>
+    </div>
+    <div class="card" id="create-user-result">
+      <h2>Result:</h2>
+      <p id="create-user-result-info"></p>
     </div>
   </body>
 </html>
