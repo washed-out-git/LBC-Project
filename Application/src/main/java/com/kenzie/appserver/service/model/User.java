@@ -1,4 +1,4 @@
-package com.kenzie.appserver.repositories.model;
+package com.kenzie.appserver.service.model;
 
 import com.kenzie.appserver.service.model.Vehicle;
 
