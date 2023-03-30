@@ -9,7 +9,7 @@ public class Seller {
     private String sellerName;
     public List<Vehicle> vehicleList;
 
-    public Seller(String sellerEmail, String sellerName, List<Vehicle> vehicleList) {
+    public Seller(String sellerEmail, String sellerName) {
         this.userId = sellerEmail;
         this.sellerName = sellerName;
         this.vehicleList = new ArrayList<>();

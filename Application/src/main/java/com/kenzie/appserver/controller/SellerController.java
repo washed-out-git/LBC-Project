@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/seller")
+@RequestMapping("/createAccount")
 public class SellerController {
 
     private SellerService sellerService;
@@ -26,16 +26,18 @@ public class SellerController {
             return ResponseEntity.notFound().build();
         }
         SellerResponse sellerResponse = createSellerResponse(seller);
-
         return ResponseEntity.ok(sellerResponse);
     }
 
     @PostMapping
     public ResponseEntity<SellerResponse> addNewSeller(@RequestBody SellerCreateRequest sellerCreateRequest) {
-        Seller seller = new Seller(sellerCreateRequest.getUserId(), sellerCreateRequest.getSellerName(), sellerCreateRequest.getVehicleList());
-        sellerService.addNewSeller(seller);
+        Seller seller = new Seller(sellerCreateRequest.getUserId(), sellerCreateRequest.getSellerName());
+
+       // sellerService.addNewSeller(seller);
+
+
         SellerResponse sellerResponse = createSellerResponse(seller);
-        return ResponseEntity.created(URI.create("/seller/" + sellerResponse.getUserId())).body(sellerResponse);
+        return ResponseEntity.created(URI.create("/createAccount/" + sellerResponse.getUserId())).body(sellerResponse);
 
     }
 
