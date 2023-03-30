@@ -15,17 +15,12 @@ class VehiclePage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
+        document.getElementById('create-vehicle-form').addEventListener('submit', this.onCreate);
         document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
-        document.getElementById('create-vehicle-make').addEventListener('submit', this.onCreate);
-        document.getElementById('create-vehicle-model').addEventListener('submit', this.onCreate);
-        document.getElementById('create-vehicle-year').addEventListener('submit', this.onCreate);
-        document.getElementById('create-vehicle-available').addEventListener('submit', this.onCreate);
-        document.getElementById('create-vehicle-id').addEventListener('submit', this.onCreate);
-        document.getElementById('create-vehicle-price').addEventListener('submit', this.onCreate);
         this.client = new VehicleClient();
 
         this.dataStore.addChangeListener(this.renderVehicle)
-        await this.client.getAllVehicles(this.renderVehicle());
+        //this.client.getAllVehicles(this.renderVehicle());
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -33,7 +28,7 @@ class VehiclePage extends BaseClass {
     async renderVehicle() {
         let resultArea = document.getElementById("result-info");
 
-        const vehicles = this.dataStore.get("vehicles");
+        const vehicles = this.dataStore.get("vehicle");
 
         if (vehicles) {
             resultArea.innerHTML = `
@@ -55,17 +50,17 @@ class VehiclePage extends BaseClass {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
-        let make = document.getElementById("create-vehicle-make").value;
-        let model = document.getElementById("create-vehicle-model").value;
-        let year = document.getElementById("create-vehicle-year").value;
-        let available = document.getElementById("create-vehicle-available").value;
-        let id = document.getElementById("create-vehicle-id").value;
-        let price = document.getElementById("create-vehicle-price").value;
-        this.dataStore.set("vehicles", null);
+        let make = document.getElementById("vehicle-make").value;
+        let model = document.getElementById("vehicle-model").value;
+        let year = document.getElementById("vehicle-year").value;
+        let available = document.getElementById("vehicle-available").value;
+        let id = document.getElementById("vehicle-id").value;
+        let price = document.getElementById("vehicle-price").value;
+        this.dataStore.set("vehicle", null);
 
         let result = await (await this.client.getAllVehicles())(make, model,
             year, available, id, price, this.errorHandler);
-        this.dataStore.set("vehicles", result);
+        this.dataStore.set("vehicle", result);
         if (result) {
             this.showMessage(`Got ${result.id}!`)
         } else {
@@ -76,17 +71,18 @@ class VehiclePage extends BaseClass {
     async onCreate(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-        this.dataStore.set("vehicles", null);
+        console.log("onCreate")
+        this.dataStore.set("vehicle", null);
 
-        let make = document.getElementById("create-vehicle-make").value;
-        let model = document.getElementById("create-vehicle-model").value;
-        let year = document.getElementById("create-vehicle-year").value;
-        let available = document.getElementById("create-vehicle-available").value;
-        let id = document.getElementById("create-vehicle-id").value;
-        let price = document.getElementById("create-vehicle-price").value;
-
-        const createdVehicle = await this.client.createVehicle()(make, model, year, available, id, price, this.errorHandler);
-        this.dataStore.set("vehicles", createdVehicle);
+        let make = document.getElementById("vehicle-make").value;
+        let model = document.getElementById("vehicle-model").value;
+        let year = document.getElementById("vehicle-year").value;
+        let available = document.getElementById("vehicle-available").value;
+        let id = document.getElementById("vehicle-id").value;
+        let price = document.getElementById("vehicle-price").value;
+        console.log(make, model, year)
+        const createdVehicle = await this.client.createVehicle(make, model, year, available, id, price, this.errorHandler);
+        this.dataStore.set("vehicle", createdVehicle);
 
         if (createdVehicle) {
             this.showMessage(`Created ${createdVehicle.id}!`)
@@ -100,6 +96,7 @@ class VehiclePage extends BaseClass {
  * Main method to run when the page contents have loaded.
  */
 const main = async () => {
+    console.log("mounted")
     const vehiclePage = new VehiclePage();
     await vehiclePage.mount();
 };
