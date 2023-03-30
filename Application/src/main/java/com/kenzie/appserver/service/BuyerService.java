@@ -30,28 +30,27 @@ public class BuyerService {
 
    public Buyer findBuyerById(String buyerId) {
 
-        // if not cached, find the concert
         Buyer buyerFromBackendService = buyerRepository
                 .findById(buyerId)
                 .map(buyer -> new Buyer(buyer.getId(),
                         buyer.getBuyerName(),
                         buyer.getBidList()))
                 .orElse(null);
-        // return concert
         return buyerFromBackendService;
     }
 
 
-    public void makeABid(Buyer buyer, Bid bid){
+    public void makeABid(String buyerId, Bid bid){
 
-        if (buyerRepository.existsById(buyer.getUserId())) {
+        if (buyerRepository.existsById(buyerId)) {
 
-            List<Bid> bidList = buyer.getBidList();
+            Buyer buyerFromRepo = findBuyerById(buyerId);
+            List<Bid> bidList = buyerFromRepo.getBidList();
             bidList.add(bid);
 
             BuyerRecord buyerRecord = new BuyerRecord();
-            buyerRecord.setId(buyer.getUserId());
-            buyerRecord.setBuyerName(buyer.getBuyerName());
+            buyerRecord.setId(buyerFromRepo.getUserId());
+            buyerRecord.setBuyerName(buyerFromRepo.getBuyerName());
             buyerRecord.setBidList(bidList);
             buyerRepository.save(buyerRecord);
         }

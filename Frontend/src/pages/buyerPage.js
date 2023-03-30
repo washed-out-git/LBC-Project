@@ -1,5 +1,6 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
+import BuyerClient from "../api/buyerClient";
 
 /**
  * Logic needed for the view playlist page of the website.
@@ -8,7 +9,7 @@ class BuyerPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGet', 'onCreate', 'renderExample'], this);
+        this.bindClassMethods(['onCreateBuyer', 'onCreateBid', 'onGetBids'], this);
         this.dataStore = new DataStore();
     }
 
@@ -16,33 +17,72 @@ class BuyerPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
-        document.getElementById('create-form').addEventListener('submit', this.onCreate);
+        document.getElementById('create-buyer-form').addEventListener('submit', this.onCreateBuyer);
+        document.getElementById('create-bid-form').addEventListener('submit', this.onCreateBid);
+        document.getElementById('find-all-bids-form').addEventListener('submit', this.onGetBids);
         this.client = new BuyerClient();
 
-        this.dataStore.addChangeListener(this.renderExample)
+        //.dataStore.addChangeListener(this.renderBuyerId)
+       // await this.client.createBuyer();
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderExample() {
-        let resultArea = document.getElementById("result-info");
+    async renderBuyerId() {
+        let resultArea = document.getElementById("buyer-id-display");
 
-        const example = this.dataStore.get("example");
+        let buyer = this.dataStore.get("createdBuyer");
 
-        if (example) {
-            resultArea.innerHTML = `
-                <div>ID: ${example.id}</div>
-                <div>Name: ${example.name}</div>
-            `
+        let html = "<li><h3>${buyer.buyerId}</h3>";
+
+        if (buyer) {
+
+            resultArea.innerHTML = html;
+
         } else {
-            resultArea.innerHTML = "No Item";
+            resultArea.innerHTML = "No buyerId entered";
         }
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
+    async onCreateBuyer(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
 
-    async onGet(event) {
+        let buyerName = document.getElementById("create-buyer-name").value;
+
+        const createdBuyer = await this.client.createBuyer(buyerName, this.errorHandler);
+        this.dataStore.set("createdBuyer", createdBuyer);
+
+        if (createdBuyer) {
+            this.showMessage(`Created ${createdBuyer.buyerId}!`)
+        } else {
+            this.errorHandler("Error creating!  Try again...");
+        }
+    }
+
+
+    async onCreateBid(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+        this.dataStore.set("example", null);
+
+        let buyerId = document.getElementById("create-bid-buyerId").value;
+        let buyerName = document.getElementById("create-bid-buyerName").value;
+        let vehicleId = document.getElementById("create-bid-vehicleId").value;
+        let bidPrice = document.getElementById("create-bid-bidPrice").value;
+
+        const createdExample = await this.client.createExample(name, this.errorHandler);
+        this.dataStore.set("example", createdExample);
+
+        if (createdExample) {
+            this.showMessage(`Created ${createdExample.name}!`)
+        } else {
+            this.errorHandler("Error creating!  Try again...");
+        }
+    }
+
+    async onGetBids(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
@@ -55,23 +95,6 @@ class BuyerPage extends BaseClass {
             this.showMessage(`Got ${result.name}!`)
         } else {
             this.errorHandler("Error doing GET!  Try again...");
-        }
-    }
-
-    async onCreate(event) {
-        // Prevent the page from refreshing on form submit
-        event.preventDefault();
-        this.dataStore.set("example", null);
-
-        let name = document.getElementById("create-name-field").value;
-
-        const createdExample = await this.client.createExample(name, this.errorHandler);
-        this.dataStore.set("example", createdExample);
-
-        if (createdExample) {
-            this.showMessage(`Created ${createdExample.name}!`)
-        } else {
-            this.errorHandler("Error creating!  Try again...");
         }
     }
 }

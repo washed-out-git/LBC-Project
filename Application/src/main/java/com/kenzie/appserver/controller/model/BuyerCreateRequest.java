@@ -7,14 +7,14 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 public class BuyerCreateRequest {
-    @NotEmpty
+
     @JsonProperty("userId")
     private String userId;
 
     @NotEmpty
     @JsonProperty("buyerName")
     private String buyerName;
-    @NotEmpty
+
     @JsonProperty("bidList")
     public List<Bid> bidList;
 
