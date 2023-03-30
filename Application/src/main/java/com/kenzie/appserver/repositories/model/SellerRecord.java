@@ -29,7 +29,7 @@ public class SellerRecord extends User {
         this.userId = userId;
     }
 
-    @DynamoDBRangeKey (attributeName = "sellerName")
+    @DynamoDBAttribute (attributeName = "sellerName")
     public String getSellerName() {
         return sellerName;
     }

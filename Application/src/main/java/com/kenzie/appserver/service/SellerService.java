@@ -28,8 +28,7 @@ public class SellerService {
         Seller sellerFromBackend = sellerRepository
                 .findById(sellerId)
                 .map(seller -> new Seller(seller.getUserId(),
-                        seller.getSellerName(),
-                        seller.getVehicleList()))
+                        seller.getSellerName()))
                 .orElse(null);
         return sellerFromBackend;
     }
