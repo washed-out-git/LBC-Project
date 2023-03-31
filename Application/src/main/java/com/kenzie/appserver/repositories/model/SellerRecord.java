@@ -18,7 +18,6 @@ public class SellerRecord extends User {
 
     private String userId;
     private String sellerName;
-    public List<Vehicle> vehicleList; //List of vehicles for sale
 
     @DynamoDBHashKey (attributeName = "userId")
     public String getUserId() {
@@ -38,25 +37,16 @@ public class SellerRecord extends User {
         this.sellerName = sellerName;
     }
 
-    @DynamoDBAttribute (attributeName = "listVehicles")
-    public List<Vehicle> getVehicleList() {
-        return vehicleList;
-    }
-
-    public void setVehicleList(List<Vehicle> vehicleList) {
-        this.vehicleList = vehicleList;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SellerRecord that = (SellerRecord) o;
-        return Objects.equals(userId, that.userId) && Objects.equals(sellerName, that.sellerName) && Objects.equals(vehicleList, that.vehicleList);
+        return Objects.equals(userId, that.userId) && Objects.equals(sellerName, that.sellerName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userId, sellerName, vehicleList);
+        return Objects.hash(userId, sellerName);
     }
 }
