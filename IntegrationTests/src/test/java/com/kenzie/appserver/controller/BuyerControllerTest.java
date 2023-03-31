@@ -48,7 +48,7 @@ public class BuyerControllerTest {
         Buyer persistedExample = buyerService.addNewBuyer(buyer);
         mvc.perform(get("/buyer/{id}", persistedExample.getUserId())
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("id")
+                .andExpect(jsonPath("buyerId")
                         .value(is(id)))
                 .andExpect(jsonPath("name")
                         .value(is(name)))
@@ -86,7 +86,7 @@ public class BuyerControllerTest {
     @Test
     public void makeABid_PutSuccessful() throws Exception {
         // GIVEN
-        String id = "userId";
+        String id = randomUUID().toString();
         String name = mockNeat.strings().valStr();
         String date = LocalDate.now().toString();
         List<Bid> bidList = new ArrayList<>();
@@ -99,12 +99,14 @@ public class BuyerControllerTest {
         Bid newBid = new Bid();
         newBid.setVehicleId(UUID.randomUUID().toString());
         newBid.setBidPrice(100.0);
+        newBid.setDateOfBid(date);
         newBidList.add(newBid);
 
         BidCreateRequest bidCreateRequest = new BidCreateRequest();
         bidCreateRequest.setBuyerId(id);
-        bidCreateRequest.setBuyerName(name);;
-        bidCreateRequest.setBidList(newBidList);
+        bidCreateRequest.setBuyerName(name);
+        bidCreateRequest.setVehicleId("1234");
+        bidCreateRequest.setBidPrice(50.0);
 
         mapper.registerModule(new JavaTimeModule());
 

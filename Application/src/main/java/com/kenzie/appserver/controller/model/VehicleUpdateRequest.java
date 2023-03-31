@@ -49,7 +49,6 @@ public class VehicleUpdateRequest {
     public String getVehicleId() {return this.vehicleId; }
 
     public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
-
     public String getPrice() {return this.price; }
 
     public void setPrice(String price) {this.price = price; }

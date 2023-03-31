@@ -32,6 +32,7 @@ public class SellerController {
     @PostMapping
     public ResponseEntity<SellerResponse> addNewSeller(@RequestBody SellerCreateRequest sellerCreateRequest) {
         Seller seller = new Seller(sellerCreateRequest.getUserId(), sellerCreateRequest.getSellerName());
+
         sellerService.addNewSeller(seller);
         SellerResponse sellerResponse = createSellerResponse(seller);
         return ResponseEntity.created(URI.create("/createAccount/" + sellerResponse.getUserId())).body(sellerResponse);

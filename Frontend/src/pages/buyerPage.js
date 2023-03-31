@@ -22,18 +22,19 @@ class BuyerPage extends BaseClass {
         document.getElementById('find-all-bids-form').addEventListener('submit', this.onGetBids);
         this.client = new BuyerClient();
 
-        //.dataStore.addChangeListener(this.renderBuyerId)
-       // await this.client.createBuyer();
+        this.dataStore.addChangeListener(this.renderBuyerId)
+        await this.client.createBuyer();
+
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
     async renderBuyerId() {
-        let resultArea = document.getElementById("buyer-id-display");
+        let resultArea = document.getElementById("result-info");
 
         let buyer = this.dataStore.get("createdBuyer");
 
-        let html = "<li><h3>${buyer.buyerId}</h3>";
+        let html = "<ul><h1><li><h>${buyer.userId}</h></li></ul>";
 
         if (buyer) {
 
@@ -44,6 +45,7 @@ class BuyerPage extends BaseClass {
         }
     }
 
+
     // Event Handlers --------------------------------------------------------------------------------------------------
     async onCreateBuyer(event) {
         // Prevent the page from refreshing on form submit
@@ -51,11 +53,14 @@ class BuyerPage extends BaseClass {
 
         let buyerName = document.getElementById("create-buyer-name").value;
 
-        const createdBuyer = await this.client.createBuyer(buyerName, this.errorHandler);
-        this.dataStore.set("createdBuyer", createdBuyer);
+        let createdBuyer = await this.client.createBuyer(buyerName, this.errorHandler);
+        let resultArea = document.getElementById("result-info");
+
+        let html = `<ul><h4><li><h4>${createdBuyer.userId}</h4></li></ul>`;
 
         if (createdBuyer) {
-            this.showMessage(`Created ${createdBuyer.buyerId}!`)
+            resultArea.innerHTML = html;
+            this.showMessage(`Create successful!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
         }
@@ -65,18 +70,16 @@ class BuyerPage extends BaseClass {
     async onCreateBid(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-        this.dataStore.set("example", null);
 
         let buyerId = document.getElementById("create-bid-buyerId").value;
         let buyerName = document.getElementById("create-bid-buyerName").value;
         let vehicleId = document.getElementById("create-bid-vehicleId").value;
         let bidPrice = document.getElementById("create-bid-bidPrice").value;
 
-        const createdExample = await this.client.createExample(name, this.errorHandler);
-        this.dataStore.set("example", createdExample);
+        const createdBid = await this.client.createBid(buyerId, buyerName, vehicleId, bidPrice, this.errorHandler);
 
-        if (createdExample) {
-            this.showMessage(`Created ${createdExample.name}!`)
+        if (createdBid) {
+            this.showMessage(`Bid placed!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
         }

@@ -42,11 +42,11 @@ public class BuyerService {
 
     public void makeABid(String buyerId, Bid bid){
 
-        if (buyerRepository.existsById(buyerId)) {
+        Buyer buyerFromRepo = findBuyerById(buyerId);
+        List<Bid> bidList = buyerFromRepo.getBidList();
+        bidList.add(bid);
 
-            Buyer buyerFromRepo = findBuyerById(buyerId);
-            List<Bid> bidList = buyerFromRepo.getBidList();
-            bidList.add(bid);
+        if (buyerRepository.existsById(buyerId)) {
 
             BuyerRecord buyerRecord = new BuyerRecord();
             buyerRecord.setId(buyerFromRepo.getUserId());
