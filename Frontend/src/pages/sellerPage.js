@@ -9,7 +9,7 @@ class SellerPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGet', 'onCreate', 'renderExample'], this);
+        this.bindClassMethods(['onGetSeller', 'renderSeller'], this);
         this.dataStore = new DataStore();
     }
 
@@ -17,64 +17,47 @@ class SellerPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('get-by-id-form').addEventListener('submit', this.onGet);
-        document.getElementById('create-form').addEventListener('submit', this.onCreate);
+        document.getElementById('seller-account-lookup-form').addEventListener('submit', this.onGetSeller);
         this.client = new SellerClient();
-
-        this.dataStore.addChangeListener(this.renderExample)
+        this.dataStore.addChangeListener(this.renderSeller)
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderExample() {
-        let resultArea = document.getElementById("result-info");
+    async renderSeller() {
+        let resultArea = document.getElementById("seller-account-result-info");
 
-        const example = this.dataStore.get("example");
+        const createdSeller = this.dataStore.get("createdSeller");
 
-        if (example) {
+        if (createdSeller) {
             resultArea.innerHTML = `
-                <div>ID: ${example.id}</div>
-                <div>Name: ${example.name}</div>
+                <div>Account Name: ${createdSeller.sellerName}</div>
+                <div>Account Email: ${createdSeller.userId}</div>
+                <div>Account Type: Seller </div>
             `
         } else {
-            resultArea.innerHTML = "No Item";
+            resultArea.innerHTML = "No Account Exists";
         }
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
-    async onGet(event) {
+    async onGetSeller(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
-        let id = document.getElementById("id-field").value;
-        this.dataStore.set("example", null);
+        let id = document.getElementById("sellerEmail").value;
+        this.dataStore.set("createdSeller", null);
+        let result = await this.client.getSeller(id, this.errorHandler);
 
-        let result = await this.client.getExample(id, this.errorHandler);
-        this.dataStore.set("example", result);
+        this.dataStore.set("createdSeller", result);
         if (result) {
-            this.showMessage(`Got ${result.name}!`)
+            this.showMessage(`Account for ${result.sellerName} retrieved!`)
         } else {
             this.errorHandler("Error doing GET!  Try again...");
         }
     }
 
-    async onCreate(event) {
-        // Prevent the page from refreshing on form submit
-        event.preventDefault();
-        this.dataStore.set("example", null);
-
-        let name = document.getElementById("create-name-field").value;
-
-        const createdExample = await this.client.createExample(name, this.errorHandler);
-        this.dataStore.set("example", createdExample);
-
-        if (createdExample) {
-            this.showMessage(`Created ${createdExample.name}!`)
-        } else {
-            this.errorHandler("Error creating!  Try again...");
-        }
-    }
 }
 
 /**
