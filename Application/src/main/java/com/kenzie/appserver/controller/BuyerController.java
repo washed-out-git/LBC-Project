@@ -17,7 +17,7 @@ public class BuyerController {
 
     @PostMapping
     public ResponseEntity<BuyerResponse> addNewBuyer(@RequestBody BuyerCreateRequest buyerCreateRequest) {
-        Buyer buyer = new Buyer(buyerCreateRequest.getBuyerName());
+        Buyer buyer = new Buyer(buyerCreateRequest.getUserId(),buyerCreateRequest.getBuyerName());
 
         BuyerResponse buyerResponse = createBuyerResponse(buyerService.addNewBuyer(buyer));
 
