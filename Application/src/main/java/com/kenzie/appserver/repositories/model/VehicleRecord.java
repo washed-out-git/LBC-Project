@@ -15,7 +15,7 @@ public class VehicleRecord {
     private String vehicleId;
     private String price;
 
-    @DynamoDBHashKey(attributeName = "make")
+    @DynamoDBAttribute(attributeName = "make")
     public String getMake() {
         return make;
     }
@@ -41,7 +41,7 @@ public class VehicleRecord {
         this.year = year;
     }
 
-    @DynamoDBAttribute(attributeName = "id")
+    @DynamoDBHashKey(attributeName = "id")
     public String getVehicleId() {return this.vehicleId; }
     public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 

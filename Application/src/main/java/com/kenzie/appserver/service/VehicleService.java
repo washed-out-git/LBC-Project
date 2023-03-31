@@ -50,6 +50,7 @@ public class VehicleService {
         vehicleRecord.setYear(vehicle.getYear());
         vehicleRecord.setVehicleId(vehicle.getVehicleId());
         vehicleRecord.setPrice(vehicle.getPrice());
+        vehicleRepository.save(vehicleRecord);
         return vehicle;
     }
 
