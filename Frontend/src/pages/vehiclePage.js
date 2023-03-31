@@ -20,7 +20,6 @@ class VehiclePage extends BaseClass {
         this.client = new VehicleClient();
 
         this.dataStore.addChangeListener(this.renderVehicle)
-        //this.client.getAllVehicles(this.renderVehicle());
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -49,16 +48,12 @@ class VehiclePage extends BaseClass {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
-        let make = document.getElementById("vehicle-make").value;
-        let model = document.getElementById("vehicle-model").value;
-        let year = document.getElementById("vehicle-year").value;
-        let id = document.getElementById("vehicle-id").value;
-        let price = document.getElementById("vehicle-price").value;
-        this.dataStore.set("vehicle", null);
 
-        let result = await this.client.getVehicle(make, model,
-            year, id, price, this.errorHandler);
+        let id = document.getElementById("vehicle-id").value;
+
+        let result = await this.client.getVehicle(id, this.errorHandler);
         this.dataStore.set("vehicle", result);
+
         if (result) {
             this.showMessage(`Got ${result.id}!`)
         } else {
@@ -72,11 +67,12 @@ class VehiclePage extends BaseClass {
         this.dataStore.set("vehicle", null);
 
         let make = document.getElementById("vehicle-make").value;
+        let id = document.getElementById("vehicle-id").value;
         let model = document.getElementById("vehicle-model").value;
         let year = document.getElementById("vehicle-year").value;
-        let id = document.getElementById("vehicle-id").value;
         let price = document.getElementById("vehicle-price").value;
-        const createdVehicle = await this.client.createVehicle(make, model, year, id, price, this.errorHandler);
+
+        const createdVehicle = await this.client.createVehicle(make, id, model, year, price, this.errorHandler);
         this.dataStore.set("vehicle", createdVehicle);
 
         if (createdVehicle) {
