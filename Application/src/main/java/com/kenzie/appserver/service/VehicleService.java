@@ -48,7 +48,7 @@ public class VehicleService {
         vehicleRecord.setMake(vehicle.getMake());
         vehicleRecord.setModel(vehicle.getModel());
         vehicleRecord.setYear(vehicle.getYear());
-        vehicleRecord.setVehicleId(UUID.randomUUID().toString());
+        vehicleRecord.setVehicleId(vehicle.getVehicleId());
         vehicleRecord.setPrice(vehicle.getPrice());
         return vehicle;
     }
