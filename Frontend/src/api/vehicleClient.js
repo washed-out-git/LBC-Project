@@ -38,7 +38,7 @@ export default class VehicleClient extends BaseClass {
      */
     async getVehicle(id, errorCallback) {
         try {
-            const response = await this.client.get(`vehicle/${id}`);
+            const response = await this.client.get(`/vehicle/${id}`);
             return response.data;
         } catch (error) {
             this.handleError("getVehicle", error, errorCallback)
@@ -48,11 +48,10 @@ export default class VehicleClient extends BaseClass {
     async createVehicle(make, model, year, available, id, price, errorCallback) {
         try {
             console.log("createVehicle")
-            const response = await this.client.post(`vehicle`, {
+            const response = await this.client.post(`/vehicle`, {
                 make: make,
                 model: model,
                 year: year,
-                available: available,
                 id: id,
                 price: price
             });
@@ -65,7 +64,7 @@ export default class VehicleClient extends BaseClass {
 
     async getAllVehicles(errorCallback) {
         try {
-            const response = await this.client.get(`vehicle/all`);
+            const response = await this.client.get(`/vehicle/all`);
             return response.data;
         } catch (error) {
             this.handleError("getVehicles", error, errorCallback)

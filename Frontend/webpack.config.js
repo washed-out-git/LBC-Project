@@ -10,7 +10,7 @@ module.exports = {
   entry: {
     examplePage: path.resolve(__dirname, 'src', 'pages', 'examplePage.js'),
     landingPage: path.resolve(__dirname, 'src', 'pages', 'landingPage.js'),
-    createAccount: path.resolve(__dirname, 'src', 'pages', 'createAccount.js'),
+    createAccountPage: path.resolve(__dirname, 'src', 'pages', 'createAccount.js'),
     buyerPage: path.resolve(__dirname, 'src', 'pages', 'buyerPage.js'),
     sellerPage: path.resolve(__dirname, 'src', 'pages', 'sellerPage.js'),
     vehiclePage: path.resolve(__dirname, 'src', 'pages', 'vehiclePage.js')

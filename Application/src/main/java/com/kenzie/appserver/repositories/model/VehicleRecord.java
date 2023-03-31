@@ -11,10 +11,9 @@ public class VehicleRecord {
 
     private String make;
     private String model;
-    private int year;
-    private boolean isAvailable;
+    private String year;
     private String vehicleId;
-    private int price;
+    private String price;
 
     @DynamoDBHashKey(attributeName = "make")
     public String getMake() {
@@ -34,40 +33,33 @@ public class VehicleRecord {
         this.model = model;
     }
     @DynamoDBAttribute(attributeName = "year")
-    public int getYear() {
+    public String getYear() {
         return year;
     }
 
-    public void setYear(int year) {
+    public void setYear(String year) {
         this.year = year;
     }
-    @DynamoDBAttribute(attributeName = "available")
-    public boolean isAvailable() {
-        return isAvailable;
-    }
 
-    public void setAvailable(boolean available) {
-        isAvailable = available;
-    }
-    @DynamoDBAttribute
+    @DynamoDBAttribute(attributeName = "id")
     public String getVehicleId() {return this.vehicleId; }
     public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
-    @DynamoDBAttribute
-    public int getPrice() {return this.price; }
+    @DynamoDBAttribute(attributeName = "price")
+    public String getPrice() {return this.price; }
 
-    public void setPrice(int price) {this.price = price; }
+    public void setPrice(String price) {this.price = price; }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VehicleRecord that = (VehicleRecord) o;
-        return year == that.year && isAvailable == that.isAvailable && price == that.price && Objects.equals(make, that.make) && Objects.equals(model, that.model) && Objects.equals(vehicleId, that.vehicleId);
+        return Objects.equals(make, that.make) && Objects.equals(model, that.model) && Objects.equals(year, that.year) && Objects.equals(vehicleId, that.vehicleId) && Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(make, model, year, isAvailable, vehicleId, price);
+        return Objects.hash(make, model, year, vehicleId, price);
     }
 }
