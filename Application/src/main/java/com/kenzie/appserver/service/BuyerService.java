@@ -18,12 +18,10 @@ public class BuyerService {
         this.buyerRepository = buyerRepository;
     }
 
-
     public Buyer addNewBuyer(Buyer buyer) {
         BuyerRecord buyerRecord = new BuyerRecord();
         buyerRecord.setId(buyer.getUserId());
         buyerRecord.setBuyerName(buyer.getBuyerName());
-        buyerRecord.setBidList(buyer.getBidList());
         buyerRepository.save(buyerRecord);
         return buyer;
     }
@@ -33,36 +31,10 @@ public class BuyerService {
         Buyer buyerFromBackendService = buyerRepository
                 .findById(buyerId)
                 .map(buyer -> new Buyer(buyer.getId(),
-                        buyer.getBuyerName(),
-                        buyer.getBidList()))
+                        buyer.getBuyerName()))
                 .orElse(null);
         return buyerFromBackendService;
     }
 
-
-    public void makeABid(String buyerId, Bid bid){
-
-        Buyer buyerFromRepo = findBuyerById(buyerId);
-        List<Bid> bidList = buyerFromRepo.getBidList();
-        bidList.add(bid);
-
-        if (buyerRepository.existsById(buyerId)) {
-
-            BuyerRecord buyerRecord = new BuyerRecord();
-            buyerRecord.setId(buyerFromRepo.getUserId());
-            buyerRecord.setBuyerName(buyerFromRepo.getBuyerName());
-            buyerRecord.setBidList(bidList);
-            buyerRepository.save(buyerRecord);
-        }
-    }
-
-    public List<Vehicle> getListofCars(){
-        return new ArrayList<>();
-    }
-
-    public List<Bid> findAllBids(String buyerId){
-        Buyer buyer = findBuyerById(buyerId);
-        return buyer.getBidList();
-    }
 
 }

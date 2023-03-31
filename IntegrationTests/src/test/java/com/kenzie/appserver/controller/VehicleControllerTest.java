@@ -42,6 +42,7 @@ public class VehicleControllerTest {
         String price = mockNeat.strings().valStr();
 
         Vehicle vehicle = new Vehicle(make, model, year, vehicleId, price);
+
         Vehicle persistedVehicle = vehicleService.addNewVehicle(vehicle);
         mvc.perform(get("/vehicles/{make}", persistedVehicle.getMake())
                         .accept(MediaType.APPLICATION_JSON))

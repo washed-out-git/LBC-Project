@@ -7,8 +7,12 @@ import javax.validation.constraints.NotEmpty;
 public class BidResponse {
 
     @NotEmpty
-    @JsonProperty("bidId")
-    private String bidId;
+    @JsonProperty("buyerId")
+    private String buyerId;
+
+    @NotEmpty
+    @JsonProperty("buyerName")
+    private String buyerName;
 
     @NotEmpty
     @JsonProperty("vehicleId")
@@ -16,11 +20,7 @@ public class BidResponse {
 
     @NotEmpty
     @JsonProperty("bidPrice")
-    private Double bidPrice;
-
-    public String getBidId() {
-        return bidId;
-    }
+    public double bidPrice;
 
     public String getVehicleId() {
         return vehicleId;
@@ -30,12 +30,29 @@ public class BidResponse {
         this.vehicleId = vehicleId;
     }
 
-    public Double getBidPrice() {
+
+    public double getBidPrice() {
         return bidPrice;
     }
 
-    public void setBidPrice(Double bidPrice) {
+    public void setBidPrice(double bidPrice) {
         this.bidPrice = bidPrice;
+    }
+
+    public String getBuyerId() {
+        return buyerId;
+    }
+
+    public void setBuyerId(String buyerId) {
+        this.buyerId = buyerId;
+    }
+
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
     }
 
 }
