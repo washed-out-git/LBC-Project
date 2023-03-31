@@ -3,6 +3,7 @@ import com.kenzie.appserver.repositories.BidRepository;
 import com.kenzie.appserver.repositories.model.BidRecord;
 import com.kenzie.appserver.service.model.Bid;
 import com.kenzie.appserver.service.model.Buyer;
+import com.kenzie.appserver.service.model.Seller;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,20 +19,44 @@ public class BidService {
     }
 
     public void makeABid(Bid bid){
-        if (bidRepository.existsById(bid.getBuyerId())) {
             BidRecord bidRecord = new BidRecord();
             bidRecord.setBuyerId(bid.getBuyerId());
+            bidRecord.setBidId(bid.getBidId());
             bidRecord.setBuyerName(bid.getBuyerName());
             bidRecord.setVehicleId(bid.getVehicleId());
             bidRecord.setBidPrice(bid.getBidPrice());
+            bidRecord.setDateOfBid(bid.getDateOfBid());
             bidRepository.save(bidRecord);
-        }
     }
 
-    public List<Bid> findAllBids(String buyerId){
-        //Buyer buyer = findBuyerById(buyerId);
-        //return buyer.getBidList();
-        return new ArrayList<>();
+    public Bid findBidByBuyerId(String buyerId) {
+        // if not cached, find the concert
+        Bid bidFromBackendService = bidRepository
+                .findById(buyerId)
+                .map(bid -> new Bid(bid.getBuyerId(),
+                        bid.getBidId(),
+                        bid.getBuyerName(),
+                        bid.getVehicleId(),
+                        bid.getBidPrice(),
+                        bid.getDateOfBid()))
+                .orElse(null);
+        // return concert
+        return bidFromBackendService;
+    }
+
+   public List<Bid> findAllBids(){
+       List<Bid> listOfBids = new ArrayList<>();
+
+       Iterable<BidRecord> bidIterator = bidRepository.findAll();
+       for(BidRecord record : bidIterator) {
+           listOfBids.add(new Bid(record.getBuyerId(),
+                   record.getBidId(),
+                   record.getBuyerName(),
+                   record.getVehicleId(),
+                   record.getBidPrice(),
+                   record.getDateOfBid()));
+       }
+       return listOfBids;
     }
 
 }

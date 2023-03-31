@@ -3,12 +3,12 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       "AttributeDefinitions":
-        - "AttributeName": "buyerId"
+        - "AttributeName": "bidId"
           "AttributeType": "S"
         - "AttributeName": "buyerName"
           "AttributeType": "S"
       "KeySchema":
-        - "AttributeName": "buyerId"
+        - "AttributeName": "bidId"
           "KeyType": "HASH"
         - AttributeName: "buyerName"
           "KeyType": "RANGE"

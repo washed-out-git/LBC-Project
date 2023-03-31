@@ -17,6 +17,16 @@ public class Bid {
         this.bidId = randomUUID().toString();
         this.dateOfBid =  LocalDate.now().toString();
     }
+
+    public Bid(String buyerId, String bidId, String buyerName, String vehicleId, Double bidPrice, String dateOfBid) {
+        this.buyerId = buyerId;
+        this.bidId = bidId;
+        this.buyerName = buyerName;
+        this.vehicleId = vehicleId;
+        this.bidPrice = bidPrice;
+        this.dateOfBid = dateOfBid;
+    }
+
     public String getBuyerName() {
         return buyerName;
     }
