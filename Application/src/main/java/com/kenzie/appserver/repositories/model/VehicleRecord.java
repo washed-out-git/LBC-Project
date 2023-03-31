@@ -55,7 +55,8 @@ public class VehicleRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VehicleRecord that = (VehicleRecord) o;
-        return Objects.equals(make, that.make) && Objects.equals(model, that.model) && Objects.equals(year, that.year) && Objects.equals(vehicleId, that.vehicleId) && Objects.equals(price, that.price);
+        return Objects.equals(make, that.make) && Objects.equals(model, that.model) && Objects.equals(year, that.year)
+                && Objects.equals(vehicleId, that.vehicleId) && Objects.equals(price, that.price);
     }
 
     @Override
