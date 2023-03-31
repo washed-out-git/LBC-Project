@@ -67,7 +67,7 @@ export default class VehicleClient extends BaseClass {
             const response = await this.client.get(`/vehicle/all`);
             return response.data;
         } catch (error) {
-            this.handleError("getVehicles", error, errorCallback)
+            this.handleError("getAllVehicles", error, errorCallback)
         }
     }
 

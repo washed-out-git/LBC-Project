@@ -56,7 +56,7 @@ class VehiclePage extends BaseClass {
         let price = document.getElementById("vehicle-price").value;
         this.dataStore.set("vehicle", null);
 
-        let result = await (await this.client.getAllVehicles())(make, model,
+        let result = await this.client.getVehicle(make, model,
             year, id, price, this.errorHandler);
         this.dataStore.set("vehicle", result);
         if (result) {
@@ -93,6 +93,7 @@ class VehiclePage extends BaseClass {
 const main = async () => {
     const vehiclePage = new VehiclePage();
     await vehiclePage.mount();
+    console.log("page loaded")
 };
 
 window.addEventListener('DOMContentLoaded', main);
