@@ -7,12 +7,10 @@ public class Seller {
 
     private final String userId;
     private String sellerName;
-    public List<Vehicle> vehicleList;
 
     public Seller(String sellerEmail, String sellerName) {
         this.userId = sellerEmail;
         this.sellerName = sellerName;
-        this.vehicleList = new ArrayList<>();
     }
 
     public String getUserId() {
@@ -27,11 +25,4 @@ public class Seller {
         this.sellerName = sellerName;
     }
 
-    public List<Vehicle> getVehicleList() {
-        return vehicleList;
-    }
-
-    public void setVehicleList(List<Vehicle> vehicleList) {
-        this.vehicleList = vehicleList;
-    }
 }

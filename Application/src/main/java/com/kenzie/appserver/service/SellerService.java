@@ -19,7 +19,6 @@ public class SellerService {
         SellerRecord sellerRecord = new SellerRecord();
         sellerRecord.setUserId(seller.getUserId());
         sellerRecord.setSellerName(seller.getSellerName());
-        sellerRecord.setVehicleList(seller.getVehicleList());
         sellerRepository.save(sellerRecord);
         return seller;
     }
