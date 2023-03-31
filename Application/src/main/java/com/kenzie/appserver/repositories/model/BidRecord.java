@@ -6,7 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotEmpty;
-@DynamoDBTable(tableName = "Bid")
+@DynamoDBTable(tableName = "Bids")
 public class BidRecord {
 
     private String buyerId;

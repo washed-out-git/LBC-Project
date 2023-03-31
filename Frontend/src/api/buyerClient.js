@@ -49,7 +49,7 @@ export default class BuyerClient extends BaseClass {
 
     async createBid(buyerId, buyerName, vehicleId, bidPrice, errorCallback) {
         try {
-            const response = await this.client.put(`/buyer`, {
+            const response = await this.client.post(`/bid`, {
                 "buyerId" : buyerId,
                 "buyerName" : buyerName,
                 "vehicleId": vehicleId,

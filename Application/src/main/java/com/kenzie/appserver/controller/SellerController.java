@@ -42,7 +42,7 @@ public class SellerController {
         SellerResponse sellerResponse = new SellerResponse();
         sellerResponse.setUserId(seller.getUserId());
         sellerResponse.setSellerName(seller.getSellerName());
-        sellerResponse.setVehicleList(seller.getVehicleList());
+        //sellerResponse.setVehicleList(seller.getVehicleList());
         return sellerResponse;
     }
 }
