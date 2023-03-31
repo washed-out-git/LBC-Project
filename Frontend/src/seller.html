@@ -15,16 +15,23 @@
     </div>
 </header>
 <div class="card">
-    <h2>SellerId entry</h2>
-    <label>Seller ID</label>
-    <input type="text" required class="validated-field" id="sellerId"><br><br>
-    <button>Go</button>
+    <form class="card-content" id="seller-account-lookup-form">
+    <h2>Seller Account Look Up</h2>
+    <label>Seller Email</label>
+    <input type="text" required class="validated-field" id="sellerEmail"><br><br>
+    <button type="submit">Go</button>
+    <h3>Account Information:</h3>
+    <p id="seller-account-result-info"></p>
+    </form>
 </div>
 <div class="card">
     <h2>Create Vehicle for auction</h2>
+    <a href="vehicle.html">
     <button>Create</button>
+    </a>
 </div>
 <div class="card">
+    <form class="card-content" id="modify-vehicle-form">
     <h2>Modify Vehicle</h2>
     <label>Vehicle ID</label><br>
     <input type="text" required class="validated-field" id="vehicleId"><br><br>
@@ -39,13 +46,15 @@
     <label>Price</label><br>
     <input type="text" required class="validated-field" id="price"><br><br>
     <button>Modify</button>
+    </form>
 </div>
 <div class="card">
+    <form class="card-content" id="remove-vehicle-form">
     <h2>Remove Vehicle</h2>
     <label>Vehicle Id</label><br>
     <input type="text" required class="validated-field" id="vehicleId-to-remove"><br><br>
     <button>Remove</button>
-
+    </form>
 </div>
 <div class="card">
     <h2>List of All Seller Vehicles</h2>

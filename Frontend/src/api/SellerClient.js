@@ -13,7 +13,7 @@ export default class SellerClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getAuctions', 'createAuction', 'editAuction', 'removeAuction'];
+        const methodsToBind = ['clientLoaded', 'getSeller'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -36,48 +36,35 @@ export default class SellerClient extends BaseClass {
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
-    //TODO - Not completed - Check method & Update API mapping
-    async getAuctions(id, errorCallback) {
+    async getSeller(sellerId, errorCallback) {
         try {
-            const response = await this.client.get(`/example/${id}`);
+            const response = await this.client.get(`/createAccount/${sellerId}`);
             return response.data;
         } catch (error) {
-            this.handleError("getConcert", error, errorCallback)
+            this.handleError("getSeller", error, errorCallback)
         }
     }
-    //TODO - Not completed - Check method & Update API mapping
-    async createAuction(name, errorCallback) {
-        try {
-            const response = await this.client.post(`example`, {
-                name: name
-            });
-            return response.data;
-        } catch (error) {
-            this.handleError("createExample", error, errorCallback);
-        }
-    }
-    //TODO - Not completed - Check method & Update API mapping
-    async editAuction(name, errorCallback) {
-        try {
-            const response = await this.client.put(`example`, {
-                name: name
-            });
-            return response.data;
-        } catch (error) {
-            this.handleError("createExample", error, errorCallback);
-        }
-    }
-    //TODO - Not completed - Check method & Update API mapping
-    async removeAuction(name, errorCallback) {
-        try {
-            const response = await this.client.remove(`example`, {
-                name: name
-            });
-            return response.data;
-        } catch (error) {
-            this.handleError("createExample", error, errorCallback);
-        }
-    }
+
+    // async editAuction(name, errorCallback) {
+    //     try {
+    //         const response = await this.client.put(`example`, {
+    //             name: name
+    //         });
+    //         return response.data;
+    //     } catch (error) {
+    //         this.handleError("createExample", error, errorCallback);
+    //     }
+    // }
+    // async removeAuction(name, errorCallback) {
+    //     try {
+    //         const response = await this.client.remove(`example`, {
+    //             name: name
+    //         });
+    //         return response.data;
+    //     } catch (error) {
+    //         this.handleError("createExample", error, errorCallback);
+    //     }
+    // }
 
     /**
      * Helper method to log the error and run any error functions.
