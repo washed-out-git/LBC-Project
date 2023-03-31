@@ -47,6 +47,10 @@ class CreateAccount extends BaseClass {
         let name = document.getElementById("create-name").value;
         let email = document.getElementById("create-email").value;
         let userType = document.querySelector('input[name = "type-of-user"]:checked').value;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5c7fc10 (seller unit test class added)
         const createdUser = await this.client.createUser(name, email, this.errorHandler);
         this.dataStore.set("user", createdUser);
 

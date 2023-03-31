@@ -29,11 +29,9 @@ public class Buyer extends User {
         return userId;
     }
 
-
     public String getBuyerName() {
         return buyerName;
     }
-
 
     public List<Bid> getBidList() {
         return bidList;

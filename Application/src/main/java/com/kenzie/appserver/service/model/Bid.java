@@ -8,9 +8,22 @@ public class Bid {
 
     private String buyerId;
     private String bidId;
+    private String buyerName;
     private String vehicleId;
     private Double bidPrice;
     private String dateOfBid;
+
+    public Bid(){
+        this.bidId = randomUUID().toString();
+        this.dateOfBid =  LocalDate.now().toString();
+    }
+    public String getBuyerName() {
+        return buyerName;
+    }
+
+    public void setBuyerName(String buyerName) {
+        this.buyerName = buyerName;
+    }
 
     public String getBuyerId() {
         return buyerId;
@@ -24,11 +37,6 @@ public class Bid {
         this.bidId = bidId;
     }
 
-    public Bid(){
-        this.bidId = randomUUID().toString();
-        this.dateOfBid =  LocalDate.now().toString();
-    }
-
     public String getDateOfBid() {
         return dateOfBid;
     }
@@ -36,7 +44,6 @@ public class Bid {
     public void setDateOfBid(String dateOfBid) {
         this.dateOfBid = dateOfBid;
     }
-
 
     public String getBidId() {
         return bidId;

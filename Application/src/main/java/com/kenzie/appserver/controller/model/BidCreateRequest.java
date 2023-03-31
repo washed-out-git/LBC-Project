@@ -48,7 +48,7 @@ public class BidCreateRequest {
         return buyerId;
     }
 
-    public void setBuyerId(String userId) {
+    public void setBuyerId(String buyerId) {
         this.buyerId = buyerId;
     }
 
