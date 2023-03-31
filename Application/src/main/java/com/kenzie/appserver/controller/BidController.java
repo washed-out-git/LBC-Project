@@ -36,6 +36,17 @@ public class BidController {
         return ResponseEntity.ok(bidResponse);
     }
 
+
+   @GetMapping("/listOfBids")
+   public ResponseEntity<List<Bid>> getAllBidsByBuyer() {
+       List<Bid> bids = bidService.findAllBids();
+        //If there are no bids, then return a 204
+        if (bids == null ||  bids.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(bids);
+    }
+
     private BidResponse createBidResponse(Bid bid) {
         BidResponse bidResponse = new BidResponse();
         bidResponse.setBuyerId(bid.getBuyerId());
@@ -43,16 +54,6 @@ public class BidController {
         bidResponse.setVehicleId(bid.getVehicleId());
         bidResponse.setBidPrice(bid.getBidPrice());
         return bidResponse;
-    }
-
-    @GetMapping("/{buyerId}")
-    public ResponseEntity<List<Bid>> getAllBidsByBuyer(@PathVariable("buyerId") String buyerId) {
-        List<Bid> bids = bidService.findAllBids(buyerId);
-        // If there are no bids, then return a 204
-        if (bids == null ||  bids.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        }
-        return ResponseEntity.ok(bids);
     }
 
 

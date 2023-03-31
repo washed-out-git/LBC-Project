@@ -22,9 +22,6 @@ class BuyerPage extends BaseClass {
         document.getElementById('find-all-bids-form').addEventListener('submit', this.onGetBids);
         this.client = new BuyerClient();
 
-        this.dataStore.addChangeListener(this.renderBuyerId)
-        await this.client.createBuyer();
-
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -88,12 +85,22 @@ class BuyerPage extends BaseClass {
     async onGetBids(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
+        let resultArea = document.getElementById("bid-list");
+        let bids = await this.client.getListOfBids(this.errorHandler);
 
-        let id = document.getElementById("id-field").value;
-        this.dataStore.set("example", null);
+        let html = "<ul>";
 
-        let result = await this.client.getExample(id, this.errorHandler);
-        this.dataStore.set("example", result);
+        if (bids) {
+            for(let bid of bids){
+                html += `<li><h3>${bid.buyerId}</h3><h4>${bid.buyerName}</h4><p>${bid.vehicleId}</p><p>${bid.bidPrice}</p></li>`;
+            }
+
+            resultArea.innerHTML = html;
+
+        } else {
+            resultArea.innerHTML = "No bids";
+        }
+
         if (result) {
             this.showMessage(`Got ${result.name}!`)
         } else {

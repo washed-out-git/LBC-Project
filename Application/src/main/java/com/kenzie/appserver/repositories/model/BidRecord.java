@@ -2,6 +2,7 @@ package com.kenzie.appserver.repositories.model;
 
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
+import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
 import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -10,11 +11,15 @@ import javax.validation.constraints.NotEmpty;
 public class BidRecord {
 
     private String buyerId;
+    private String bidId;
     private String buyerName;
     private String vehicleId;
+    private String dateOfBid;
+
     public double bidPrice;
 
-    @DynamoDBHashKey(attributeName = "id")
+
+    @DynamoDBAttribute(attributeName = "id")
     public String getBuyerId() {
         return buyerId;
     }
@@ -32,6 +37,23 @@ public class BidRecord {
     @DynamoDBAttribute(attributeName = "bidPrice")
     public double getBidPrice() {
         return bidPrice;
+    }
+
+    @DynamoDBAttribute(attributeName = "dateOfBid")
+    public String getDateOfBid() {
+        return dateOfBid;
+    }
+
+    public void setDateOfBid(String dateOfBid) {
+        this.dateOfBid = dateOfBid;
+    }
+    @DynamoDBHashKey(attributeName = "bidId")
+    public String getBidId() {
+        return bidId;
+    }
+
+    public void setBidId(String bidId) {
+        this.bidId = bidId;
     }
 
     public void setVehicleId(String vehicleId) {

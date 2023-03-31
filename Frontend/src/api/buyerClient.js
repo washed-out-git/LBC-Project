@@ -61,11 +61,9 @@ export default class BuyerClient extends BaseClass {
         }
     }
 
-    //TODO - Not completed - Check method & Update API mapping
-    async getListOfBids(buyerId, errorCallback) {
+    async getListOfBids(errorCallback) {
         try {
-            const response = await this.client.get(`/buyer/${buyerId}`, {
-                buyerId: buyerId
+            const response = await this.client.get(`/bid/listOfBids`, {
             });
             return response.data;
         } catch (error) {
