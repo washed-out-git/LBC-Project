@@ -40,7 +40,8 @@ export default class CreateAccountClient extends BaseClass {
         try {
             if(userType === 'buyer') {
                 const response = await this.client.post(`/buyer`, {
-                    "buyerName": name
+                    "buyerName": name,
+                    userId: userId
                 });
                 return response.data;
             } else if(userType === 'seller') {
