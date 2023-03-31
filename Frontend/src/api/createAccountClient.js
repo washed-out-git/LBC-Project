@@ -36,14 +36,20 @@ export default class CreateAccountClient extends BaseClass {
      * @param name
      */
     //TODO - Not completed - Check method & Update API mapping
-    async createUser(name, userId, errorCallback) {
+    async createUser(name, userId, userType, errorCallback) {
         try {
-            const response = await this.client.post(`createAccount`, {
-                sellerName: name,
-                userId: userId
-            });
-
-            return response.data;
+            if(userType === 'buyer') {
+                const response = await this.client.post(`/buyer`, {
+                    "buyerName": name
+                });
+                return response.data;
+            } else if(userType === 'seller') {
+                const response = await this.client.post(`createAccount`, {
+                    sellerName: name,
+                    userId: userId
+                });
+                return response.data;
+            }
 
         } catch (error) {
             this.handleError("errorLocation createAccountClient", error, errorCallback);
