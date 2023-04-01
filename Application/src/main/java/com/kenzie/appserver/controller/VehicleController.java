@@ -3,18 +3,16 @@ package com.kenzie.appserver.controller;
 import com.amazonaws.services.dynamodbv2.xspec.L;
 import com.kenzie.appserver.controller.model.*;
 import com.kenzie.appserver.service.VehicleService;
-import com.kenzie.appserver.service.model.Example;
 import com.kenzie.appserver.service.model.Vehicle;
-import org.checkerframework.checker.units.qual.C;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static java.util.UUID.randomUUID;
+
 
 @RestController
 @RequestMapping("/vehicle")
@@ -53,8 +51,10 @@ public class VehicleController {
 
     @PostMapping
     public ResponseEntity<VehicleResponse> addNewVehicle(@RequestBody VehicleCreateRequest vehicleCreateRequest) {
-        Vehicle vehicle = new Vehicle(vehicleCreateRequest.getMake(), vehicleCreateRequest.getModel(),
-                vehicleCreateRequest.getYear(), vehicleCreateRequest.getVehicleId(),
+        Vehicle vehicle = new Vehicle(randomUUID().toString(),
+                vehicleCreateRequest.getMake(),
+                vehicleCreateRequest.getModel(),
+                vehicleCreateRequest.getYear(),
                 vehicleCreateRequest.getPrice());
         vehicleService.addNewVehicle(vehicle);
 
@@ -65,10 +65,10 @@ public class VehicleController {
 
     @PutMapping
     public ResponseEntity<VehicleResponse> updateVehicle(@RequestBody VehicleUpdateRequest vehicleUpdateRequest) {
-        Vehicle vehicle = new Vehicle(vehicleUpdateRequest.getMake(),
+        Vehicle vehicle = new Vehicle(vehicleUpdateRequest.getVehicleId(),
+                vehicleUpdateRequest.getMake(),
                 vehicleUpdateRequest.getModel(),
                 vehicleUpdateRequest.getYear(),
-                vehicleUpdateRequest.getVehicleId(),
                 vehicleUpdateRequest.getPrice());
         vehicleService.updateVehicle(vehicle);
 
@@ -77,12 +77,19 @@ public class VehicleController {
         return ResponseEntity.ok(vehicleResponse);
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteConcertById(@PathVariable("id") String id) {
+        // Your code here
+        vehicleService.deleteVehicle(id);
+        return ResponseEntity.status(204).build();
+    }
+
     private  VehicleResponse createVehicleResponse(Vehicle vehicle) {
         VehicleResponse vehicleResponse = new VehicleResponse();
+        vehicleResponse.setVehicleId(vehicle.getVehicleId());
         vehicleResponse.setMake(vehicle.getMake());
         vehicleResponse.setModel(vehicle.getModel());
         vehicleResponse.setYear(vehicle.getYear());
-        vehicleResponse.setVehicleId(vehicle.getVehicleId());
         vehicleResponse.setPrice(vehicle.getPrice());
         return vehicleResponse;
     }
