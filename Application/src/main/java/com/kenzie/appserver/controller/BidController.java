@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -31,14 +32,31 @@ public class BidController {
         bid.setBuyerName(bidCreateRequest.getBuyerName());
         bid.setVehicleId(bidCreateRequest.getVehicleId());
         bid.setBidPrice(bidCreateRequest.getBidPrice());
-        bidService.makeABid(bid);
-        BidResponse bidResponse = createBidResponse(bid);
+        Bid bidMade = bidService.makeABid(bid);
+        BidResponse bidResponse = createBidResponse(bidMade);
         return ResponseEntity.ok(bidResponse);
+    }
+
+    @GetMapping("/{buyerId}")
+    public ResponseEntity<List<BidResponse>> searchBidById(@PathVariable("buyerId") String buyerId) {
+        List<Bid> bids = bidService.findAllBidsByBuyerId(buyerId);
+        // If there are no concerts, then return a 204
+        if (bids == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        List<BidResponse> bidsByBuyer = new ArrayList<>();
+
+        for (Bid bid : bids) {
+            bidsByBuyer.add(createBidResponse(bid));
+        }
+
+        return ResponseEntity.ok(bidsByBuyer);
     }
 
 
    @GetMapping("/listOfBids")
-   public ResponseEntity<List<Bid>> getAllBidsByBuyer() {
+   public ResponseEntity<List<Bid>> getAllBids() {
        List<Bid> bids = bidService.findAllBids();
         //If there are no bids, then return a 204
         if (bids == null ||  bids.isEmpty()) {
@@ -50,6 +68,7 @@ public class BidController {
     private BidResponse createBidResponse(Bid bid) {
         BidResponse bidResponse = new BidResponse();
         bidResponse.setBuyerId(bid.getBuyerId());
+        bidResponse.setBidId(bid.getBidId());
         bidResponse.setBuyerName(bid.getBuyerName());
         bidResponse.setVehicleId(bid.getVehicleId());
         bidResponse.setBidPrice(bid.getBidPrice());

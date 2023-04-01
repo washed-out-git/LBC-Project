@@ -1,9 +1,6 @@
 package com.kenzie.appserver.repositories.model;
 
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBAttribute;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBHashKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBRangeKey;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
+import com.amazonaws.services.dynamodbv2.datamodeling.*;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotEmpty;
@@ -18,8 +15,7 @@ public class BidRecord {
 
     public double bidPrice;
 
-
-    @DynamoDBAttribute(attributeName = "id")
+    @DynamoDBHashKey(attributeName = "buyerId")
     public String getBuyerId() {
         return buyerId;
     }
@@ -47,7 +43,7 @@ public class BidRecord {
     public void setDateOfBid(String dateOfBid) {
         this.dateOfBid = dateOfBid;
     }
-    @DynamoDBHashKey(attributeName = "bidId")
+    @DynamoDBAttribute(attributeName = "bidId")
     public String getBidId() {
         return bidId;
     }
