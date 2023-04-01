@@ -9,7 +9,7 @@ class BuyerPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGetBuyer', 'onCreateBid', 'onGetBids'], this);
+        this.bindClassMethods(['onGetBuyer', 'onCreateBid', 'onGetBids', 'renderBuyerId'], this);
         this.dataStore = new DataStore();
     }
 
@@ -43,24 +43,7 @@ class BuyerPage extends BaseClass {
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
-    // async onCreateBuyer(event) {
-    //     // Prevent the page from refreshing on form submit
-    //     event.preventDefault();
-    //
-    //     let buyerName = document.getElementById("create-buyer-name").value;
-    //
-    //     let createdBuyer = await this.client.createBuyer(buyerName, this.errorHandler);
-    //     let resultArea = document.getElementById("result-info");
-    //
-    //     let html = `<ul><h4><li><h4>${createdBuyer.userId}</h4></li></ul>`;
-    //
-    //     if (createdBuyer) {
-    //         resultArea.innerHTML = html;
-    //         this.showMessage(`Create successful!`)
-    //     } else {
-    //         this.errorHandler("Error creating!  Try again...");
-    //     }
-    // }
+
     async onGetBuyer(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
