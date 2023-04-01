@@ -36,6 +36,18 @@ public class BidController {
         return ResponseEntity.ok(bidResponse);
     }
 
+    @GetMapping("/{buyerId}")
+    public ResponseEntity<BidResponse> searchBidById(@PathVariable("buyerId") String buyerId) {
+        Bid bid = bidService.findBidByBuyerId(buyerId);
+        // If there are no concerts, then return a 204
+        if (bid == null) {
+            return ResponseEntity.notFound().build();
+        }
+        // Otherwise, convert it into a ConcertResponses and return it
+        BidResponse bidResponse = createBidResponse(bid);
+        return ResponseEntity.ok(bidResponse);
+    }
+
 
    @GetMapping("/listOfBids")
    public ResponseEntity<List<Bid>> getAllBidsByBuyer() {
