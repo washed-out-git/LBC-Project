@@ -45,14 +45,15 @@ export default class VehicleClient extends BaseClass {
         }
     }
 
-    async createVehicle(make, model, year, price, errorCallback) {
+    async createVehicle(make, model, year, price, sellerId, errorCallback) {
         try {
             console.log("createVehicle")
             const response = await this.client.post(`/vehicle`, {
                 make: make,
                 model: model,
                 year: year,
-                price: price
+                price: price,
+                sellerId: sellerId
             });
             console.log(response.data)
             return response.data;
