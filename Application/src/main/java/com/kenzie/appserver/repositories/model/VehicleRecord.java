@@ -14,6 +14,7 @@ public class VehicleRecord {
     private String model;
     private String year;
     private String price;
+    private String sellerId;
 
     @DynamoDBHashKey(attributeName = "id")
     public String getVehicleId() {return this.vehicleId; }
@@ -51,16 +52,21 @@ public class VehicleRecord {
 
     public void setPrice(String price) {this.price = price; }
 
+    @DynamoDBAttribute(attributeName = "sellerId")
+    public String getSellerId() {return this.sellerId; }
+
+    public void setSellerId(String sellerId) {this.sellerId = sellerId; }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VehicleRecord that = (VehicleRecord) o;
-        return Objects.equals(vehicleId, that.vehicleId) && Objects.equals(make, that.make) && Objects.equals(model, that.model) && Objects.equals(year, that.year) && Objects.equals(price, that.price);
+        return Objects.equals(vehicleId, that.vehicleId) && Objects.equals(make, that.make) && Objects.equals(model, that.model) && Objects.equals(year, that.year) && Objects.equals(price, that.price) && Objects.equals(sellerId, that.sellerId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(vehicleId, make, model, year, price);
+        return Objects.hash(vehicleId, make, model, year, price, sellerId);
     }
 }

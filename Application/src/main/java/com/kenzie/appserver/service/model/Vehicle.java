@@ -8,13 +8,15 @@ Vehicle {
     private String year;
     private String vehicleId;
     private String price;
+    private String sellerId;
 
-    public Vehicle(String vehicleId, String make, String model, String year, String price) {
+    public Vehicle(String vehicleId, String make, String model, String year, String price, String sellerId) {
         this.make = make;
         this.model = model;
         this.year = year;
         this.vehicleId = vehicleId;
         this.price = price;
+        this.sellerId = sellerId;
     }
 
     public String getMake() {
@@ -48,5 +50,9 @@ Vehicle {
     public String getPrice() {return this.price; }
 
     public void setPrice(String price) {this.price = price; }
+
+    public String getSellerId() {return this.sellerId; }
+
+    public void setSellerId(String sellerId) {this.sellerId = sellerId; }
 
 }

@@ -3,6 +3,7 @@ package com.kenzie.appserver.controller;
 import com.amazonaws.services.dynamodbv2.xspec.L;
 import com.kenzie.appserver.controller.model.*;
 import com.kenzie.appserver.service.VehicleService;
+import com.kenzie.appserver.service.model.Seller;
 import com.kenzie.appserver.service.model.Vehicle;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import static java.util.UUID.randomUUID;
 public class VehicleController {
 
     private VehicleService vehicleService;
+    private Seller seller;
 
     VehicleController(VehicleService vehicleService) {this.vehicleService = vehicleService;}
 
@@ -55,7 +57,8 @@ public class VehicleController {
                 vehicleCreateRequest.getMake(),
                 vehicleCreateRequest.getModel(),
                 vehicleCreateRequest.getYear(),
-                vehicleCreateRequest.getPrice());
+                vehicleCreateRequest.getPrice(),
+                seller.getUserId());
         vehicleService.addNewVehicle(vehicle);
 
         VehicleResponse vehicleResponse = createVehicleResponse(vehicle);
@@ -69,7 +72,8 @@ public class VehicleController {
                 vehicleUpdateRequest.getMake(),
                 vehicleUpdateRequest.getModel(),
                 vehicleUpdateRequest.getYear(),
-                vehicleUpdateRequest.getPrice());
+                vehicleUpdateRequest.getPrice(),
+                vehicleUpdateRequest.getSellerId());
         vehicleService.updateVehicle(vehicle);
 
         VehicleResponse vehicleResponse = createVehicleResponse(vehicle);
@@ -91,6 +95,7 @@ public class VehicleController {
         vehicleResponse.setModel(vehicle.getModel());
         vehicleResponse.setYear(vehicle.getYear());
         vehicleResponse.setPrice(vehicle.getPrice());
+        vehicleResponse.setSellerId(vehicle.getSellerId());
         return vehicleResponse;
     }
 }

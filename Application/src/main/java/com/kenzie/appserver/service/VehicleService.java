@@ -24,7 +24,8 @@ public class VehicleService {
                     record.getMake(),
                     record.getModel(),
                     record.getYear(),
-                    record.getPrice()));
+                    record.getPrice(),
+                    record.getSellerId()));
         }
 
         return vehicles;
@@ -34,7 +35,7 @@ public class VehicleService {
         Vehicle exampleFromBackend = vehicleRepository
                 .findById(id)
                 .map(vehicle -> new Vehicle(vehicle.getVehicleId(), vehicle.getMake(), vehicle.getModel(), vehicle.getYear(),
-                        vehicle.getPrice()))
+                        vehicle.getPrice(), vehicle.getSellerId()))
                 .orElse(null);
 
         return exampleFromBackend;
@@ -52,6 +53,7 @@ public class VehicleService {
         vehicleRecord.setModel(vehicle.getModel());
         vehicleRecord.setYear(vehicle.getYear());
         vehicleRecord.setPrice(vehicle.getPrice());
+        vehicleRecord.setSellerId(vehicle.getSellerId());
         vehicleRepository.save(vehicleRecord);
         return vehicle;
     }
@@ -64,6 +66,7 @@ public class VehicleService {
             vehicleRecord.setModel(vehicle.getModel());
             vehicleRecord.setYear(vehicle.getYear());
             vehicleRecord.setPrice(vehicle.getPrice());
+            vehicleRecord.setSellerId(vehicle.getSellerId());
             vehicleRepository.save(vehicleRecord);
         }
     }
