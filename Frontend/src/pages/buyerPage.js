@@ -9,7 +9,7 @@ class BuyerPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onCreateBuyer', 'onCreateBid', 'onGetBids'], this);
+        this.bindClassMethods(['onGetBuyer', 'onCreateBid', 'onGetBids'], this);
         this.dataStore = new DataStore();
     }
 
@@ -17,7 +17,7 @@ class BuyerPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('create-buyer-form').addEventListener('submit', this.onCreateBuyer);
+        document.getElementById('buyer-account-lookup-form').addEventListener('submit', this.onCreateBuyer);
         document.getElementById('create-bid-form').addEventListener('submit', this.onCreateBid);
         document.getElementById('find-all-bids-form').addEventListener('submit', this.onGetBids);
         this.client = new BuyerClient();
@@ -26,27 +26,56 @@ class BuyerPage extends BaseClass {
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
+    async renderBuyerId() {
+        let resultArea = document.getElementById("buyer-account-result-info");
 
-    // Event Handlers --------------------------------------------------------------------------------------------------
-    async onCreateBuyer(event) {
-        // Prevent the page from refreshing on form submit
-        event.preventDefault();
+        let buyer = this.dataStore.get("createdBuyer");
 
-        let buyerName = document.getElementById("create-buyer-name").value;
-
-        let createdBuyer = await this.client.createBuyer(buyerName, this.errorHandler);
-        let resultArea = document.getElementById("result-info");
-
-        let html = `<ul><h4><li><h4>${createdBuyer.userId}</h4></li></ul>`;
-
-        if (createdBuyer) {
-            resultArea.innerHTML = html;
-            this.showMessage(`Create successful!`)
+        if (buyer) {
+            resultArea.innerHTML = `
+                <div>Account Name: ${buyer.buyerName}</div>
+                <div>Account Email: ${buyer.userId}</div>
+                <div>Account Type: Buyer </div>
+            `
         } else {
-            this.errorHandler("Error creating!  Try again...");
+            resultArea.innerHTML = "No Account Exists";
         }
     }
 
+    // Event Handlers --------------------------------------------------------------------------------------------------
+    // async onCreateBuyer(event) {
+    //     // Prevent the page from refreshing on form submit
+    //     event.preventDefault();
+    //
+    //     let buyerName = document.getElementById("create-buyer-name").value;
+    //
+    //     let createdBuyer = await this.client.createBuyer(buyerName, this.errorHandler);
+    //     let resultArea = document.getElementById("result-info");
+    //
+    //     let html = `<ul><h4><li><h4>${createdBuyer.userId}</h4></li></ul>`;
+    //
+    //     if (createdBuyer) {
+    //         resultArea.innerHTML = html;
+    //         this.showMessage(`Create successful!`)
+    //     } else {
+    //         this.errorHandler("Error creating!  Try again...");
+    //     }
+    // }
+    async onGetBuyer(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+
+        let id = document.getElementById("buyerEmail").value;
+        this.dataStore.set("createdBuyer", null);
+        let result = await this.client.getBuyer(id, this.errorHandler);
+
+        this.dataStore.set("createdBuyer", result);
+        if (result) {
+            this.showMessage(`Account for ${result.buyerName} retrieved!`)
+        } else {
+            this.errorHandler("Error doing GET!  Try again...");
+        }
+    }
 
     async onCreateBid(event) {
         // Prevent the page from refreshing on form submit
