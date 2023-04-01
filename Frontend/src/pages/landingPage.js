@@ -1,6 +1,6 @@
 import BaseClass from "../util/baseClass";
 import DataStore from "../util/DataStore";
-import LandingClient from "../api/landingClient";
+import VehicleClient from "../api/vehicleClient";
 
 /**
  * Logic needed for the view playlist page of the website.
@@ -9,7 +9,7 @@ class LandingPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGetVehicles', 'onCreate', 'renderVehicles'], this);
+        this.bindClassMethods(['onGet', 'renderVehicle'], this);
         this.dataStore = new DataStore();
     }
 
@@ -17,36 +17,54 @@ class LandingPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('vehicles').addEventListener('load', this.onGetVehicles);
-        this.client = new LandingClient();
-        this.client.getVehicles();
-        this.dataStore.addChangeListener(this.renderVehicles);
+        document.getElementById('list-all-vehicles').addEventListener('submit', this.onGet);
+        this.client = new VehicleClient();
+
+        this.dataStore.addChangeListener(this.renderVehicle);
+
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderVehicles() {
-        let resultArea = document.getElementById("result-info");
+    async renderVehicle() {
+        let resultArea = document.getElementById("vehicle-list");
 
         const vehicles = this.dataStore.get("vehicles");
 
         if (vehicles) {
-            resultArea.innerHTML = `
-                <div>Year: ${vehicles.year}</div>
-                <div>Make: ${vehicles.make}</div>
-                <div>Model: ${vehicles.model}</div>
-            `
+            let result = "";
+            result += "<ul>";
+
+            for (let vehicle of vehicles) {
+                result += `<li>`;
+                result += `<h3> Vehicle Id: ${vehicle.id} </h3>`;
+                result += `<h4> Year: ${vehicle.year} </h4>`;
+                result += `<p>  Make: ${vehicle.make} </p>`;
+                result += `<p>  Model: ${vehicle.model} </p>`;
+                result += `<p>  Price: ${vehicle.price} </p>`;
+                result += `</li>`;
+            }
+            result += "</ul>";
+
+            resultArea.innerHTML = result;
         } else {
-            resultArea.innerHTML = "No Vehicles";
+            resultArea.innerHTML = "No vehicles";
         }
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
-    async onGetVehicles() {
-        let result = await this.client.getVehicles();
-        console.log(result);
+    async onGet(event) {
+        event.preventDefault();
+
+        let result = await this.client.getAllVehicles(this.errorHandler);
         this.dataStore.set("vehicles", result);
+
+        if (result) {
+            this.showMessage(`Got vehicles!`)
+        } else {
+            this.errorHandler("Error doing GET!  Try again...");
+        }
     }
 }
 
@@ -55,7 +73,7 @@ class LandingPage extends BaseClass {
  */
 const main = async () => {
     const landingPage = new LandingPage();
-    landingPage.mount();
+    await landingPage.mount();
 };
 
 window.addEventListener('DOMContentLoaded', main);

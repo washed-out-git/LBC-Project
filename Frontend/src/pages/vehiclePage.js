@@ -48,7 +48,7 @@ class VehiclePage extends BaseClass {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
-        let id = document.getElementById("vehicle-id").value;
+        let id = document.getElementById("id-field").value;
         this.dataStore.set("vehicle", null);
 
         let result = await this.client.getVehicle(id, this.errorHandler);

@@ -11,28 +11,31 @@
         <a class="header_home" href="index.html">MoonStone Auctions</a>
     </div>
 </header>
-<div class="card">
+<div class="card" id="create-account-redirect">
     <h2>Welcome</h2>
     <h4>Please create an account to continue.</h4>
         <a href="createAccount.html">
             <button>Create</button>
         </a>
 </div>
-<div class="card">
+<div class="card" id="seller-redirect">
     <h2>Seller Login</h2>
     <a href="seller.html">
         <button>Login</button>
     </a>
 </div>
-<div class="card">
+<div class="card" id="buyer-redirect">
     <h2>Buyer Login</h2>
     <a href="buyer.html">
         <button>Login</button>
     </a>
 </div>
-<div class="card" id="result">
-    <h2>Vehicles for Auction:</h2>
-    <p id="result-info"></p>
+<div class="card">
+    <h2>Load All Current Vehicles for Auction</h2>
+    <form class ="card-content" id="list-all-vehicles">
+    <button>Load</button>
+        <p id="vehicle-list"></p>
+    </form>
 </div>
 </body>
 </html>
