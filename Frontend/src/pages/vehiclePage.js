@@ -35,8 +35,8 @@ class VehiclePage extends BaseClass {
                 <div>Make: ${vehicles.make}</div>
                 <div>Model: ${vehicles.model}</div>
                 <div>Year: ${vehicles.year}</div>
-               
                 <div>Price: ${vehicles.price}</div>
+                <div>SellerId: ${vehicles.sellerId}</div>
             `
         } else {
             resultArea.innerHTML = "No Item";
@@ -71,8 +71,9 @@ class VehiclePage extends BaseClass {
         let model = document.getElementById("vehicle-model").value;
         let year = document.getElementById("vehicle-year").value;
         let price = document.getElementById("vehicle-price").value;
+        let sellerId = document.getElementById("vehicle-sellerId").value;
 
-        const createdVehicle = await this.client.createVehicle(make, model, year, price, this.errorHandler);
+        const createdVehicle = await this.client.createVehicle(make, model, year, price, sellerId, this.errorHandler);
         this.dataStore.set("vehicle", createdVehicle);
 
         if (createdVehicle) {

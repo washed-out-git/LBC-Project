@@ -1,7 +1,7 @@
 package com.kenzie.appserver.controller;
 
-import com.amazonaws.services.dynamodbv2.xspec.L;
 import com.kenzie.appserver.controller.model.*;
+import com.kenzie.appserver.repositories.model.SellerRecord;
 import com.kenzie.appserver.service.VehicleService;
 import com.kenzie.appserver.service.model.Seller;
 import com.kenzie.appserver.service.model.Vehicle;
@@ -20,9 +20,8 @@ import static java.util.UUID.randomUUID;
 public class VehicleController {
 
     private VehicleService vehicleService;
-    private Seller seller;
 
-    VehicleController(VehicleService vehicleService) {this.vehicleService = vehicleService;}
+    VehicleController(VehicleService vehicleService) {this.vehicleService = vehicleService; }
 
     @GetMapping("/{id}")
     public ResponseEntity<VehicleResponse> getById(@PathVariable("id") String id) {
@@ -58,7 +57,7 @@ public class VehicleController {
                 vehicleCreateRequest.getModel(),
                 vehicleCreateRequest.getYear(),
                 vehicleCreateRequest.getPrice(),
-                seller.getUserId());
+                vehicleCreateRequest.getSellerId());
         vehicleService.addNewVehicle(vehicle);
 
         VehicleResponse vehicleResponse = createVehicleResponse(vehicle);
