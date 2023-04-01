@@ -1,15 +1,12 @@
 package com.kenzie.appserver.service;
 
 import com.kenzie.appserver.repositories.VehicleRepository;
-import com.kenzie.appserver.repositories.model.ExampleRecord;
 import com.kenzie.appserver.repositories.model.VehicleRecord;
-import com.kenzie.appserver.service.model.Example;
 import com.kenzie.appserver.service.model.Vehicle;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 @Service
 public class VehicleService {
@@ -41,6 +38,11 @@ public class VehicleService {
                 .orElse(null);
 
         return exampleFromBackend;
+    }
+
+    public void deleteVehicle(String id) {
+        // Your code here
+        vehicleRepository.deleteById(id);
     }
 
     public Vehicle addNewVehicle(Vehicle vehicle) {

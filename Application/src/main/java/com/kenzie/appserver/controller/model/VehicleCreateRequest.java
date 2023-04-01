@@ -1,16 +1,12 @@
 package com.kenzie.appserver.controller.model;
 
 import com.amazonaws.services.dynamodbv2.xspec.S;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.validation.constraints.NotEmpty;
 
 public class VehicleCreateRequest {
 
-    @NotEmpty
-    @JsonProperty("id")
-    private String vehicleId;
     @NotEmpty
     @JsonProperty("make")
     private String make;
@@ -23,10 +19,6 @@ public class VehicleCreateRequest {
     @NotEmpty
     @JsonProperty("price")
     private String price;
-
-    public String getVehicleId() {return this.vehicleId; }
-
-    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
     public String getMake() {
         return make;

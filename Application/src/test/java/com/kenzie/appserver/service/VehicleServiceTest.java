@@ -1,11 +1,7 @@
 package com.kenzie.appserver.service;
 
-import com.kenzie.appserver.repositories.BuyerRepository;
 import com.kenzie.appserver.repositories.VehicleRepository;
-import com.kenzie.appserver.repositories.model.BuyerRecord;
 import com.kenzie.appserver.repositories.model.VehicleRecord;
-import com.kenzie.appserver.service.model.Bid;
-import com.kenzie.appserver.service.model.Buyer;
 import com.kenzie.appserver.service.model.Vehicle;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -182,5 +178,36 @@ public class VehicleServiceTest {
         assertEquals(record.getModel(), vehicle.getModel(), "The vehicle model matches");
         assertEquals(record.getYear(), vehicle.getYear(), "The vehicle year matches");
         assertEquals(record.getPrice(), vehicle.getPrice(), "The vehicle price matches");
+    }
+
+    @Test
+    void deleteVehicle() {
+        //GIVEN
+        String id = randomUUID().toString();
+        String make = "Ford";
+        String model = "Mustang";
+        String year = "1969";
+        String price = "20000";
+
+        VehicleRecord record = new VehicleRecord();
+        record.setVehicleId(id);
+        record.setMake(make);
+        record.setModel(model);
+        record.setYear(year);
+        record.setPrice(price);
+
+        Vehicle vehicle = new Vehicle(record.getVehicleId(),
+                record.getMake(),
+                record.getModel(),
+                record.getYear(),
+                record.getPrice());
+
+        //WHEN
+        ArgumentCaptor<VehicleRecord> captor = ArgumentCaptor.forClass(VehicleRecord.class);
+
+        //THEN
+        vehicleService.deleteVehicle(vehicle.getVehicleId());
+        verify(vehicleRepository).deleteById(vehicle.getVehicleId());
+
     }
 }
