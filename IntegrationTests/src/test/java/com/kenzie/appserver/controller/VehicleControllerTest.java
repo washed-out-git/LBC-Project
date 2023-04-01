@@ -34,17 +34,17 @@ public class VehicleControllerTest {
     private final ObjectMapper mapper = new ObjectMapper();
 
     @Test
-    public void getByMake_Exists() throws Exception {
-        String make = "Ford";
+    public void getById_Exists() throws Exception {
+        String make = mockNeat.strings().valStr();
         String model = mockNeat.strings().valStr();
         String year = mockNeat.strings().valStr();
-        String vehicleId = mockNeat.strings().valStr();
+        String vehicleId = "1234";
         String price = mockNeat.strings().valStr();
 
         Vehicle vehicle = new Vehicle(make, model, year, vehicleId, price);
 
         Vehicle persistedVehicle = vehicleService.addNewVehicle(vehicle);
-        mvc.perform(get("/vehicles/{make}", persistedVehicle.getMake())
+        mvc.perform(get("/vehicle/{id}", persistedVehicle.getVehicleId())
                         .accept(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("make")
                         .value(is(make)))
@@ -52,27 +52,31 @@ public class VehicleControllerTest {
                         .value(is(model)))
                 .andExpect(jsonPath("year")
                         .value(is(year)))
-                .andExpect(jsonPath("vehicleId")
+                .andExpect(jsonPath("price")
+                        .value(is(vehicleId)))
+                .andExpect(jsonPath("id")
                         .value(is(vehicleId)))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void createVehicle_CreateSuccessful() throws Exception {
-        String make = "Ford";
+        String make = mockNeat.strings().valStr();
         String model = mockNeat.strings().valStr();
         String year = mockNeat.strings().valStr();
-        String vehicleId = mockNeat.strings().valStr();
+        String vehicleId = "1234";
+        String price = mockNeat.strings().valStr();
 
        VehicleCreateRequest vehicleCreateRequest = new VehicleCreateRequest();
        vehicleCreateRequest.setMake(make);
        vehicleCreateRequest.setModel(model);
        vehicleCreateRequest.setYear(year);
        vehicleCreateRequest.setVehicleId(vehicleId);
+       vehicleCreateRequest.setPrice(price);
 
         mapper.registerModule(new JavaTimeModule());
 
-        mvc.perform(post("/vehicles")
+        mvc.perform(post("/vehicle")
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(vehicleCreateRequest)))
@@ -82,7 +86,9 @@ public class VehicleControllerTest {
                         .value(is(model)))
                 .andExpect(jsonPath("year")
                         .value(is(year)))
-                .andExpect(jsonPath("vehicleId")
+                .andExpect(jsonPath("price")
+                        .value(is(vehicleId)))
+                .andExpect(jsonPath("id")
                         .value(is(vehicleId)))
                 .andExpect(status().isCreated());
     }
