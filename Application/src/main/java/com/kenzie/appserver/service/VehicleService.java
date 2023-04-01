@@ -23,10 +23,10 @@ public class VehicleService {
 
         Iterable<VehicleRecord> vehicleRecordIterable = vehicleRepository.findAll();
         for (VehicleRecord record : vehicleRecordIterable) {
-            vehicles.add(new Vehicle(record.getMake(),
+            vehicles.add(new Vehicle(record.getVehicleId(),
+                    record.getMake(),
                     record.getModel(),
                     record.getYear(),
-                    record.getVehicleId(),
                     record.getPrice()));
         }
 
@@ -34,10 +34,10 @@ public class VehicleService {
     }
 
     public Vehicle findById(String id) {
-        Vehicle exampleFromBackend =vehicleRepository
+        Vehicle exampleFromBackend = vehicleRepository
                 .findById(id)
-                .map(vehicle -> new Vehicle(vehicle.getMake(), vehicle.getModel(), vehicle.getYear(),
-                        vehicle.getVehicleId(), vehicle.getPrice()))
+                .map(vehicle -> new Vehicle(vehicle.getVehicleId(), vehicle.getMake(), vehicle.getModel(), vehicle.getYear(),
+                        vehicle.getPrice()))
                 .orElse(null);
 
         return exampleFromBackend;
@@ -45,10 +45,10 @@ public class VehicleService {
 
     public Vehicle addNewVehicle(Vehicle vehicle) {
         VehicleRecord vehicleRecord = new VehicleRecord();
+        vehicleRecord.setVehicleId(vehicle.getVehicleId());
         vehicleRecord.setMake(vehicle.getMake());
         vehicleRecord.setModel(vehicle.getModel());
         vehicleRecord.setYear(vehicle.getYear());
-        vehicleRecord.setVehicleId(vehicle.getVehicleId());
         vehicleRecord.setPrice(vehicle.getPrice());
         vehicleRepository.save(vehicleRecord);
         return vehicle;
@@ -57,10 +57,10 @@ public class VehicleService {
     public void updateVehicle(Vehicle vehicle) {
         if (vehicleRepository.existsById(vehicle.getVehicleId())) {
             VehicleRecord vehicleRecord = new VehicleRecord();
+            vehicleRecord.setVehicleId(vehicle.getVehicleId());
             vehicleRecord.setMake(vehicle.getMake());
             vehicleRecord.setModel(vehicle.getModel());
             vehicleRecord.setYear(vehicle.getYear());
-            vehicleRecord.setVehicleId(vehicle.getVehicleId());
             vehicleRecord.setPrice(vehicle.getPrice());
             vehicleRepository.save(vehicleRecord);
         }

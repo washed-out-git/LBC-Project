@@ -53,8 +53,10 @@ public class VehicleController {
 
     @PostMapping
     public ResponseEntity<VehicleResponse> addNewVehicle(@RequestBody VehicleCreateRequest vehicleCreateRequest) {
-        Vehicle vehicle = new Vehicle(vehicleCreateRequest.getMake(), vehicleCreateRequest.getModel(),
-                vehicleCreateRequest.getYear(), vehicleCreateRequest.getVehicleId(),
+        Vehicle vehicle = new Vehicle(vehicleCreateRequest.getVehicleId(),
+                vehicleCreateRequest.getMake(),
+                vehicleCreateRequest.getModel(),
+                vehicleCreateRequest.getYear(),
                 vehicleCreateRequest.getPrice());
         vehicleService.addNewVehicle(vehicle);
 
@@ -65,10 +67,10 @@ public class VehicleController {
 
     @PutMapping
     public ResponseEntity<VehicleResponse> updateVehicle(@RequestBody VehicleUpdateRequest vehicleUpdateRequest) {
-        Vehicle vehicle = new Vehicle(vehicleUpdateRequest.getMake(),
+        Vehicle vehicle = new Vehicle(vehicleUpdateRequest.getVehicleId(),
+                vehicleUpdateRequest.getMake(),
                 vehicleUpdateRequest.getModel(),
                 vehicleUpdateRequest.getYear(),
-                vehicleUpdateRequest.getVehicleId(),
                 vehicleUpdateRequest.getPrice());
         vehicleService.updateVehicle(vehicle);
 
@@ -79,10 +81,10 @@ public class VehicleController {
 
     private  VehicleResponse createVehicleResponse(Vehicle vehicle) {
         VehicleResponse vehicleResponse = new VehicleResponse();
+        vehicleResponse.setVehicleId(vehicle.getVehicleId());
         vehicleResponse.setMake(vehicle.getMake());
         vehicleResponse.setModel(vehicle.getModel());
         vehicleResponse.setYear(vehicle.getYear());
-        vehicleResponse.setVehicleId(vehicle.getVehicleId());
         vehicleResponse.setPrice(vehicle.getPrice());
         return vehicleResponse;
     }

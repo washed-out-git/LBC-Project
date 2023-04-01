@@ -5,16 +5,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class VehicleResponse {
+
+    @JsonProperty("id")
+    private String vehicleId;
     @JsonProperty("make")
     private String make;
     @JsonProperty("model")
     private String model;
     @JsonProperty("year")
     private String year;
-    @JsonProperty("id")
-    private String vehicleId;
     @JsonProperty("price")
     private String price;
+
+    public String getVehicleId() {return this.vehicleId; }
+
+    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
     public String getMake() {
         return make;
@@ -39,10 +44,6 @@ public class VehicleResponse {
     public void setYear(String year) {
         this.year = year;
     }
-
-    public String getVehicleId() {return this.vehicleId; }
-
-    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
     public String getPrice() {return this.price; }
 

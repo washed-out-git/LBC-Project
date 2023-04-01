@@ -7,6 +7,9 @@ import javax.validation.constraints.NotEmpty;
 public class VehicleUpdateRequest {
 
     @NotEmpty
+    @JsonProperty("id")
+    private String vehicleId;
+    @NotEmpty
     @JsonProperty("make")
     private String make;
     @NotEmpty
@@ -16,11 +19,12 @@ public class VehicleUpdateRequest {
     @JsonProperty("year")
     private String year;
     @NotEmpty
-    @JsonProperty("id")
-    private String vehicleId;
-    @NotEmpty
     @JsonProperty("price")
     private String price;
+
+    public String getVehicleId() {return this.vehicleId; }
+
+    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
     public String getMake() {
         return make;
@@ -46,9 +50,6 @@ public class VehicleUpdateRequest {
         this.year = year;
     }
 
-    public String getVehicleId() {return this.vehicleId; }
-
-    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
     public String getPrice() {return this.price; }
 
     public void setPrice(String price) {this.price = price; }

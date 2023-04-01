@@ -9,11 +9,16 @@ import java.util.Objects;
 @DynamoDBTable(tableName = "Vehicles")
 public class VehicleRecord {
 
+    private String vehicleId;
     private String make;
     private String model;
     private String year;
-    private String vehicleId;
     private String price;
+
+    @DynamoDBHashKey(attributeName = "id")
+    public String getVehicleId() {return this.vehicleId; }
+
+    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
 
     @DynamoDBAttribute(attributeName = "make")
     public String getMake() {
@@ -41,10 +46,6 @@ public class VehicleRecord {
         this.year = year;
     }
 
-    @DynamoDBHashKey(attributeName = "id")
-    public String getVehicleId() {return this.vehicleId; }
-    public void setVehicleId(String vehicleId) {this.vehicleId = vehicleId; }
-
     @DynamoDBAttribute(attributeName = "price")
     public String getPrice() {return this.price; }
 
@@ -55,12 +56,11 @@ public class VehicleRecord {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VehicleRecord that = (VehicleRecord) o;
-        return Objects.equals(make, that.make) && Objects.equals(model, that.model) && Objects.equals(year, that.year)
-                && Objects.equals(vehicleId, that.vehicleId) && Objects.equals(price, that.price);
+        return Objects.equals(vehicleId, that.vehicleId) && Objects.equals(make, that.make) && Objects.equals(model, that.model) && Objects.equals(year, that.year) && Objects.equals(price, that.price);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(make, model, year, vehicleId, price);
+        return Objects.hash(vehicleId, make, model, year, price);
     }
 }

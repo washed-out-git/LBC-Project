@@ -41,11 +41,13 @@ public class VehicleControllerTest {
         String vehicleId = "1234";
         String price = mockNeat.strings().valStr();
 
-        Vehicle vehicle = new Vehicle(make, model, year, vehicleId, price);
+        Vehicle vehicle = new Vehicle(vehicleId, make, model, year, price);
 
         Vehicle persistedVehicle = vehicleService.addNewVehicle(vehicle);
         mvc.perform(get("/vehicle/{id}", persistedVehicle.getVehicleId())
                         .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("id")
+                        .value(is(vehicleId)))
                 .andExpect(jsonPath("make")
                         .value(is(make)))
                 .andExpect(jsonPath("model")
@@ -53,9 +55,7 @@ public class VehicleControllerTest {
                 .andExpect(jsonPath("year")
                         .value(is(year)))
                 .andExpect(jsonPath("price")
-                        .value(is(vehicleId)))
-                .andExpect(jsonPath("id")
-                        .value(is(vehicleId)))
+                        .value(is(price)))
                 .andExpect(status().isOk());
     }
 
@@ -80,6 +80,8 @@ public class VehicleControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(vehicleCreateRequest)))
+                .andExpect(jsonPath("id")
+                        .value(is(vehicleId)))
                 .andExpect(jsonPath("make")
                         .value(is(make)))
                 .andExpect(jsonPath("model")
@@ -87,9 +89,7 @@ public class VehicleControllerTest {
                 .andExpect(jsonPath("year")
                         .value(is(year)))
                 .andExpect(jsonPath("price")
-                        .value(is(vehicleId)))
-                .andExpect(jsonPath("id")
-                        .value(is(vehicleId)))
+                        .value(is(price)))
                 .andExpect(status().isCreated());
     }
 }

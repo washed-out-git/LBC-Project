@@ -9,7 +9,7 @@ Vehicle {
     private String vehicleId;
     private String price;
 
-    public Vehicle(String make, String model, String year, String vehicleId, String price) {
+    public Vehicle(String vehicleId, String make, String model, String year, String price) {
         this.make = make;
         this.model = model;
         this.year = year;
