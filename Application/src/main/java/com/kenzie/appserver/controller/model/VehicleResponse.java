@@ -16,6 +16,8 @@ public class VehicleResponse {
     private String year;
     @JsonProperty("price")
     private String price;
+    @JsonProperty("sellerId")
+    private String sellerId;
 
     public String getVehicleId() {return this.vehicleId; }
 
@@ -48,4 +50,8 @@ public class VehicleResponse {
     public String getPrice() {return this.price; }
 
     public void setPrice(String price) {this.price = price; }
+
+    public String getSellerId() {return this.sellerId; }
+
+    public void setSellerId(String sellerId) {this.sellerId = sellerId; }
 }
