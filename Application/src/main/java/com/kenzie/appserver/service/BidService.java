@@ -31,8 +31,6 @@ public class BidService {
     }
 
     public Bid findBidByBuyerId(String buyerId) {
-        // if not cached, find the concert
-        // return concert
         return bidRepository
                 .findById(buyerId)
                 .map(bid -> new Bid(bid.getBuyerId(),
@@ -42,24 +40,6 @@ public class BidService {
                         bid.getBidPrice(),
                         bid.getDateOfBid()))
                 .orElse(null);
-    }
-
-    public List<Bid> findAllBidsByBuyerId(String buyerId) {
-        List<BidRecord> bidRecords = bidRepository
-                .findByBuyerId(buyerId);
-
-        List<Bid> bidsByBuyerId = new ArrayList<>();
-
-        for (BidRecord bidRecord : bidRecords) {
-            bidsByBuyerId.add(new Bid(bidRecord.getBuyerId(),
-                    bidRecord.getBidId(),
-                    bidRecord.getBuyerName(),
-                    bidRecord.getVehicleId(),
-                    bidRecord.getBidPrice(),
-                    bidRecord.getDateOfBid()));
-        }
-
-        return bidsByBuyerId;
     }
 
    public List<Bid> findAllBids(){

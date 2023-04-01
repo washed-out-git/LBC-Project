@@ -61,13 +61,24 @@ export default class BuyerClient extends BaseClass {
         }
     }
 
+    async getListOfBidsByBuyerId(buyerId ,errorCallback) {
+        try {
+            const response = await this.client.get(`/bid/{buyerId}`, {
+                "buyerId" : buyerId
+            });
+            return response.data;
+        } catch (error) {
+            this.handleError("getListOfBidsByBuyerId", error, errorCallback);
+        }
+    }
+
     async getListOfBids(errorCallback) {
         try {
             const response = await this.client.get(`/bid/listOfBids`, {
             });
             return response.data;
         } catch (error) {
-            this.handleError("removeBid", error, errorCallback);
+            this.handleError("getListOfBids", error, errorCallback);
         }
     }
 
