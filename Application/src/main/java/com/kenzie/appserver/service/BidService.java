@@ -52,7 +52,7 @@ public class BidService {
 
         for (BidRecord bidRecord : bidRecords) {
             bidsByBuyerId.add(new Bid(bidRecord.getBuyerId(),
-                    bidRecord.getBidId()
+                    bidRecord.getBidId(),
                     bidRecord.getBuyerName(),
                     bidRecord.getVehicleId(),
                     bidRecord.getBidPrice(),
