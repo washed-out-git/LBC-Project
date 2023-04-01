@@ -26,22 +26,6 @@ class BuyerPage extends BaseClass {
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderBuyerId() {
-        let resultArea = document.getElementById("result-info");
-
-        let buyer = this.dataStore.get("createdBuyer");
-
-        let html = "<ul><h1><li><h>${buyer.userId}</h></li></ul>";
-
-        if (buyer) {
-
-            resultArea.innerHTML = html;
-
-        } else {
-            resultArea.innerHTML = "No buyerId entered";
-        }
-    }
-
 
     // Event Handlers --------------------------------------------------------------------------------------------------
     async onCreateBuyer(event) {
@@ -92,7 +76,10 @@ class BuyerPage extends BaseClass {
 
         if (bids) {
             for(let bid of bids){
-                html += `<li><h3>${bid.buyerId}</h3><h4>${bid.buyerName}</h4><p>${bid.vehicleId}</p><p>${bid.bidPrice}</p></li>`;
+                html += `<h3>Buyer ID: ${bid.buyerId}</h3>
+                         <h4>Name: ${bid.buyerName}</h4>
+                         <p>Vehicle ID: ${bid.vehicleId}</p>
+                         <p>Bid Price: ${bid.bidPrice}</p>`;
             }
 
             resultArea.innerHTML = html;
@@ -102,7 +89,7 @@ class BuyerPage extends BaseClass {
         }
 
         if (result) {
-            this.showMessage(`Got ${result.name}!`)
+            this.showMessage(`Success!`)
         } else {
             this.errorHandler("Error doing GET!  Try again...");
         }
