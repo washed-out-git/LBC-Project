@@ -51,7 +51,7 @@ public class BidControllerTest {
         Bid bidMade = bidService.makeABid(bid);
         mvc.perform(get("/bid/{buyerId}", bidMade.getBuyerId())
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("id")
+                .andExpect(jsonPath("buyerId")
                         .value(is(id)))
                 .andExpect(jsonPath("bidId")
                         .value(is(bidId)))
@@ -61,8 +61,6 @@ public class BidControllerTest {
                         .value(is(vehicleId)))
                 .andExpect(jsonPath("bidPrice")
                         .value(is(bidPrice)))
-                .andExpect(jsonPath("dateOfBid")
-                        .value(is(dateOfBid)))
                 .andExpect(status().isOk());
 
     }

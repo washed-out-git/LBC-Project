@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -37,20 +38,25 @@ public class BidController {
     }
 
     @GetMapping("/{buyerId}")
-    public ResponseEntity<BidResponse> searchBidById(@PathVariable("buyerId") String buyerId) {
-        Bid bid = bidService.findBidByBuyerId(buyerId);
+    public ResponseEntity<List<BidResponse>> searchBidById(@PathVariable("buyerId") String buyerId) {
+        List<Bid> bids = bidService.findAllBidsByBuyerId(buyerId);
         // If there are no concerts, then return a 204
-        if (bid == null) {
+        if (bids == null) {
             return ResponseEntity.notFound().build();
         }
-        // Otherwise, convert it into a ConcertResponses and return it
-        BidResponse bidResponse = createBidResponse(bid);
-        return ResponseEntity.ok(bidResponse);
+
+        List<BidResponse> bidsByBuyer = new ArrayList<>();
+
+        for (Bid bid : bids) {
+            bidsByBuyer.add(createBidResponse(bid));
+        }
+
+        return ResponseEntity.ok(bidsByBuyer);
     }
 
 
    @GetMapping("/listOfBids")
-   public ResponseEntity<List<Bid>> getAllBidsByBuyer() {
+   public ResponseEntity<List<Bid>> getAllBids() {
        List<Bid> bids = bidService.findAllBids();
         //If there are no bids, then return a 204
         if (bids == null ||  bids.isEmpty()) {

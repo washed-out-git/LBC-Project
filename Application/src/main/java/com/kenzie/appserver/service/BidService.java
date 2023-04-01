@@ -44,6 +44,24 @@ public class BidService {
                 .orElse(null);
     }
 
+    public List<Bid> findAllBidsByBuyerId(String buyerId) {
+        List<BidRecord> bidRecords = bidRepository
+                .findByBuyerId(buyerId);
+
+        List<Bid> bidsByBuyerId = new ArrayList<>();
+
+        for (BidRecord bidRecord : bidRecords) {
+            bidsByBuyerId.add(new Bid(bidRecord.getBuyerId(),
+                    bidRecord.getBidId()
+                    bidRecord.getBuyerName(),
+                    bidRecord.getVehicleId(),
+                    bidRecord.getBidPrice(),
+                    bidRecord.getDateOfBid()));
+        }
+
+        return bidsByBuyerId;
+    }
+
    public List<Bid> findAllBids(){
        List<Bid> listOfBids = new ArrayList<>();
 
