@@ -18,7 +18,7 @@ public class BidService {
         this.bidRepository = bidRepository;
     }
 
-    public void makeABid(Bid bid){
+    public Bid makeABid(Bid bid){
             BidRecord bidRecord = new BidRecord();
             bidRecord.setBuyerId(bid.getBuyerId());
             bidRecord.setBidId(bid.getBidId());
@@ -27,11 +27,13 @@ public class BidService {
             bidRecord.setBidPrice(bid.getBidPrice());
             bidRecord.setDateOfBid(bid.getDateOfBid());
             bidRepository.save(bidRecord);
+            return bid;
     }
 
     public Bid findBidByBuyerId(String buyerId) {
         // if not cached, find the concert
-        Bid bidFromBackendService = bidRepository
+        // return concert
+        return bidRepository
                 .findById(buyerId)
                 .map(bid -> new Bid(bid.getBuyerId(),
                         bid.getBidId(),
@@ -40,8 +42,6 @@ public class BidService {
                         bid.getBidPrice(),
                         bid.getDateOfBid()))
                 .orElse(null);
-        // return concert
-        return bidFromBackendService;
     }
 
    public List<Bid> findAllBids(){

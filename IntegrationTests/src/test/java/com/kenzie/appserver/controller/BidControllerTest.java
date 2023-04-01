@@ -8,9 +8,12 @@ import com.kenzie.appserver.service.model.Bid;
 import com.kenzie.appserver.service.model.Buyer;
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -37,18 +40,29 @@ public class BidControllerTest {
 
     @Test
     public void getById_Exists() throws Exception {
-        String id = UUID.randomUUID().toString();
+        String id = "test";
         String bidId = UUID.randomUUID().toString();
         String name = mockNeat.strings().valStr();
         String vehicleId = UUID.randomUUID().toString();
         double bidPrice = 50.0;
         String dateOfBid = LocalDate.now().toString();
 
-
         Bid bid = new Bid(id, bidId, name, vehicleId, bidPrice, dateOfBid);
-        bidService.makeABid(bid);
-        mvc.perform(get("/bid/{buyerId}", bid.getBuyerId())
+        Bid bidMade = bidService.makeABid(bid);
+        mvc.perform(get("/bid/{buyerId}", bidMade.getBuyerId())
                         .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("id")
+                        .value(is(id)))
+                .andExpect(jsonPath("bidId")
+                        .value(is(bidId)))
+                .andExpect(jsonPath("buyerName")
+                        .value(is(name)))
+                .andExpect(jsonPath("vehicleId")
+                        .value(is(vehicleId)))
+                .andExpect(jsonPath("bidPrice")
+                        .value(is(bidPrice)))
+                .andExpect(jsonPath("dateOfBid")
+                        .value(is(dateOfBid)))
                 .andExpect(status().isOk());
 
     }

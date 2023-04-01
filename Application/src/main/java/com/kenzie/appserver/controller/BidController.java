@@ -31,8 +31,8 @@ public class BidController {
         bid.setBuyerName(bidCreateRequest.getBuyerName());
         bid.setVehicleId(bidCreateRequest.getVehicleId());
         bid.setBidPrice(bidCreateRequest.getBidPrice());
-        bidService.makeABid(bid);
-        BidResponse bidResponse = createBidResponse(bid);
+        Bid bidMade = bidService.makeABid(bid);
+        BidResponse bidResponse = createBidResponse(bidMade);
         return ResponseEntity.ok(bidResponse);
     }
 
@@ -62,6 +62,7 @@ public class BidController {
     private BidResponse createBidResponse(Bid bid) {
         BidResponse bidResponse = new BidResponse();
         bidResponse.setBuyerId(bid.getBuyerId());
+        bidResponse.setBidId(bid.getBidId());
         bidResponse.setBuyerName(bid.getBuyerName());
         bidResponse.setVehicleId(bid.getVehicleId());
         bidResponse.setBidPrice(bid.getBidPrice());

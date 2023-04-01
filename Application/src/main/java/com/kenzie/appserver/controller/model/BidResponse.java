@@ -6,19 +6,18 @@ import javax.validation.constraints.NotEmpty;
 
 public class BidResponse {
 
-    @NotEmpty
     @JsonProperty("buyerId")
     private String buyerId;
 
-    @NotEmpty
+    @JsonProperty("bidId")
+    private String bidId;
+
     @JsonProperty("buyerName")
     private String buyerName;
 
-    @NotEmpty
     @JsonProperty("vehicleId")
     private String vehicleId;
 
-    @NotEmpty
     @JsonProperty("bidPrice")
     public double bidPrice;
 
@@ -55,4 +54,11 @@ public class BidResponse {
         this.buyerName = buyerName;
     }
 
+    public String getBidId() {
+        return bidId;
+    }
+
+    public void setBidId(String bidId) {
+        this.bidId = bidId;
+    }
 }
