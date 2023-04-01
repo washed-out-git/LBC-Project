@@ -13,7 +13,7 @@ export default class BuyerClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'createBid', 'createBuyer', 'getListOfBids'];
+        const methodsToBind = ['clientLoaded', 'createBid', 'getBuyer', 'getListOfBids'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -36,14 +36,12 @@ export default class BuyerClient extends BaseClass {
      * @returns The concert
      */
 
-    async createBuyer(buyerName, errorCallback) {
+    async getBuyer(buyerId, errorCallback) {
         try {
-            const response = await this.client.post(`/buyer`, {
-                "buyerName": buyerName
-            });
+            const response = await this.client.get(`/buyer/${buyerId}`);
             return response.data;
         } catch (error) {
-            this.handleError("createBuyer", error, errorCallback);
+            this.handleError("getBuyer", error, errorCallback)
         }
     }
 
