@@ -40,7 +40,6 @@ public class BuyerController {
         BuyerResponse buyerResponse = new BuyerResponse();
        buyerResponse.setUserId(buyer.getUserId());
        buyerResponse.setBuyerName(buyer.getBuyerName());
-       //buyerResponse.setBidList(buyer.getBidList());
        return buyerResponse;
     }
 

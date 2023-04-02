@@ -9,7 +9,7 @@ class BuyerPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGetBuyer', 'onCreateBid', 'onGetBids', 'renderBuyerId'], this);
+        this.bindClassMethods(['onAccountLookUp', 'onCreateBid', 'onGetBids', 'renderBuyerId', 'onGetBidsByBuyerId'], this);
         this.dataStore = new DataStore();
     }
 
@@ -17,16 +17,19 @@ class BuyerPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('buyer-account-lookup-form').addEventListener('submit', this.onGetBuyer);
+        document.getElementById('buyer-account-lookup-form').addEventListener('submit', this.onAccountLookUp);
         document.getElementById('create-bid-form').addEventListener('submit', this.onCreateBid);
         document.getElementById('find-all-bids-form').addEventListener('submit', this.onGetBids);
+        const findAllBidsByBuyerForm = document.getElementById('find-all-bids-by-buyer-form');
+        if(findAllBidsByBuyerForm){
+            findAllBidsByBuyerForm .addEventListener('submit', this.onGetBidsByBuyerId);
+        }
+
         this.client = new BuyerClient();
         this.dataStore.addChangeListener(this.renderBuyerId);
-
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
-
     async renderBuyerId() {
         let resultArea = document.getElementById("buyer-account-result-info");
 
@@ -44,22 +47,25 @@ class BuyerPage extends BaseClass {
     }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
-
-    async onGetBuyer(event) {
+    async onAccountLookUp(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
 
-        let id = document.getElementById("buyerEmail").value;
-        this.dataStore.set("createdBuyer", null);
-        let result = await this.client.getBuyer(id, this.errorHandler);
+        let buyerName = document.getElementById("buyer-email").value;
 
-        this.dataStore.set("createdBuyer", result);
-        if (result) {
-            this.showMessage(`Account for ${result.buyerName} retrieved!`)
+        let createdBuyer = await this.client.getBuyer(buyerName, this.errorHandler);
+        let resultArea = document.getElementById("buyer-account-result-info");
+
+        let html = `<ul><h4><li><h4>${createdBuyer.buyerId}</h4></li></ul>`;
+
+        if (createdBuyer) {
+            resultArea.innerHTML = html;
+            this.showMessage(`Create successful!`)
         } else {
-            this.errorHandler("Error doing GET!  Try again...");
+            this.errorHandler("Error creating!  Try again...");
         }
     }
+
 
     async onCreateBid(event) {
         // Prevent the page from refreshing on form submit
@@ -99,6 +105,36 @@ class BuyerPage extends BaseClass {
 
         } else {
             resultArea.innerHTML = "No bids";
+        }
+
+        if (result) {
+            this.showMessage(`Success!`)
+        } else {
+            this.errorHandler("Error doing GET!  Try again...");
+        }
+    }
+
+    async onGetBidsByBuyerId(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+        let buyerId = document.getElementById("get-bids-buyerId").value;
+        let printingArea = document.getElementById("bids-by-buyer-list");
+        let bids = await this.client.getListOfBidsByBuyerId(buyerId, this.errorHandler);
+
+        let html = "<ul>";
+
+        if (bids) {
+            for(let bid of bids){
+                html += `<h3>Buyer ID: ${bid.buyerId}</h3>
+                         <h4>Name: ${bid.buyerName}</h4>
+                         <p>Vehicle ID: ${bid.vehicleId}</p>
+                         <p>Bid Price: ${bid.bidPrice}</p>`;
+            }
+
+            printingArea.innerHTML = html;
+
+        } else {
+            printingArea.innerHTML = "No bids";
         }
 
         if (result) {
