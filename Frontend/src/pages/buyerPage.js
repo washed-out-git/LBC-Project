@@ -27,21 +27,6 @@ class BuyerPage extends BaseClass {
 
     // Render Methods --------------------------------------------------------------------------------------------------
 
-    async renderBuyerId() {
-        let resultArea = document.getElementById("buyer-account-result-info");
-
-        let buyer = this.dataStore.get("createdBuyer");
-
-        if (buyer) {
-            resultArea.innerHTML = `
-                <div>Account Name: ${buyer.buyerName}</div>
-                <div>Account Email: ${buyer.userId}</div>
-                <div>Account Type: Buyer </div>
-            `
-        } else {
-            resultArea.innerHTML = "No Account Exists";
-        }
-    }
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
