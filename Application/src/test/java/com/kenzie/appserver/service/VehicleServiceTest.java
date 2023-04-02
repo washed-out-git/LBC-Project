@@ -71,7 +71,6 @@ public class VehicleServiceTest {
         String price = "20000";
         String sellerId = randomUUID().toString();
 
-
         Vehicle vehicle = new Vehicle(id, make, model, year, price, sellerId);
 
         ArgumentCaptor<VehicleRecord> vehicleRecordCaptor = ArgumentCaptor.forClass(VehicleRecord.class);
@@ -169,6 +168,7 @@ public class VehicleServiceTest {
         String sellerId = randomUUID().toString();
 
         Vehicle vehicle = new Vehicle(id, make, model, year, price, sellerId);
+
         VehicleRecord record = new VehicleRecord();
         record.setVehicleId(vehicle.getVehicleId());
         record.setMake(vehicle.getMake());
