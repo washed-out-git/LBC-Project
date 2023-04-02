@@ -168,7 +168,6 @@ public class VehicleServiceTest {
         String sellerId = randomUUID().toString();
 
         Vehicle vehicle = new Vehicle(id, make, model, year, price, sellerId);
-
         VehicleRecord record = new VehicleRecord();
         record.setVehicleId(vehicle.getVehicleId());
         record.setMake(vehicle.getMake());
