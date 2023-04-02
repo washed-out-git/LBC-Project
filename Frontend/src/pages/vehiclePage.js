@@ -36,7 +36,7 @@ class VehiclePage extends BaseClass {
                 <div>Model: ${vehicles.model}</div>
                 <div>Year: ${vehicles.year}</div>
                 <div>Price: ${vehicles.price}</div>
-                <div>SellerId: ${vehicles.sellerId}</div>
+                <div>Seller Email: ${vehicles.sellerId}</div>
             `
         } else {
             resultArea.innerHTML = "No Item";
@@ -77,7 +77,7 @@ class VehiclePage extends BaseClass {
         this.dataStore.set("vehicle", createdVehicle);
 
         if (createdVehicle) {
-            this.showMessage(`Created ${createdVehicle}!`)
+            this.showMessage(`Created vehicle for auction!`)
         } else {
             this.errorHandler("Error creating!  Try again...");
         }

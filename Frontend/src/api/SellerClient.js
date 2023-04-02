@@ -31,8 +31,8 @@ export default class SellerClient extends BaseClass {
     }
 
     /**
-     * Gets the auction for the given ID.
-     * @param id Unique identifier for a concert
+     * Gets the seller for the given ID.
+     * @param id Unique identifier for a seller
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
@@ -44,27 +44,6 @@ export default class SellerClient extends BaseClass {
             this.handleError("getSeller", error, errorCallback)
         }
     }
-
-    // async editAuction(name, errorCallback) {
-    //     try {
-    //         const response = await this.client.put(`example`, {
-    //             name: name
-    //         });
-    //         return response.data;
-    //     } catch (error) {
-    //         this.handleError("createExample", error, errorCallback);
-    //     }
-    // }
-    // async removeAuction(name, errorCallback) {
-    //     try {
-    //         const response = await this.client.remove(`example`, {
-    //             name: name
-    //         });
-    //         return response.data;
-    //     } catch (error) {
-    //         this.handleError("createExample", error, errorCallback);
-    //     }
-    // }
 
     /**
      * Helper method to log the error and run any error functions.
