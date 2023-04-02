@@ -50,19 +50,17 @@ class BuyerPage extends BaseClass {
     async onAccountLookUp(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
+        this.dataStore.set("createdBuyer", null);
 
         let buyerName = document.getElementById("buyer-email").value;
 
         let createdBuyer = await this.client.getBuyer(buyerName, this.errorHandler);
-        let resultArea = document.getElementById("buyer-account-result-info");
-
-        let html = `<ul><h4><li><h4>${createdBuyer.buyerId}</h4></li></ul>`;
+        this.dataStore.set("createdBuyer", createdBuyer);
 
         if (createdBuyer) {
-            resultArea.innerHTML = html;
-            this.showMessage(`Create successful!`)
+            this.showMessage(`Account for ${createdBuyer.buyerName} retrieved!`)
         } else {
-            this.errorHandler("Error creating!  Try again...");
+            this.errorHandler("Error doing GET!  Try again...");
         }
     }
 
