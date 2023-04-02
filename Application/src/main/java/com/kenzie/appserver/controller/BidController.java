@@ -47,6 +47,16 @@ public class BidController {
         return ResponseEntity.ok(bids);
     }
 
+    @GetMapping("/all/{buyerId}")
+    public ResponseEntity<List<Bid>> getAllBidsByBuyer(@PathVariable("buyerId") String buyerId) {
+        List<Bid> bids = bidService.findAllBidsByBuyer(buyerId);
+        //If there are no bids, then return a 204
+        if (bids == null ||  bids.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.ok(bids);
+    }
+
     private BidResponse createBidResponse(Bid bid) {
         BidResponse bidResponse = new BidResponse();
         bidResponse.setBuyerId(bid.getBuyerId());

@@ -58,4 +58,32 @@ public class BidControllerTest {
                 .andExpect(status().isOk());
 
     }
+
+    @Test
+    public void getAllBidsById_Exists() throws Exception {
+        String id = "test";
+        String bidId = UUID.randomUUID().toString();
+        String name = mockNeat.strings().valStr();
+        String vehicleId = UUID.randomUUID().toString();
+        double bidPrice = 50.0;
+        String dateOfBid = LocalDate.now().toString();
+
+        Bid bid = new Bid(id, bidId, name, vehicleId, bidPrice, dateOfBid);
+        Bid bidMade = bidService.makeABid(bid);
+
+        mvc.perform(get("/all/{buyerId}", bidMade.getBuyerId())
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("buyerId")
+                        .value(is(id)))
+                .andExpect(jsonPath("bidId")
+                        .value(is(bidId)))
+                .andExpect(jsonPath("buyerName")
+                        .value(is(name)))
+                .andExpect(jsonPath("vehicleId")
+                        .value(is(vehicleId)))
+                .andExpect(jsonPath("bidPrice")
+                        .value(is(bidPrice)))
+                .andExpect(status().isOk());
+
+    }
 }

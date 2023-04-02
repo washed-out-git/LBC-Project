@@ -57,4 +57,16 @@ public class BidService {
        return listOfBids;
     }
 
+    public List<Bid> findAllBidsByBuyer(String buyerId){
+        List<Bid> allBids = findAllBids();
+        List<Bid> bidsByBuyer = new ArrayList<>();
+
+        for (Bid bid : allBids) {
+            if(bid.getBuyerId().equals(buyerId)){
+                bidsByBuyer.add(bid);
+            }
+        }
+        return bidsByBuyer;
+    }
+
 }

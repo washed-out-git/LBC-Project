@@ -39,7 +39,7 @@ export default class CreateAccountClient extends BaseClass {
         try {
             if(userType === 'Buyer') {
                 const response = await this.client.post(`/buyer`, {
-                    "buyerName": name,
+                    buyerName: name,
                     userId: userId
                 });
                 return response.data;
