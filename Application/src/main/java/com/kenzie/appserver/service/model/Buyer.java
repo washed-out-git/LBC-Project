@@ -4,7 +4,7 @@ import java.util.List;
 
 import static java.util.UUID.randomUUID;
 
-public class Buyer extends User {
+public class Buyer {
 
     private final String userId;
     private final String buyerName;
