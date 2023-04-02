@@ -17,10 +17,11 @@ class BuyerPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('buyer-account-lookup-form').addEventListener('submit', this.onCreateBuyer);
+        document.getElementById('buyer-account-lookup-form').addEventListener('submit', this.onGetBuyer);
         document.getElementById('create-bid-form').addEventListener('submit', this.onCreateBid);
         document.getElementById('find-all-bids-form').addEventListener('submit', this.onGetBids);
         this.client = new BuyerClient();
+        this.dataStore.addChangeListener(this.renderBuyerId);
 
     }
 

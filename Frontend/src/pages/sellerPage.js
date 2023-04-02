@@ -19,7 +19,7 @@ class SellerPage extends BaseClass {
     async mount() {
         document.getElementById('seller-account-lookup-form').addEventListener('submit', this.onGetSeller);
         this.client = new SellerClient();
-        this.dataStore.addChangeListener(this.renderSeller)
+        this.dataStore.addChangeListener(this.renderSeller);
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
