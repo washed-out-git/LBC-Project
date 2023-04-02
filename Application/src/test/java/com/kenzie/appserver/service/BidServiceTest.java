@@ -15,8 +15,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static java.util.UUID.randomUUID;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 public class BidServiceTest {
 
@@ -26,36 +25,39 @@ public class BidServiceTest {
     @BeforeEach
     void setup() {
         bidRepository = mock(BidRepository.class);
-        bidService = mock(BidService.class);
+        bidService = new BidService(bidRepository);
     }
 
     @Test
     void makeABid(){
-        String buyerId = randomUUID().toString();
-        List<Bid> bidList = new ArrayList<>();
+        String buyerId = "email@email.com";
+        String bidId = "bidId";
 
-        Buyer buyer = new Buyer(buyerId, "buyername", bidList);
-        BuyerRecord buyerRecord = new BuyerRecord();
-        buyerRecord.setId(buyerId);
-        buyerRecord.setBuyerName("buyername");
-        //buyerRecord.setBidList(bidList);
+        Bid bid = new Bid(buyerId,
+                bidId,
+                "TestName",
+                "1234",
+                50.0,
+                "dateOfBid");
 
-        ArgumentCaptor<BuyerRecord> buyerRecordCaptor = ArgumentCaptor.forClass(BuyerRecord.class);
-       // Buyer returnedBuyer = buyerService.addNewBuyer(buyer);
+        ArgumentCaptor<BidRecord> bidRecordCaptor = ArgumentCaptor.forClass(BidRecord.class);
 
         // WHEN
+        Bid returnedBid = bidService.makeABid(bid);
 
-        List<Bid> newBidList = new ArrayList<>();
-        Bid bid = new Bid();
-        bid.setBidPrice(100.0);
-        bid.setVehicleId(randomUUID().toString());
-        newBidList.add(bid);
+        // THEN
+        Assertions.assertNotNull(returnedBid);
 
-       //when(buyerRepository.existsById(buyerId)).thenReturn(true);
-       // when(buyerService.findBuyerById(buyerId)).thenReturn(buyer);
+        verify(bidRepository).save(bidRecordCaptor.capture());
 
+        BidRecord record = bidRecordCaptor.getValue();
 
-       // buyerService.makeABid(buyer);
+        Assertions.assertNotNull(record, "The bid record is returned");
+        Assertions.assertEquals(record.getBuyerId(), bid.getBuyerId(), "The bid id matches");
+        Assertions.assertEquals(record.getBuyerName(), bid.getBuyerName(), "The bid name matches");
+        Assertions.assertEquals(record.getVehicleId(), bid.getVehicleId(), "The vehicle ID matches");
+        Assertions.assertEquals(record.getBidPrice(), bid.getBidPrice(), "The bid price matches");
+        Assertions.assertEquals(record.getDateOfBid(), bid.getDateOfBid(), "The concert reservation closed flag matches");
     }
 
 

@@ -3,21 +3,15 @@ package com.kenzie.appserver.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.kenzie.appserver.IntegrationTest;
 import com.kenzie.appserver.service.BidService;
-import com.kenzie.appserver.service.BuyerService;
 import com.kenzie.appserver.service.model.Bid;
-import com.kenzie.appserver.service.model.Buyer;
 import net.andreinc.mockneat.MockNeat;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
 
 import static org.hamcrest.Matchers.is;

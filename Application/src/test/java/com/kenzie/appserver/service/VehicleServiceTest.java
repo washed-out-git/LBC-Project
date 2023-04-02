@@ -66,10 +66,11 @@ public class VehicleServiceTest {
         String model = "Mustang";
         String year = "1969";
         String price = "20000";
+        String sellerId = "test";
 
 
 
-        Vehicle vehicle = new Vehicle(id, make, model, year, price);
+        Vehicle vehicle = new Vehicle(id, make, model, year, price, sellerId);
 
         ArgumentCaptor<VehicleRecord> vehicleRecordCaptor = ArgumentCaptor.forClass(VehicleRecord.class);
 
@@ -156,7 +157,7 @@ public class VehicleServiceTest {
         String model = "Mustang";
         String year = "1969";
         String price = "20000";
-        Vehicle vehicle = new Vehicle(id, make, model, year, price);
+        Vehicle vehicle = new Vehicle(id, make, model, year, price, "test");
         VehicleRecord record = new VehicleRecord();
         record.setVehicleId(vehicle.getVehicleId());
         record.setMake(vehicle.getMake());
@@ -200,7 +201,8 @@ public class VehicleServiceTest {
                 record.getMake(),
                 record.getModel(),
                 record.getYear(),
-                record.getPrice());
+                record.getPrice(),
+                record.getSellerId());
 
         //WHEN
         ArgumentCaptor<VehicleRecord> captor = ArgumentCaptor.forClass(VehicleRecord.class);
