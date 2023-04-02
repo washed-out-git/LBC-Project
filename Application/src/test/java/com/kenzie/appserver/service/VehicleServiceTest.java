@@ -36,6 +36,7 @@ public class VehicleServiceTest {
         String model = "Mustang";
         String year = "1969";
         String price = "20000";
+        String sellerId= randomUUID().toString();
 
         VehicleRecord vehicleRecord = new VehicleRecord();
         vehicleRecord.setVehicleId(id);
@@ -43,6 +44,7 @@ public class VehicleServiceTest {
         vehicleRecord.setModel(model);
         vehicleRecord.setYear(year);
         vehicleRecord.setPrice(price);
+        vehicleRecord.setSellerId(sellerId);
 
         // WHEN
         when(vehicleRepository.findById(id)).thenReturn(Optional.of(vehicleRecord));
@@ -55,6 +57,7 @@ public class VehicleServiceTest {
         Assertions.assertEquals(vehicleRecord.getModel(), vehicle.getModel(), "The model matches");
         Assertions.assertEquals(vehicleRecord.getYear(), vehicle.getYear(), "The year matches");
         Assertions.assertEquals(vehicleRecord.getPrice(), vehicle.getPrice(), "The price matches");
+        Assertions.assertEquals(vehicleRecord.getSellerId(), vehicle.getSellerId(), "The sellerId matches");
     }
 
 
@@ -66,10 +69,11 @@ public class VehicleServiceTest {
         String model = "Mustang";
         String year = "1969";
         String price = "20000";
+        String sellerId = randomUUID().toString();
 
 
 
-        Vehicle vehicle = new Vehicle(id, make, model, year, price);
+        Vehicle vehicle = new Vehicle(id, make, model, year, price, sellerId);
 
         ArgumentCaptor<VehicleRecord> vehicleRecordCaptor = ArgumentCaptor.forClass(VehicleRecord.class);
 
@@ -89,6 +93,7 @@ public class VehicleServiceTest {
         Assertions.assertEquals(vehicleRecord.getModel(), vehicle.getModel(), "The model matches");
         Assertions.assertEquals(vehicleRecord.getYear(), vehicle.getYear(), "The year matches");
         Assertions.assertEquals(vehicleRecord.getPrice(), vehicle.getPrice(), "The price matches");
+        Assertions.assertEquals(vehicleRecord.getSellerId(), vehicle.getSellerId(), "The sellerId matches");
     }
 
     @Test
@@ -98,11 +103,13 @@ public class VehicleServiceTest {
         String model =  randomUUID().toString();
         String year =  randomUUID().toString();
         String price =  randomUUID().toString();
+        String sellerId = randomUUID().toString();
         String id1 = randomUUID().toString();
         String make1 = "Ford";
         String model1 = "Mustang";
         String year1 = "1969";
         String price1 = "20000";
+        String sellerId1 = randomUUID().toString();
 
         VehicleRecord vehicleRecord = new VehicleRecord();
         vehicleRecord.setVehicleId(id);
@@ -110,12 +117,14 @@ public class VehicleServiceTest {
         vehicleRecord.setModel(model);
         vehicleRecord.setYear(year);
         vehicleRecord.setPrice(price);
+        vehicleRecord.setSellerId(sellerId);
         VehicleRecord vehicleRecord1 = new VehicleRecord();
-        vehicleRecord.setVehicleId(id1);
-        vehicleRecord.setMake(make1);
-        vehicleRecord.setModel(model1);
-        vehicleRecord.setYear(year1);
-        vehicleRecord.setPrice(price1);
+        vehicleRecord1.setVehicleId(id1);
+        vehicleRecord1.setMake(make1);
+        vehicleRecord1.setModel(model1);
+        vehicleRecord1.setYear(year1);
+        vehicleRecord1.setPrice(price1);
+        vehicleRecord1.setSellerId(sellerId1);
 
         List<VehicleRecord> recordList = new ArrayList<>();
         recordList.add(vehicleRecord);
@@ -136,12 +145,14 @@ public class VehicleServiceTest {
                 assertEquals(vehicleRecord.getModel(), vehicle.getModel(), "The vehicle model matches");
                 assertEquals(vehicleRecord.getYear(), vehicle.getYear(), "The vehicle year matches");
                 assertEquals(vehicleRecord.getPrice(), vehicle.getPrice(), "The vehicle price matches");
+                assertEquals(vehicleRecord.getSellerId(), vehicle.getSellerId(), "The vehicle sellerId matches");
             } else if (vehicle.getVehicleId() == vehicleRecord1.getVehicleId()) {
                 assertEquals(vehicleRecord1.getVehicleId(), vehicle.getVehicleId(), "The vehicle id matches");
                 assertEquals(vehicleRecord1.getMake(), vehicle.getMake(), "The vehicle make matches");
                 assertEquals(vehicleRecord1.getModel(), vehicle.getModel(), "The vehicle model matches");
                 assertEquals(vehicleRecord1.getYear(), vehicle.getYear(), "The vehicle year matches");
                 assertEquals(vehicleRecord1.getPrice(), vehicle.getPrice(), "The vehicle price matches");
+                assertEquals(vehicleRecord1.getSellerId(), vehicle.getSellerId(), "The vehicle sellerId matches");
             } else {
                 Assertions.assertTrue(false, "Vehicle returned that was not in the records!");
             }
@@ -156,13 +167,16 @@ public class VehicleServiceTest {
         String model = "Mustang";
         String year = "1969";
         String price = "20000";
-        Vehicle vehicle = new Vehicle(id, make, model, year, price);
+        String sellerId = randomUUID().toString();
+
+        Vehicle vehicle = new Vehicle(id, make, model, year, price, sellerId);
         VehicleRecord record = new VehicleRecord();
         record.setVehicleId(vehicle.getVehicleId());
         record.setMake(vehicle.getMake());
         record.setModel(vehicle.getModel());
         record.setYear(vehicle.getYear());
         record.setPrice(vehicle.getPrice());
+        record.setSellerId(sellerId);
 
         //WHEN
         when(vehicleRepository.existsById(id)).thenReturn(true);
@@ -178,6 +192,7 @@ public class VehicleServiceTest {
         assertEquals(record.getModel(), vehicle.getModel(), "The vehicle model matches");
         assertEquals(record.getYear(), vehicle.getYear(), "The vehicle year matches");
         assertEquals(record.getPrice(), vehicle.getPrice(), "The vehicle price matches");
+        assertEquals(record.getSellerId(), vehicle.getSellerId(), "The vehicle sellerId matches");
     }
 
     @Test
@@ -188,6 +203,7 @@ public class VehicleServiceTest {
         String model = "Mustang";
         String year = "1969";
         String price = "20000";
+        String sellerId = randomUUID().toString();
 
         VehicleRecord record = new VehicleRecord();
         record.setVehicleId(id);
@@ -195,12 +211,14 @@ public class VehicleServiceTest {
         record.setModel(model);
         record.setYear(year);
         record.setPrice(price);
+        record.setSellerId(sellerId);
 
         Vehicle vehicle = new Vehicle(record.getVehicleId(),
                 record.getMake(),
                 record.getModel(),
                 record.getYear(),
-                record.getPrice());
+                record.getPrice(),
+                record.getSellerId());
 
         //WHEN
         ArgumentCaptor<VehicleRecord> captor = ArgumentCaptor.forClass(VehicleRecord.class);
