@@ -38,7 +38,8 @@ export default class BuyerClient extends BaseClass {
 
     async getBuyer(buyerId, errorCallback) {
         try {
-            const response = await this.client.get(`buyer/${buyerId}`);
+
+            const response = await this.client.get(`/buyer/${buyerId}`);
             return response.data;
         } catch (error) {
             this.handleError("getBuyer", error, errorCallback)
@@ -61,9 +62,7 @@ export default class BuyerClient extends BaseClass {
 
     async getListOfBidsByBuyerId(buyerId ,errorCallback) {
         try {
-            const response = await this.client.get(`/bid/all/{buyerId}`, {
-                buyerId : buyerId
-            });
+            const response = await this.client.get(`/bid/all/${buyerId}`);
             return response.data;
         } catch (error) {
             this.handleError("getListOfBidsByBuyerId", error, errorCallback);

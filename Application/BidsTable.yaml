@@ -3,14 +3,14 @@ Resources:
     Type: AWS::DynamoDB::Table
     Properties:
       "AttributeDefinitions":
-        - "AttributeName": "buyerName"
+        - "AttributeName": "bidId"
           "AttributeType": "S"
         - "AttributeName": "buyerId"
           "AttributeType": "S"
       "KeySchema":
-        - "AttributeName": "buyerId"
+        - "AttributeName": "bidId"
           "KeyType": "HASH"
-        - AttributeName: "buyerName"
+        - AttributeName: "buyerId"
           "KeyType": "RANGE"
       PointInTimeRecoverySpecification:
         PointInTimeRecoveryEnabled: false

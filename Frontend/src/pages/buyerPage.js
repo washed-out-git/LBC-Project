@@ -20,27 +20,30 @@ class BuyerPage extends BaseClass {
         document.getElementById('buyer-account-lookup-form').addEventListener('submit', this.onAccountLookUp);
         document.getElementById('create-bid-form').addEventListener('submit', this.onCreateBid);
         document.getElementById('find-all-bids-form').addEventListener('submit', this.onGetBids);
+
         const findAllBidsByBuyerForm = document.getElementById('find-all-bids-by-buyer-form');
         if(findAllBidsByBuyerForm){
             findAllBidsByBuyerForm .addEventListener('submit', this.onGetBidsByBuyerId);
         }
 
         this.client = new BuyerClient();
-        this.dataStore.addChangeListener(this.renderBuyerId);
+
+        if(this.dataStore) {
+            this.dataStore.addChangeListener(this.renderBuyerId);
+        }
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
     async renderBuyerId() {
         let resultArea = document.getElementById("buyer-account-result-info");
 
-        let buyer = this.dataStore.get("createdBuyer");
+        const buyer = this.dataStore.get("createdBuyer");
 
         if (buyer) {
             resultArea.innerHTML = `
                 <div>Account Name: ${buyer.buyerName}</div>
                 <div>Account Email: ${buyer.userId}</div>
-                <div>Account Type: Buyer </div>
-            `
+                <div>Account Type: Buyer </div>`
         } else {
             resultArea.innerHTML = "No Account Exists";
         }
@@ -52,15 +55,21 @@ class BuyerPage extends BaseClass {
         event.preventDefault();
         this.dataStore.set("createdBuyer", null);
 
-        let buyerName = document.getElementById("buyer-email").value;
+        let buyerId = document.getElementById("buyer-email").value;
 
         let createdBuyer = await this.client.getBuyer(buyerName, this.errorHandler);
         this.dataStore.set("createdBuyer", createdBuyer);
 
         if (createdBuyer) {
             this.showMessage(`Account for ${createdBuyer.buyerName} retrieved!`)
-        } else {
-            this.errorHandler("Error doing GET!  Try again...");
+            let result = await this.client.getBuyer(buyerId, this.errorHandler);
+            this.dataStore.set("createdBuyer", result);
+
+            if (result) {
+                this.showMessage(`Account for ${result.userId} retrieved!`)
+            } else {
+                this.errorHandler("Error doing GET!  Try again...");
+            }
         }
     }
 
@@ -117,12 +126,12 @@ class BuyerPage extends BaseClass {
         event.preventDefault();
         let buyerId = document.getElementById("get-bids-buyerId").value;
         let printingArea = document.getElementById("bids-by-buyer-list");
-        let bids = await this.client.getListOfBidsByBuyerId(buyerId, this.errorHandler);
+        let bidsList = await this.client.getListOfBidsByBuyerId(buyerId, this.errorHandler);
 
         let html = "<ul>";
 
-        if (bids) {
-            for(let bid of bids){
+        if (bidsList) {
+            for(let bid of bidsList){
                 html += `<h3>Buyer ID: ${bid.buyerId}</h3>
                          <h4>Name: ${bid.buyerName}</h4>
                          <p>Vehicle ID: ${bid.vehicleId}</p>
