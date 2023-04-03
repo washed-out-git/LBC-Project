@@ -17,10 +17,9 @@ class LandingPage extends BaseClass {
      * Once the page has loaded, set up the event handlers and fetch the concert list.
      */
     async mount() {
-        document.getElementById('list-all-vehicles').addEventListener('submit', this.onGet);
         this.client = new VehicleClient();
-
         this.dataStore.addChangeListener(this.renderVehicle);
+        window.onload = this.onGet();
 
     }
 
@@ -37,8 +36,8 @@ class LandingPage extends BaseClass {
 
             for (let vehicle of vehicles) {
                 result += `<li>`;
-                result += `<h3> Vehicle Id: ${vehicle.id} </h3>`;
-                result += `<h4> Year: ${vehicle.year} </h4>`;
+                result += `<h3> Vehicle ID: ${vehicle.id} </h3>`;
+                result += `<p> Year: ${vehicle.year} </p>`;
                 result += `<p>  Make: ${vehicle.make} </p>`;
                 result += `<p>  Model: ${vehicle.model} </p>`;
                 result += `<p>  Price: ${vehicle.price} </p>`;
@@ -54,16 +53,14 @@ class LandingPage extends BaseClass {
 
     // Event Handlers --------------------------------------------------------------------------------------------------
 
-    async onGet(event) {
-        event.preventDefault();
-
+    async onGet() {
         let result = await this.client.getAllVehicles(this.errorHandler);
         this.dataStore.set("vehicles", result);
 
         if (result) {
-            this.showMessage(`Got vehicles!`)
+            console.log(`Got vehicles!`)
         } else {
-            this.errorHandler("Error doing GET!  Try again...");
+            console.log("Error doing GET!  Try again...");
         }
     }
 }
@@ -77,3 +74,4 @@ const main = async () => {
 };
 
 window.addEventListener('DOMContentLoaded', main);
+
