@@ -43,3 +43,5 @@ public class SellerRecord {
         return Objects.hash(userId, sellerName);
     }
 }
+
+// credit Teresa Bowen
