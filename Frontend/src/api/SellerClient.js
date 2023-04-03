@@ -49,18 +49,15 @@ export default class SellerClient extends BaseClass {
 
     async updateVehicle (sellerId, vehicleId, make, model, year, price, errorCallback){
         try {
-            const vehicleIdResponse = await this.client.get(`/vehicle/${vehicleId}`);
-            if(vehicleIdResponse !== null) {
-                const response = await this.client.put(`/vehicle`, {
-                    id: vehicleId,
-                    make: make,
-                    model: model,
-                    year: year,
-                    price: price,
-                    sellerId: sellerId
-                });
-                return response.data;
-            }
+            const response = await this.client.put(`/vehicle`, {
+                id: vehicleId,
+                make: make,
+                model: model,
+                year: year,
+                price: price,
+                sellerId: sellerId
+            });
+            return response.data;
         } catch (error) {
             this.handleError("updateVehicle", error, errorCallback)
         }

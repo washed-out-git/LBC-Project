@@ -98,7 +98,7 @@ class SellerPage extends BaseClass {
     async onUpdateVehicle(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-        this.client = new SellerClient();
+        this.client = new VehicleClient();
 
         let sellerId = document.getElementById("sellerEmail-for-update").value;
         let vehicleId = document.getElementById("update-vehicleId").value;
@@ -107,23 +107,62 @@ class SellerPage extends BaseClass {
         let year = document.getElementById("update-year").value;
         let price = document.getElementById("update-price").value;
 
-        const updatedVehicle = await this.client.updateVehicle(sellerId, vehicleId, make, model, year, price, this.errorHandler);
+        const vehicleToUpdate = await this.client.getVehicle(vehicleId, this.errorHandler);
+        if(vehicleToUpdate.sellerId === sellerId) {
+            this.client = new SellerClient();
+            const updatedVehicle = await this.client.updateVehicle(sellerId, vehicleId, make, model, year, price, this.errorHandler);
+            if (updatedVehicle) {
+                this.showMessage(`Vehicle ${vehicleId} updated!`)
 
-        if (updatedVehicle) {
-            this.showMessage(`Vehicle ${vehicleId} updated!`)
+                let resultArea = document.getElementById("update-vehicle-result-info");
+                resultArea.innerHTML = `
+                <div>Seller Email: ${updatedVehicle.sellerId} </div>
+                <div>Vehicle ID: ${updatedVehicle.id} </div>
+                <h4>Old Listing</h4>
+                <div>Make: ${vehicleToUpdate.make} </div>
+                <div>Model: ${vehicleToUpdate.model} </div>
+                <div>Year: ${vehicleToUpdate.year} </div>
+                <div>Price: ${vehicleToUpdate.price} </div>
+                <h4>New Listing</h4>
+                <div>Make: ${updatedVehicle.make} </div>
+                <div>Model: ${updatedVehicle.model} </div>
+                <div>Year: ${updatedVehicle.year} </div>
+                <div>Price: ${updatedVehicle.price} </div>
+            `
+            } else {
+                this.errorHandler("Error updating!  Try again...");
+            }
         } else {
-            this.errorHandler("Error updating!  Try again...");
+            this.showMessage('Vehicle ID and seller email do not match')
         }
+
     }
     async onRemoveVehicle(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-        this.client = new SellerClient();
+        this.client = new VehicleClient();
 
         let sellerId = document.getElementById("sellerEmail-for-remove").value;
         let vehicleId = document.getElementById("vehicleId-to-remove").value;
 
-        await this.client.deleteVehicle(sellerId, vehicleId, this.errorHandler);
+        const vehicleToRemove = await this.client.getVehicle(vehicleId, this.errorHandler);
+         if(vehicleToRemove.sellerId === sellerId){
+             this.client = new SellerClient();
+             await this.client.deleteVehicle(sellerId, vehicleId, this.errorHandler);
+             let resultArea = document.getElementById("remove-vehicle-result-info");
+             resultArea.innerHTML = `
+                <div>Seller Email: ${vehicleToRemove.sellerId} </div>
+                <h4>Vehicle Below Has Been Removed</h4>
+                <div>Vehicle ID: ${vehicleToRemove.id} </div>
+                <div>Make: ${vehicleToRemove.make} </div>
+                <div>Model: ${vehicleToRemove.model} </div>
+                <div>Year: ${vehicleToRemove.year} </div>
+                <div>Price: ${vehicleToRemove.price} </div>
+            `
+
+         } else {
+             this.showMessage('Vehicle ID and seller email do not match')
+         }
 
     }
 
