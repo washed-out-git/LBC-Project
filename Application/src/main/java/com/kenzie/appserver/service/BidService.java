@@ -59,6 +59,11 @@ public class BidService {
 
     public List<Bid> findAllBidsByBuyer(String buyerId){
         List<Bid> allBids = findAllBids();
+
+        if(allBids == null){
+            throw new NullPointerException("error");
+        }
+
         List<Bid> bidsByBuyer = new ArrayList<>();
 
         for (Bid bid : allBids) {

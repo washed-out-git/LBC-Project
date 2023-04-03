@@ -15,7 +15,7 @@ public class BidRecord {
 
     public double bidPrice;
 
-    @DynamoDBHashKey(attributeName = "buyerId")
+    @DynamoDBIndexHashKey(globalSecondaryIndexName = "buyerId", attributeName = "buyerId")
     public String getBuyerId() {
         return buyerId;
     }
@@ -43,7 +43,7 @@ public class BidRecord {
     public void setDateOfBid(String dateOfBid) {
         this.dateOfBid = dateOfBid;
     }
-    @DynamoDBAttribute(attributeName = "bidId")
+    @DynamoDBHashKey(attributeName = "bidId")
     public String getBidId() {
         return bidId;
     }
