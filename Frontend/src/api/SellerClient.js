@@ -89,3 +89,5 @@ export default class SellerClient extends BaseClass {
         }
     }
 }
+
+// credit Teresa Bowen

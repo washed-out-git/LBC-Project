@@ -43,3 +43,4 @@ public class SellerCreateRequest {
         this.vehicleList = vehicleList;
     }
 }
+// credit Teresa Bowen
