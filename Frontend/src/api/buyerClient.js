@@ -71,8 +71,7 @@ export default class BuyerClient extends BaseClass {
 
     async getListOfBids(errorCallback) {
         try {
-            const response = await this.client.get(`/bid/listOfBids`, {
-            });
+            const response = await this.client.get(`/bid/listOfBids`);
             return response.data;
         } catch (error) {
             this.handleError("getListOfBids", error, errorCallback);

@@ -30,18 +30,6 @@ public class BidService {
             return bid;
     }
 
-    public Bid findBidByBuyerId(String buyerId) {
-        return bidRepository
-                .findById(buyerId)
-                .map(bid -> new Bid(bid.getBuyerId(),
-                        bid.getBidId(),
-                        bid.getBuyerName(),
-                        bid.getVehicleId(),
-                        bid.getBidPrice(),
-                        bid.getDateOfBid()))
-                .orElse(null);
-    }
-
    public List<Bid> findAllBids(){
        List<Bid> listOfBids = new ArrayList<>();
 

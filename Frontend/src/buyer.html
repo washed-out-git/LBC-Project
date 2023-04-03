@@ -19,7 +19,7 @@
     <form class="card-content" id="buyer-account-lookup-form">
     <label>Buyer Email</label>
     <input type="text" required class="validated-field" id="buyer-email"><br><br>
-        <button type="submit">Go</button>
+        <button type="submit">Retrieve</button>
         <h3>Account Information:</h3>
         <p id="buyer-account-result-info"></p>
     </form>
@@ -40,12 +40,12 @@
     </form>
 </div>
 <div class="card">
-    <h2>List of All Bids by Buyer Id</h2>
-    <form class="card-content" id="find-all-bids-byBuyerId-form">
-        <label>Buyer email</label><br>
+    <h2>List of All Bids by Buyer Email</h2>
+    <form class="card-content" id="bids-by-buyer-form">
+        <label>Buyer Email</label><br>
         <input type="text" required class="validated-field" id="get-bids-buyerId"><br><br>
         <button type="submit">Go</button>
-        <p id="bids-by-buyer-list"></p>
+        <p id="results-list"></p>
     </form>
 </div>
 <div class="card">
