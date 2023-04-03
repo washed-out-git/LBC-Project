@@ -42,7 +42,6 @@ public class VehicleService {
     }
 
     public void deleteVehicle(String id) {
-        // Your code here
         vehicleRepository.deleteById(id);
     }
 

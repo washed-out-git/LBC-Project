@@ -9,7 +9,7 @@ class SellerPage extends BaseClass {
 
     constructor() {
         super();
-        this.bindClassMethods(['onGetSeller', 'renderSeller'], this);
+        this.bindClassMethods(['onGetSeller', 'renderSeller', 'onUpdateVehicle', 'onRemoveVehicle'], this);
         this.dataStore = new DataStore();
     }
 
@@ -18,6 +18,8 @@ class SellerPage extends BaseClass {
      */
     async mount() {
         document.getElementById('seller-account-lookup-form').addEventListener('submit', this.onGetSeller);
+        document.getElementById('modify-vehicle-form').addEventListener('submit', this.onUpdateVehicle);
+        document.getElementById('remove-vehicle-form').addEventListener('submit', this.onRemoveVehicle);
         this.client = new SellerClient();
         this.dataStore.addChangeListener(this.renderSeller);
     }
@@ -58,6 +60,35 @@ class SellerPage extends BaseClass {
         }
     }
 
+    async onUpdateVehicle(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+
+        let sellerId = document.getElementById("sellerEmail-for-update").value;
+        let vehicleId = document.getElementById("update-vehicleId").value;
+        let make = document.getElementById("update-make").value;
+        let model = document.getElementById("update-model").value;
+        let year = document.getElementById("update-year").value;
+        let price = document.getElementById("update-price").value;
+
+        const updatedVehicle = await this.client.updateVehicle(sellerId, vehicleId, make, model, year, price, this.errorHandler);
+
+        if (updatedVehicle) {
+            this.showMessage(`Vehicle ${vehicleId} updated!`)
+        } else {
+            this.errorHandler("Error updating!  Try again...");
+        }
+    }
+    async onRemoveVehicle(event) {
+        // Prevent the page from refreshing on form submit
+        event.preventDefault();
+
+        let sellerId = document.getElementById("sellerEmail-for-remove").value;
+        let vehicleId = document.getElementById("vehicleId-to-remove").value;
+
+        await this.client.deleteVehicle(sellerId, vehicleId, this.errorHandler);
+
+    }
 }
 
 /**

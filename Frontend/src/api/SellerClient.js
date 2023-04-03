@@ -2,7 +2,7 @@ import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
 /**
- * Client to call the MusicPlaylistService.
+ * Client to call the sellerService.
  *
  * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
  * which we could avoid using inheritance or Mixins.
@@ -13,7 +13,7 @@ export default class SellerClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getSeller'];
+        const methodsToBind = ['clientLoaded', 'getSeller', 'updateVehicle', 'deleteVehicle'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -31,8 +31,8 @@ export default class SellerClient extends BaseClass {
     }
 
     /**
-     * Gets the auction for the given ID.
-     * @param id Unique identifier for a concert
+     * Gets the seller for the given ID.
+     * @param id Unique identifier for a seller
      * @param errorCallback (Optional) A function to execute if the call fails.
      * @returns The concert
      */
@@ -45,26 +45,35 @@ export default class SellerClient extends BaseClass {
         }
     }
 
-    // async editAuction(name, errorCallback) {
-    //     try {
-    //         const response = await this.client.put(`example`, {
-    //             name: name
-    //         });
-    //         return response.data;
-    //     } catch (error) {
-    //         this.handleError("createExample", error, errorCallback);
-    //     }
-    // }
-    // async removeAuction(name, errorCallback) {
-    //     try {
-    //         const response = await this.client.remove(`example`, {
-    //             name: name
-    //         });
-    //         return response.data;
-    //     } catch (error) {
-    //         this.handleError("createExample", error, errorCallback);
-    //     }
-    // }
+    async updateVehicle (sellerId, vehicleId, make, model, year, price, errorCallback){
+        try {
+            const vehicleIdResponse = await this.client.get(`/vehicle/${vehicleId}`);
+            if(vehicleIdResponse !== null) {
+                const response = await this.client.put(`/vehicle`, {
+                    id: vehicleId,
+                    make: make,
+                    model: model,
+                    year: year,
+                    price: price,
+                    sellerId: sellerId
+                });
+                return response.data;
+            }
+        } catch (error) {
+            this.handleError("updateVehicle", error, errorCallback)
+        }
+    }
+
+    async deleteVehicle (sellerId, vehicleId, errorCallback){
+        try {
+            const response = await this.client.delete(`/vehicle/${vehicleId}`);
+            if (response) {
+                this.showMessage(`Vehicle ${vehicleId} removed!`)}
+            return response.data;
+        } catch (error) {
+            this.handleError("deleteVehicle", error, errorCallback)
+        }
+    }
 
     /**
      * Helper method to log the error and run any error functions.

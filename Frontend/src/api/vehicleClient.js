@@ -47,16 +47,19 @@ export default class VehicleClient extends BaseClass {
 
     async createVehicle(make, model, year, price, sellerId, errorCallback) {
         try {
-            console.log("createVehicle")
-            const response = await this.client.post(`/vehicle`, {
-                make: make,
-                model: model,
-                year: year,
-                price: price,
-                sellerId: sellerId
-            });
-            console.log(response.data)
-            return response.data;
+            const sellerResponse = await this.client.get(`/createAccount/${sellerId}`);
+            if(sellerResponse !== null) {
+                console.log("createVehicle")
+                const response = await this.client.post(`/vehicle`, {
+                    make: make,
+                    model: model,
+                    year: year,
+                    price: price,
+                    sellerId: sellerId
+                });
+                console.log(response.data)
+                return response.data;
+            }
         } catch (error) {
             this.handleError("createVehicle", error, errorCallback);
         }
