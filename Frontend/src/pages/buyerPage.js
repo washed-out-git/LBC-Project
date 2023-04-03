@@ -126,12 +126,12 @@ class BuyerPage extends BaseClass {
         event.preventDefault();
         let buyerId = document.getElementById("get-bids-buyerId").value;
         let printingArea = document.getElementById("bids-by-buyer-list");
-        let bids = await this.client.getListOfBidsByBuyerId(buyerId, this.errorHandler);
+        let bidsList = await this.client.getListOfBidsByBuyerId(buyerId, this.errorHandler);
 
         let html = "<ul>";
 
-        if (bids) {
-            for(let bid of bids){
+        if (bidsList) {
+            for(let bid of bidsList){
                 html += `<h3>Buyer ID: ${bid.buyerId}</h3>
                          <h4>Name: ${bid.buyerName}</h4>
                          <p>Vehicle ID: ${bid.vehicleId}</p>
