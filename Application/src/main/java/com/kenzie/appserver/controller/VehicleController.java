@@ -34,6 +34,20 @@ public class VehicleController {
         VehicleResponse vehicleResponse = createVehicleResponse(vehicle);
         return ResponseEntity.ok(vehicleResponse);
     }
+
+    @GetMapping("/{id}/{sellerId}")
+    public ResponseEntity<VehicleResponse> getByVehicleAndSellerId(@PathVariable("id") String id,
+                                                                   @PathVariable("sellerId") String sellerId) {
+
+        Vehicle vehicle = vehicleService.findById(id);
+        if (vehicle == null || !vehicle.getSellerId().equals(sellerId)) {
+            return ResponseEntity.notFound().build();
+        }
+
+        VehicleResponse vehicleResponse = createVehicleResponse(vehicle);
+        return ResponseEntity.ok(vehicleResponse);
+    }
+
     @GetMapping("/all")
     public ResponseEntity<List<VehicleResponse>> getAllVehicles() {
         List<Vehicle> vehicles = vehicleService.findAllVehicles();
@@ -82,7 +96,6 @@ public class VehicleController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity deleteConcertById(@PathVariable("id") String id) {
-        // Your code here
         vehicleService.deleteVehicle(id);
         return ResponseEntity.status(204).build();
     }

@@ -2,7 +2,7 @@ import BaseClass from "../util/baseClass";
 import axios from 'axios'
 
 /**
- * Client to call the MusicPlaylistService.
+ * Client to call the sellerService.
  *
  * This could be a great place to explore Mixins. Currently the client is being loaded multiple times on each page,
  * which we could avoid using inheritance or Mixins.
@@ -13,7 +13,7 @@ export default class SellerClient extends BaseClass {
 
     constructor(props = {}){
         super();
-        const methodsToBind = ['clientLoaded', 'getSeller'];
+        const methodsToBind = ['clientLoaded', 'getSeller', 'updateVehicle', 'deleteVehicle'];
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
@@ -42,6 +42,36 @@ export default class SellerClient extends BaseClass {
             return response.data;
         } catch (error) {
             this.handleError("getSeller", error, errorCallback)
+        }
+    }
+
+    async updateVehicle (sellerId, vehicleId, make, model, year, price, errorCallback){
+        try {
+            const vehicleIdResponse = await this.client.get(`/vehicle/${vehicleId}`);
+            if(vehicleIdResponse !== null) {
+                const response = await this.client.put(`/vehicle`, {
+                    id: vehicleId,
+                    make: make,
+                    model: model,
+                    year: year,
+                    price: price,
+                    sellerId: sellerId
+                });
+                return response.data;
+            }
+        } catch (error) {
+            this.handleError("updateVehicle", error, errorCallback)
+        }
+    }
+
+    async deleteVehicle (sellerId, vehicleId, errorCallback){
+        try {
+            const response = await this.client.delete(`/vehicle/${vehicleId}`);
+            if (response) {
+                this.showMessage(`Vehicle ${vehicleId} removed!`)}
+            return response.data;
+        } catch (error) {
+            this.handleError("deleteVehicle", error, errorCallback)
         }
     }
 
