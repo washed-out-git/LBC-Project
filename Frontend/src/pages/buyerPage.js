@@ -21,16 +21,15 @@ class BuyerPage extends BaseClass {
         document.getElementById('create-bid-form').addEventListener('submit', this.onCreateBid);
         document.getElementById('find-all-bids-form').addEventListener('submit', this.onGetBids);
 
-        const findAllBidsByBuyerForm = document.getElementById('find-all-bids-by-buyer-form');
+        const findAllBidsByBuyerForm = document.getElementById('bids-by-buyer-form');
         if(findAllBidsByBuyerForm){
             findAllBidsByBuyerForm .addEventListener('submit', this.onGetBidsByBuyerId);
         }
 
         this.client = new BuyerClient();
+        this.dataStore.addChangeListener(this.renderBuyerId);
+        this.dataStore.addChangeListener(this.renderBidsById);
 
-        if(this.dataStore) {
-            this.dataStore.addChangeListener(this.renderBuyerId);
-        }
     }
 
     // Render Methods --------------------------------------------------------------------------------------------------
@@ -49,6 +48,36 @@ class BuyerPage extends BaseClass {
         }
     }
 
+    async renderBidsById(){
+        let bidResultArea = document.getElementById("results-list");
+        let id = document.getElementById("get-bids-buyerId").value;
+
+        const bidList = this.dataStore.get("bids");
+
+        if (bidList) {
+            let result = "";
+            result += "<ul>";
+
+            for(let bid of bidList){
+                if(bid.buyerId === id) {
+                    result += "<li>";
+                    result += `<h3> Buyer email: ${bid.buyerId} </h3>`;
+                    result += `<h3> Bid id: ${bid.bidId} </h3>`;
+                    result += `<h4> Buyer Name: ${bid.buyerName} </h4>`;
+                    result += `<p>  Vehicle Id: ${bid.vehicleId} </p>`;
+                    result += `<p>  Bid Price: ${bid.bidPrice} </p>`;
+                    result += `<p>  Date of Bid: ${bid.dateOfBid} </p>`;
+                    result += `</li>`;
+                }
+            }
+            result += "</ul>";
+
+            bidResultArea.innerHTML = result;
+        } else {
+            bidResultArea.innerHTML = "No bids";
+        }
+    }
+
     // Event Handlers --------------------------------------------------------------------------------------------------
     async onAccountLookUp(event) {
         // Prevent the page from refreshing on form submit
@@ -57,7 +86,7 @@ class BuyerPage extends BaseClass {
 
         let buyerId = document.getElementById("buyer-email").value;
 
-        let createdBuyer = await this.client.getBuyer(buyerName, this.errorHandler);
+        let createdBuyer = await this.client.getBuyer(buyerId, this.errorHandler);
         this.dataStore.set("createdBuyer", createdBuyer);
 
         if (createdBuyer) {
@@ -97,6 +126,7 @@ class BuyerPage extends BaseClass {
         event.preventDefault();
         let resultArea = document.getElementById("bid-list");
         let bids = await this.client.getListOfBids(this.errorHandler);
+        this.dataStore.set("bids", bids);
 
         let html = "<ul>";
 
@@ -105,7 +135,8 @@ class BuyerPage extends BaseClass {
                 html += `<h3>Buyer ID: ${bid.buyerId}</h3>
                          <h4>Name: ${bid.buyerName}</h4>
                          <p>Vehicle ID: ${bid.vehicleId}</p>
-                         <p>Bid Price: ${bid.bidPrice}</p>`;
+                         <p>Bid Price: ${bid.bidPrice}</p>
+                         <p>Bid Date: ${bid.dateOfBid}</p>`;
             }
 
             resultArea.innerHTML = html;
@@ -124,24 +155,31 @@ class BuyerPage extends BaseClass {
     async onGetBidsByBuyerId(event) {
         // Prevent the page from refreshing on form submit
         event.preventDefault();
-        let buyerId = document.getElementById("get-bids-buyerId").value;
-        let printingArea = document.getElementById("bids-by-buyer-list");
-        let bidsList = await this.client.getListOfBidsByBuyerId(buyerId, this.errorHandler);
+        let bidResultArea = document.getElementById("results-list");
+        let id = document.getElementById("get-bids-buyerId").value;
+        let bidListFromBuyerId = await this.client.getListOfBids(this.errorHandler);
 
-        let html = "<ul>";
+        if (bidListFromBuyerId) {
+            let result = "";
+            result += "<ul>";
 
-        if (bidsList) {
-            for(let bid of bidsList){
-                html += `<h3>Buyer ID: ${bid.buyerId}</h3>
-                         <h4>Name: ${bid.buyerName}</h4>
-                         <p>Vehicle ID: ${bid.vehicleId}</p>
-                         <p>Bid Price: ${bid.bidPrice}</p>`;
+            for(let bid of bidListFromBuyerId){
+                if(bid.buyerId === id) {
+                    result += "<li>";
+                    result += `<h3> Buyer email: ${bid.buyerId} </h3>`;
+                    result += `<h3> Bid id: ${bid.bidId} </h3>`;
+                    result += `<h4> Buyer Name: ${bid.buyerName} </h4>`;
+                    result += `<p>  Vehicle Id: ${bid.vehicleId} </p>`;
+                    result += `<p>  Bid Price: ${bid.bidPrice} </p>`;
+                    result += `<p>  Date of Bid: ${bid.dateOfBid} </p>`;
+                    result += `</li>`;
+                }
             }
+            result += "</ul>";
 
-            printingArea.innerHTML = html;
-
+            bidResultArea.innerHTML = result;
         } else {
-            printingArea.innerHTML = "No bids";
+            bidResultArea.innerHTML = "No bids";
         }
 
         if (result) {

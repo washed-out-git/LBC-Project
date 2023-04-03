@@ -13,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import static java.util.UUID.randomUUID;
 
 @RestController
 @RequestMapping("/bid")
@@ -28,6 +31,8 @@ public class BidController {
     public ResponseEntity<BidResponse> makeABid(@RequestBody BidCreateRequest bidCreateRequest) {
 
         Bid bid = new Bid();
+        bid.setBidId(randomUUID().toString());
+        bid.setDateOfBid(LocalDate.now().toString());
         bid.setBuyerId(bidCreateRequest.getBuyerId());
         bid.setBuyerName(bidCreateRequest.getBuyerName());
         bid.setVehicleId(bidCreateRequest.getVehicleId());
@@ -70,6 +75,7 @@ public class BidController {
         bidResponse.setBuyerName(bid.getBuyerName());
         bidResponse.setVehicleId(bid.getVehicleId());
         bidResponse.setBidPrice(bid.getBidPrice());
+        bidResponse.setDateOfBid(bid.getDateOfBid());
         return bidResponse;
     }
 

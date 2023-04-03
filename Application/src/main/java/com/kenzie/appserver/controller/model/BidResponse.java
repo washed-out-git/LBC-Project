@@ -21,6 +21,17 @@ public class BidResponse {
     @JsonProperty("bidPrice")
     public double bidPrice;
 
+    @JsonProperty("dateOfBid")
+    public String dateOfBid;
+
+    public String getDateOfBid() {
+        return dateOfBid;
+    }
+
+    public void setDateOfBid(String dateOfBid) {
+        this.dateOfBid = dateOfBid;
+    }
+
     public String getVehicleId() {
         return vehicleId;
     }
