@@ -1,5 +1,6 @@
 import BaseClass from "../util/baseClass";
 import axios from 'axios'
+import DataStore from "../util/DataStore";
 
 /**
  * Client to call the sellerService.
@@ -17,6 +18,7 @@ export default class SellerClient extends BaseClass {
         this.bindClassMethods(methodsToBind, this);
         this.props = props;
         this.clientLoaded(axios);
+        this.dataStore = new DataStore();
     }
 
     /**
