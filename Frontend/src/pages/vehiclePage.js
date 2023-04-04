@@ -32,9 +32,9 @@ class VehiclePage extends BaseClass {
         if (vehicles) {
             resultArea.innerHTML = `
                 <div>Id: ${vehicles.id}</div>
+                <div>Year: ${vehicles.year}</div>
                 <div>Make: ${vehicles.make}</div>
                 <div>Model: ${vehicles.model}</div>
-                <div>Year: ${vehicles.year}</div>
                 <div>Price: ${vehicles.price}</div>
                 <div>Seller Email: ${vehicles.sellerId}</div>
             `
