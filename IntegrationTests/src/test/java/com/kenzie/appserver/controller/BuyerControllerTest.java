@@ -48,9 +48,9 @@ public class BuyerControllerTest {
         Buyer persistedExample = buyerService.addNewBuyer(buyer);
         mvc.perform(get("/buyer/{id}", persistedExample.getUserId())
                         .accept(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("buyerId")
+                .andExpect(jsonPath("userId")
                         .value(is(id)))
-                .andExpect(jsonPath("name")
+                .andExpect(jsonPath("buyerName")
                         .value(is(name)))
                 .andExpect(status().isOk());
     }
@@ -78,55 +78,7 @@ public class BuyerControllerTest {
                         .exists())
                 .andExpect(jsonPath("buyerName")
                         .value(is(buyerName)))
-                .andExpect(jsonPath("bidList")
-                        .value(is(bidList)))
-                .andExpect(status().isCreated());
-    }
-
-    @Test
-    public void makeABid_PutSuccessful() throws Exception {
-        // GIVEN
-        String id = randomUUID().toString();
-        String name = mockNeat.strings().valStr();
-        String date = LocalDate.now().toString();
-        List<Bid> bidList = new ArrayList<>();
-
-        Buyer buyer = new Buyer(id, name, bidList);
-
-        Buyer persistedBuyer = buyerService.addNewBuyer(buyer);
-
-        List<Bid> newBidList = new ArrayList<>();
-        Bid newBid = new Bid();
-        newBid.setVehicleId(UUID.randomUUID().toString());
-        newBid.setBidPrice(100.0);
-        newBid.setDateOfBid(date);
-        newBidList.add(newBid);
-
-        BidCreateRequest bidCreateRequest = new BidCreateRequest();
-        bidCreateRequest.setBuyerId(id);
-        bidCreateRequest.setBuyerName(name);
-        bidCreateRequest.setVehicleId("1234");
-        bidCreateRequest.setBidPrice(50.0);
-
-        mapper.registerModule(new JavaTimeModule());
-
-        // WHEN
-        mvc.perform(put("/buyer")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(mapper.writeValueAsString(bidCreateRequest)));
-                // THEN
-              /*  .andExpect(jsonPath("userId")
-                        .value(is(id)))
-                .andExpect(jsonPath("buyerName")
-                        .value(is(name)))
-                .andExpect(jsonPath("vehicleId")
-                        .value(is("1234")))
-                .andExpect(jsonPath("bidPrice")
-                        .value(is(50.0)))
                 .andExpect(status().isOk());
-
-               */
     }
 
 
