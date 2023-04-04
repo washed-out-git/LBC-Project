@@ -34,6 +34,7 @@ public class BidService {
        List<Bid> listOfBids = new ArrayList<>();
 
        Iterable<BidRecord> bidIterator = bidRepository.findAll();
+
        for(BidRecord record : bidIterator) {
            listOfBids.add(new Bid(record.getBuyerId(),
                    record.getBidId(),

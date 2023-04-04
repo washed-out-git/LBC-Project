@@ -12,7 +12,7 @@ public class BuyerRecord {
     private String id;
     private String buyerName;
 
-    @DynamoDBHashKey(attributeName = "id")
+    @DynamoDBHashKey(attributeName = "buyerId")
     public String getId() {
         return id;
     }

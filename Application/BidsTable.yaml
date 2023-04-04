@@ -8,9 +8,9 @@ Resources:
         - "AttributeName": "buyerId"
           "AttributeType": "S"
       "KeySchema":
-        - "AttributeName": "bidId"
+        - "AttributeName": "buyerId"
           "KeyType": "HASH"
-        - AttributeName: "buyerId"
+        - AttributeName: "bidId"
           "KeyType": "RANGE"
       PointInTimeRecoverySpecification:
         PointInTimeRecoveryEnabled: false
