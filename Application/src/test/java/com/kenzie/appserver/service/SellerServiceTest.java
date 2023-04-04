@@ -30,7 +30,7 @@ public class SellerServiceTest {
     }
 
     @Test
-    void findBuyerById() {
+    void findSellerById() {
         // GIVEN
         String id = randomUUID().toString();
 
@@ -50,7 +50,7 @@ public class SellerServiceTest {
 
 
     @Test
-    void addNewBuyer() {
+    void addNewSeller() {
         // GIVEN
         String buyerId = randomUUID().toString();
 
@@ -74,3 +74,4 @@ public class SellerServiceTest {
     }
 
 }
+// credit Teresa Bowen
