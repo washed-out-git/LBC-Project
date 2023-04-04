@@ -34,7 +34,7 @@ public class SellerController {
         Seller seller = new Seller(sellerCreateRequest.getUserId(), sellerCreateRequest.getSellerName());
         sellerService.addNewSeller(seller);
         SellerResponse sellerResponse = createSellerResponse(seller);
-        return ResponseEntity.created(URI.create("/createAccount/" + sellerResponse.getUserId())).body(sellerResponse);
+        return ResponseEntity.ok(sellerResponse);
 
     }
 
@@ -42,7 +42,6 @@ public class SellerController {
         SellerResponse sellerResponse = new SellerResponse();
         sellerResponse.setUserId(seller.getUserId());
         sellerResponse.setSellerName(seller.getSellerName());
-        //sellerResponse.setVehicleList(seller.getVehicleList());
         return sellerResponse;
     }
 }
