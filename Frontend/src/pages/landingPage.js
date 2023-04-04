@@ -40,7 +40,7 @@ class LandingPage extends BaseClass {
                 result += `<p> Year: ${vehicle.year} </p>`;
                 result += `<p>  Make: ${vehicle.make} </p>`;
                 result += `<p>  Model: ${vehicle.model} </p>`;
-                result += `<p>  Price: ${vehicle.price} </p>`;
+                result += `<p>  Current Bid: ${vehicle.price} </p>`;
                 result += `</li>`;
             }
             result += "</ul>";
