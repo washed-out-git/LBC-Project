@@ -6,7 +6,7 @@ import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBTable;
 
 import java.util.Objects;
 
-@DynamoDBTable(tableName = "Vehicles")
+@DynamoDBTable(tableName = "Vehicle")
 public class VehicleRecord {
 
     private String vehicleId;
