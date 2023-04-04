@@ -37,6 +37,7 @@ class SellerPage extends BaseClass {
 
         if (createdSeller) {
             resultArea.innerHTML = `
+                <h3>Account Information:</h3>
                 <div>Account Name: ${createdSeller.sellerName}</div>
                 <div>Account Email: ${createdSeller.userId}</div>
                 <div>Account Type: Seller </div>
