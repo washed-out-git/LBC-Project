@@ -13,6 +13,8 @@ Resources:
           "AttributeType": "S"
         - "AttributeName": "year"
           "AttributeType": "S"
+        - "AttributeName": "price"
+          "AttributeType": "S"
         - "AttributeName": "sellerId"
           "AttributeType": "S"
       "KeySchema":
