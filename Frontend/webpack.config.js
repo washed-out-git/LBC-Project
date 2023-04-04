@@ -35,27 +35,32 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: './src/index.html',
       filename: 'index.html',
-      inject: false
+      inject: false,
+      minify: false
     }),
     new HtmlWebpackPlugin({
       template: './src/createAccount.html',
       filename: 'createAccount.html',
-      inject: false
+      inject: false,
+      minify: false
     }),
     new HtmlWebpackPlugin({
       template: './src/buyer.html',
       filename: 'buyer.html',
-      inject: false
+      inject: false,
+      minify: false
     }),
     new HtmlWebpackPlugin({
       template: './src/seller.html',
       filename: 'seller.html',
-      inject: false
+      inject: false,
+      minify: false
     }),
     new HtmlWebpackPlugin({
       template: './src/vehicle.html',
       filename: 'vehicle.html',
-      inject: false
+      inject: false,
+      minify: false
     }),
     new CopyPlugin({
       patterns: [
