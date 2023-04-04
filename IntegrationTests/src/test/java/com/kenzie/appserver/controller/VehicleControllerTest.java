@@ -41,8 +41,9 @@ public class VehicleControllerTest {
         String model = mockNeat.strings().valStr();
         String year = mockNeat.strings().valStr();
         String price = mockNeat.strings().valStr();
+        String sellerId = mockNeat.strings().valStr();
 
-        Vehicle vehicle = new Vehicle(vehicleId, make, model, year, price);
+        Vehicle vehicle = new Vehicle(vehicleId, make, model, year, price, sellerId);
 
         Vehicle persistedVehicle = vehicleService.addNewVehicle(vehicle);
         mvc.perform(get("/vehicle/{id}", persistedVehicle.getVehicleId())
@@ -57,6 +58,8 @@ public class VehicleControllerTest {
                         .value(is(year)))
                 .andExpect(jsonPath("price")
                         .value(is(price)))
+                .andExpect(jsonPath("sellerId")
+                        .value(is(sellerId)))
                 .andExpect(status().isOk());
     }
 
@@ -67,6 +70,7 @@ public class VehicleControllerTest {
         String year = mockNeat.strings().valStr();
         String vehicleId = "1234";
         String price = mockNeat.strings().valStr();
+        String sellerId = mockNeat.strings().valStr();
 
        VehicleCreateRequest vehicleCreateRequest = new VehicleCreateRequest();
        vehicleCreateRequest.setMake(make);
@@ -74,6 +78,7 @@ public class VehicleControllerTest {
        vehicleCreateRequest.setYear(year);
        vehicleCreateRequest.setVehicleId(vehicleId);
        vehicleCreateRequest.setPrice(price);
+       vehicleCreateRequest.setSellerId(sellerId);
 
         mapper.registerModule(new JavaTimeModule());
 
@@ -91,6 +96,8 @@ public class VehicleControllerTest {
                         .value(is(year)))
                 .andExpect(jsonPath("price")
                         .value(is(price)))
+                .andExpect(jsonPath("sellerId")
+                        .value(is(sellerId)))
                 .andExpect(status().isCreated());
     }
 
@@ -113,14 +120,16 @@ public class VehicleControllerTest {
         String model = mockNeat.strings().valStr();
         String year = mockNeat.strings().valStr();
         String price = mockNeat.strings().valStr();
+        String sellerId = mockNeat.strings().valStr();
 
-        Vehicle vehicle = new Vehicle(id, make, model, year, price);
+        Vehicle vehicle = new Vehicle(id, make, model, year, price, sellerId);
         Vehicle persistedVehicle = vehicleService.addNewVehicle(vehicle);
 
         String newMake = mockNeat.strings().valStr();
         String newModel = mockNeat.strings().valStr();
         String newYear = mockNeat.strings().valStr();
         String newPrice = mockNeat.strings().valStr();
+        String newSellerId = mockNeat.strings().valStr();
 
         VehicleUpdateRequest vehicleUpdateRequest = new VehicleUpdateRequest();
         vehicleUpdateRequest.setVehicleId(id);
@@ -128,6 +137,7 @@ public class VehicleControllerTest {
         vehicleUpdateRequest.setModel(newModel);
         vehicleUpdateRequest.setYear(newYear);
         vehicleUpdateRequest.setPrice(newPrice);
+        vehicleUpdateRequest.setSellerId(newSellerId);
 
         mapper.registerModule(new JavaTimeModule());
 
@@ -147,6 +157,8 @@ public class VehicleControllerTest {
                         .value(is(newYear)))
                 .andExpect(jsonPath("price")
                         .value(is(newPrice)))
+                .andExpect(jsonPath("sellerId")
+                        .value(is(newSellerId)))
                 .andExpect(status().isOk());
     }
 
@@ -158,8 +170,9 @@ public class VehicleControllerTest {
         String model = mockNeat.strings().valStr();
         String year = mockNeat.strings().valStr();
         String price = mockNeat.strings().valStr();
+        String sellerId = mockNeat.strings().valStr();
 
-        Vehicle vehicle = new Vehicle(id, make, model, year, price);
+        Vehicle vehicle = new Vehicle(id, make, model, year, price, sellerId);
         Vehicle persistedVehicle = vehicleService.addNewVehicle(vehicle);
 
         // WHEN
