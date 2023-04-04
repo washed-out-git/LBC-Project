@@ -9,8 +9,6 @@ Resources:
           "AttributeType": "S"
         - "AttributeName": "model"
           "AttributeType": "S"
-        - "AttributeName": "model"
-          "AttributeType": "S"
         - "AttributeName": "year"
           "AttributeType": "S"
         - "AttributeName": "price"
