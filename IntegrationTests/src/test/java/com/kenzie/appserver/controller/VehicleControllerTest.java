@@ -68,7 +68,6 @@ public class VehicleControllerTest {
         String make = mockNeat.strings().valStr();
         String model = mockNeat.strings().valStr();
         String year = mockNeat.strings().valStr();
-        String vehicleId = "1234";
         String price = mockNeat.strings().valStr();
         String sellerId = mockNeat.strings().valStr();
 
@@ -76,7 +75,6 @@ public class VehicleControllerTest {
        vehicleCreateRequest.setMake(make);
        vehicleCreateRequest.setModel(model);
        vehicleCreateRequest.setYear(year);
-       vehicleCreateRequest.setVehicleId(vehicleId);
        vehicleCreateRequest.setPrice(price);
        vehicleCreateRequest.setSellerId(sellerId);
 
@@ -86,8 +84,6 @@ public class VehicleControllerTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(mapper.writeValueAsString(vehicleCreateRequest)))
-                .andExpect(jsonPath("id")
-                        .value(is(vehicleId)))
                 .andExpect(jsonPath("make")
                         .value(is(make)))
                 .andExpect(jsonPath("model")
